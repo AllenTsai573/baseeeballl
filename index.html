@@ -28,29 +28,26 @@
 @media(max-width:740px){.scene{aspect-ratio:900/720}.lab-board{padding:11px 12px;gap:8px}.lab-title b{font-size:10px}.lab-title small{font-size:7px}.lab-title .team-icon{display:none}.lab-flight{display:block;text-align:center}.lab-flight span{display:block;font-size:9px}.lab-flight b{font-size:12px}.lab-state{font-size:9px}.zone-label{font-size:7px}.field-controls{bottom:30px;left:9px;right:9px;flex-wrap:wrap;gap:5px}.field-controls span{font-size:8px;padding:5px 7px;max-width:46%}.field-buttons{gap:5px}.field-buttons button{font-size:10px;min-width:57px;min-height:39px;padding:7px 9px}.control-card .physics-settings{grid-column:1/-1;margin:0;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;column-gap:16px}.physics-settings h3{grid-column:1/-1;margin:0}.swing-note{align-self:center}.control-card .action-block{margin-top:0}.landing-head{padding:14px}.landing-head h3{font-size:12px}.hit-metrics{padding:0 14px 13px;grid-template-columns:1fr 1fr;row-gap:10px}.hit-metrics b,.hit-metrics b span{font-size:18px}.landing-foot{padding:10px 14px;gap:4px;display:block;font-size:9px}.landing-foot span{display:block}.landing-panel{margin-top:15px}.lab-spec>div,.lab-spec b{font-size:10px}}
 
 .lock-hint{margin-top:9px;font-size:10px}.setting select:disabled{opacity:.6}
-.fps-readout{font-size:10px;color:#7c9075;white-space:nowrap}.fps-readout b{font-variant-numeric:tabular-nums} @media(max-width:380px){.lab-title small{display:none}.fps-readout{font-size:8px}.lab-board{gap:5px}}</style></head>
+.fps-readout{font-size:10px;color:#7c9075;white-space:nowrap}.fps-readout b{font-variant-numeric:tabular-nums} @media(max-width:380px){.lab-title small{display:none}.fps-readout{font-size:8px}.lab-board{gap:5px}}
+.player-select{display:block;background:#f2f5ea;border:1px solid #dce4d5;padding:10px;border-radius:10px}.player-select>span{display:block;font-size:9px;letter-spacing:1px;color:#8b9b81;margin-bottom:5px}.player-select select{width:100%;min-width:0;border:0;background:transparent;font-size:13px;font-weight:700;color:#416e56}.player-info{font-size:10px;color:#8c9e82;margin:9px 0 14px}.pitch-option{min-height:59px;padding:12px 9px}.pitch-option b{padding-right:8px;margin-bottom:5px}.profile-note{font-size:11px;margin-top:12px;color:#5a7d60}.profile-note small{display:block;font-size:9px;color:#8d9e83;margin-top:4px}.profile-note a,.data-link{display:block;font-size:10px;color:#789071;margin-top:10px;text-decoration:none}.profile-note a:hover,.data-link:hover{text-decoration:underline}.player-metrics>div{display:flex;justify-content:space-between;font-size:11px;margin-top:12px;gap:5px;color:#819377}.player-metrics b{color:#4f785b;font-variant-numeric:tabular-nums}.physics-settings .player-info{margin-bottom:4px}.scene-bottom>span:nth-child(2){font-size:8px}.physics-settings{display:block!important}.player-select select:disabled{opacity:.55}@media(max-width:740px){.physics-settings{grid-column:1/-1}.player-metrics{display:flex;gap:20px}.player-metrics>div{flex:1}.scene-bottom .player-name{font-size:7px}.player-select select{font-size:12px}}
+</style></head>
 <body>
 <main class="app">
 <header><div class="brand"><div class="brand-mark" aria-hidden="true">⚾</div><div><h1>野球日和</h1><p>A LITTLE BASEBALL, A GOOD DAY.</p></div></div><div class="header-actions"><button class="quiet" id="sound" aria-pressed="false">♪ 音效關</button><button class="quiet" id="help">玩法 ?</button></div></header>
 <div class="hero"><div><h2>今天，也來一場好球。</h2><p>移動球棒、看準來球，在球場直接揮出漂亮的一擊。</p></div><span class="tag">春日球場 · 練習賽</span></div>
 <div class="layout"><section class="game" aria-label="球場與比賽狀態">
 <div class="scoreboard lab-board"><div class="lab-title"><span class="team-icon" aria-hidden="true">⚾</span><div><b>自由打擊實驗室</b><small>FREE PRACTICE · REAL-TIME</small></div></div><div class="lab-flight"><span>出手 → 本壘</span><b id="flightTime">0.435 s</b></div><span class="fps-readout" aria-label="目前畫面更新率">FPS <b id="fpsValue">—</b></span><span class="lab-state" id="liveState" aria-live="polite">自由練習</span></div>
-<div class="scene" id="scene"><canvas id="field" width="900" height="720" role="application" tabindex="0" aria-label="打擊球場：移動滑鼠控制球棒，按左鍵揮棒"></canvas><div class="scene-chip"><span>●</span><span id="sceneMode">FREE BATTING</span></div><div class="pitch-readout"><b id="speed">—</b> <span style="font-size:9px">km/h</span><small id="ballLabel">等待投球</small></div><div class="zone" id="zone" aria-hidden="true"></div><div class="zone-label" id="zoneLabel">STRIKE ZONE</div><div class="announcement" id="announcement" aria-live="polite"><b id="resultTitle"></b><small id="resultDetail"></small></div><div class="scene-bottom"><span class="player-name">P · 青空 01</span><span>HIYORI BASEBALL CLUB</span><span class="player-name">BAT · MOUSE CONTROL</span></div><div class="field-controls"><span id="fieldHint">移動球棒 · 左鍵試揮／打擊</span><div class="field-buttons"><button id="fieldPractice" class="practice-button">試揮 ⤾</button><button id="fieldThrow">開始投球 ↗</button></div></div></div>
+<div class="scene" id="scene"><canvas id="field" width="900" height="720" role="application" tabindex="0" aria-label="打擊球場：移動滑鼠控制球棒，按左鍵揮棒"></canvas><div class="scene-chip"><span>●</span><span id="sceneMode">FREE BATTING</span></div><div class="pitch-readout"><b id="speed">—</b> <span style="font-size:9px">km/h</span><small id="ballLabel">等待投球</small></div><div class="zone" id="zone" aria-hidden="true"></div><div class="zone-label" id="zoneLabel">STRIKE ZONE</div><div class="announcement" id="announcement" aria-live="polite"><b id="resultTitle"></b><small id="resultDetail"></small></div><div class="scene-bottom"><span class="player-name" id="pitcherName"></span><span>HIYORI BASEBALL CLUB</span><span class="player-name" id="batterName"></span></div><div class="field-controls"><span id="fieldHint">移動球棒 · 左鍵試揮／打擊</span><div class="field-buttons"><button id="fieldPractice" class="practice-button">試揮 ⤾</button><button id="fieldThrow">開始投球 ↗</button></div></div></div>
 <div class="status"><span class="status-icon">i</span><span id="status" aria-live="polite">可移動棒身或選擇固定中央，點左鍵試揮，再按畫面內的「開始投球」。</span></div>
 <section class="landing-panel" aria-label="擊球飛行與估算落點"><div class="landing-head"><h3>這一球，會落在哪裡？</h3><span id="landingState">等待擊球</span></div><div class="hit-metrics"><div><span>擊球初速</span><b><span id="exitSpeed">—</span> <small>km/h</small></b></div><div><span>仰角</span><b id="launchAngle">—</b></div><div><span>方向</span><b id="sprayAngle">—</b></div><div><span>首次落地距離</span><b><span id="carryValue">—</span> <small>m</small></b></div></div><canvas id="landingMap" width="900" height="360" role="img" aria-label="俯視棒球場，顯示估算的击球軌跡及首次落地位置"></canvas><div class="landing-foot"><span id="landingInfo" aria-live="polite">擊中來球後顯示首次落地位置</span><span>空氣阻力＋重力＋簡化旋轉升力</span></div></section>
 </section><aside><div class="control-card">
-<div class="pitch-block"><h3><span class="section-num">01</span><span id="pitchHeading">選擇練習球種</span></h3><div class="pitch-list" id="pitchList">
-<button class="pitch-option active" data-type="fastball" aria-pressed="true"><svg viewBox="0 0 40 24" aria-hidden="true"><path d="M3 19L31 5m-10 0h10v10" fill="none" stroke="#56826a" stroke-width="2.2" stroke-linecap="round"/></svg><b>直球</b><small>145 km/h · 速攻</small></button>
-<button class="pitch-option" data-type="slider" aria-pressed="false"><svg viewBox="0 0 40 24" aria-hidden="true"><path d="M4 5q4 16 29 13m-7-6 7 6-8 5" fill="none" stroke="#56826a" stroke-width="2.2" stroke-linecap="round"/></svg><b>滑球</b><small>132 km/h · 橫移</small></button>
-<button class="pitch-option" data-type="curve" aria-pressed="false"><svg viewBox="0 0 40 24" aria-hidden="true"><path d="M4 16Q17-9 32 18m-9-4 9 4 2-9" fill="none" stroke="#56826a" stroke-width="2.2" stroke-linecap="round"/></svg><b>曲球</b><small>118 km/h · 大弧線</small></button>
-<button class="pitch-option" data-type="fork" aria-pressed="false"><svg viewBox="0 0 40 24" aria-hidden="true"><path d="M5 5h12q12 0 12 15m-6-6 6 6 6-6" fill="none" stroke="#56826a" stroke-width="2.2" stroke-linecap="round"/></svg><b>指叉球</b><small>125 km/h · 下墜</small></button></div></div><div class="divider"></div>
+<div class="pitch-block"><h3><span class="section-num">01</span>選擇投手</h3><label class="player-select"><span>2026 MLB</span><select id="pitcherSelect"><option value="skenes">Paul Skenes</option><option value="yamamoto">山本由伸</option></select></label><p id="pitcherInfo" class="player-info"></p><div class="pitch-list" id="pitchList"></div><div class="profile-note"><b id="pitchSpeedValue"></b><small id="pitchData"></small><a id="pitchSource" target="_blank" rel="noopener">2026 球種資料 ↗</a></div></div><div class="divider"></div>
 <div class="aim-block"><h3><span class="section-num">02</span><span id="aimHeading">完整揮棒 · 自由試揮</span></h3><div class="input-label" id="inputLabel">滑鼠移動 → 擊球棒身</div><p class="hint" id="aimHint">左鍵：完整揮棒／試揮。<br>棒身可越過好球框，活動限於打擊區。</p><div class="setting" id="targetSetting"><label for="targetMode">來球落點</label><select id="targetMode"><option value="center">固定中央</option><option value="random">隨機框內</option></select></div><div class="setting"><label for="batControl">球棒位置</label><select id="batControl"><option value="free">滑鼠移動</option><option value="center">固定中央</option></select></div><p class="hint lock-hint">固定中央來球時，可鎖定棒身擊球點。</p></div><div class="divider"></div>
-<div class="physics-settings"><h3><span class="section-num">03</span>速度與揮棒設定</h3><div class="setting-range"><div><label for="pitchSpeed">出手球速</label><b id="pitchSpeedValue">145 km/h</b></div><input id="pitchSpeed" type="range" min="80" max="165" value="145" step="1"></div><div class="setting-range"><div><label for="batSpeed">棒頭揮速</label><b id="batSpeedValue">115 km/h</b></div><input id="batSpeed" type="range" min="80" max="140" value="115" step="1"></div><div class="setting-range"><div><label for="attackAngle">揮棒上揚角</label><b id="attackAngleValue">10°</b></div><input id="attackAngle" type="range" min="-10" max="30" value="10" step="1"></div><div class="swing-note"><span>啟動至接觸點</span><b id="swingDelay">145 ms</b></div></div><div class="action-block"><p class="key-hint">球場：左鍵全揮／試揮<br>空白鍵：開始／再次投球</p></div></div>
-<div class="lab-spec"><div><span>好球框參考</span><b id="zoneSize">43.18 cm × 70 cm</b></div><div><span>揮速設定</span><b><span id="swingValue">115</span> km/h</b></div><p>框高依虛擬打者姿勢固定；實際好球帶高度因打者而異。自由練習不計好壞球、出局及分數。</p></div>
-<button class="quiet" id="reset" style="width:100%;margin-top:12px">↻ 重新練習</button></aside></div>
+<div class="physics-settings"><h3><span class="section-num">03</span>選擇打者</h3><label class="player-select"><span>2026 MLB</span><select id="batterSelect"><option value="judge">Aaron Judge</option><option value="ohtani">大谷翔平</option></select></label><p id="batterInfo" class="player-info"></p><div class="player-metrics"><div><span>甜蜜點揮速</span><b id="batSpeedValue"></b></div><div><span>揮棒上揚角</span><b id="attackAngleValue"></b></div></div><div class="swing-note"><span>啟動至接觸點</span><b id="swingDelay"></b></div><a id="batterSource" class="data-link" target="_blank" rel="noopener">2026 揮棒資料 ↗</a></div><div class="action-block"><p class="key-hint">球場：左鍵全揮／試揮<br>空白鍵：開始／再次投球</p></div></div>
+<div class="lab-spec"><div><span>好球框寬 × 高</span><b id="zoneSize"></b></div><div><span>距地面高度</span><b id="zoneHeight"></b></div><p>依打者身高參考 2026 ABS 比例。選手平均資料：2026 球季，查詢日 10/08。自由練習不計好壞球及出局。</p></div><button class="quiet" id="reset" style="width:100%;margin-top:12px">↻ 重新練習</button></aside></div>
 <div class="footer"><span>原創 Q 版棒球 · 以真實時間練習，探索每一球的飛行。</span><span>MADE FOR THE LOVE OF BASEBALL ⚾</span></div>
 </main>
-<dialog id="helpDialog"><h3>自由打擊實驗室</h3><p><b>試揮與完整打擊</b><br>棒身可以越過好球框，但整個揮棒限制在較大的打擊區內。固定中央來球時，可將球棒位置切換為「固定中央」，專心練習揮擊時機。隨機來球時，改用滑鼠移動。沒來球時點擊球場或「試揮」，可完整試揮。投球後，按左鍵啟動完整揮擊；預設揮速從啟動到接觸點約 145 ms，須提前啟動，而非看到球抵達才按。</p><p><b>揮空提示</b><br>棒頭到達擊球點的時間比來球提早超過 25 ms，顯示「太早」；延遲超過 25 ms，顯示「太慢」。時機接近但未接觸，顯示「位置偏離」。提示會依目前揮速重新計算。</p><p><b>真實時間與尺寸</b><br>預設 145 km/h 出手球速，計入出手延伸與空氣阻力後，飛行約 0.435 秒。好球框寬 43.18 cm；本版虛擬打者膝下至軀幹中段取 0.50–1.20 m，高度屬姿勢假設。</p><p><b>估算擊球落點</b><br>球與旋轉球棒進行連續碰撞檢查。接觸位置、揮速與時機決定估算初速、仰角和方向，再用重力、空氣阻力與簡化後旋升力算出首次落地位置。球場左右 99 m、中外野 122 m、牆高 2.5 m，為本版設定。未計跑壘、守備及落地後滾動。</p><p>這是簡化物理遊戲模型；投球升力、木棒效率與後旋採固定或近似參數，尚未用追蹤實測資料校準。畫面中的球棒為縮小的操作圖示。</p><p><b>鍵盤</b><br>空白鍵：開始／再次投球。打擊只使用滑鼠移動與左鍵；觸控可拖曳移動、輕點揮棒。</p><p class="source-links">參考：<a href="https://www.mlb.com/glossary/rules/strike-zone" target="_blank" rel="noopener">MLB 好球帶</a> · <a href="https://www.mlb.com/glossary/rules/field-dimensions" target="_blank" rel="noopener">球場尺寸</a> · <a href="https://baseball.physics.illinois.edu/trajectory-calculator-new3D.html" target="_blank" rel="noopener">Alan Nathan 棒球飛行研究</a></p><button class="primary" id="closeHelp">開始練習</button></dialog>
+<dialog id="helpDialog"><h3>自由打擊實驗室</h3><p><b>操作</b><br>滑鼠移動瞄準甜蜜點，左鍵完整揮棒；沒來球時可試揮。空白鍵或球場按鈕開始／再次投球。固定中央來球時，可將球棒位置也設為固定中央。棒身可越過好球框，完整揮棒限於打擊區。</p><p><b>2026 選手資料</b><br>投手 Skenes、山本由伸的球種、平均出手球速、水平位移及誘導垂直位移，採 Baseball Savant 的 2026 球季資料。打者 Judge、大谷翔平的甜蜜點平均揮速與揮棒上揚角同樣採 2026 實測平均；每次切換打者會自動套用，不需手動調整。球員是資料設定，畫面人物為原創通用角色。資料為 2026-10-08 查詢的靜態快照，非即時更新。</p><p><b>好球帶</b><br>參考 2026 ABS：寬 43.18 cm，上緣為打者身高 53.5%，下緣 27%，以本壘中段為參考平面。遊戲用官方球員頁列出的身高代替未公開的 ABS 無釘鞋實測身高，因此是參考框。Judge 約距地面 54–107 cm；大谷約 52–103 cm。只顯示外框，不判好壞球。</p><p><b>揮空與落點</b><br>提早或延遲超過 25 ms，分別提示「太早」或「太慢」；時機接近但未碰球顯示「位置偏離」。碰球的位置、時機及選手揮速決定估算初速、仰角、方向，再以重力、阻力與簡化後旋升力計算首次落點。左右外野 99 m、中外野 122 m、牆高 2.5 m；未計守備與落地滾動。</p><p>選手輸入值取自實測平均；球路以平均位移近似，出手高度 1.80 m、延伸 1.79 m、揮棒半徑 0.70 m 及啟動加速曲線為共用遊戲假設，並非逐球追蹤重播。左、右打的揮擊方向及拉打方向相反；木棒碰撞效率及後旋仍為簡化估算。上揚角是球棒路徑角，擊球仰角另由接觸位置決定。</p><p class="source-links">來源：<a href="https://baseballsavant.mlb.com/abs" target="_blank" rel="noopener">2026 ABS 規格</a> · <a href="https://baseballsavant.mlb.com/savant-player/paul-skenes-694973?season=2026" target="_blank" rel="noopener">Skenes</a> · <a href="https://baseballsavant.mlb.com/savant-player/yoshinobu-yamamoto-808967" target="_blank" rel="noopener">山本</a> · <a href="https://baseballsavant.mlb.com/savant-player/aaron-judge-592450?season=2026" target="_blank" rel="noopener">Judge</a> · <a href="https://baseballsavant.mlb.com/savant-player/shohei-ohtani-660271?season=2026" target="_blank" rel="noopener">大谷</a> · <a href="https://baseball.physics.illinois.edu/trajectory-calculator-new3D.html" target="_blank" rel="noopener">棒球飛行模型</a></p><button class="primary" id="closeHelp">開始練習</button></dialog>
 <script>
 /* SI units. A simplified baseball model, not a calibrated Statcast simulator. */
 const BaseballPhysics=(()=>{
@@ -59,21 +56,25 @@ const BaseballPhysics=(()=>{
  C.area=Math.PI*C.radius*C.radius;C.drag=C.rho*C.Cd*C.area/(2*C.mass);
  const TYPES={fastball:{name:'直球',speed:145,ax:0,ay:-4.2},slider:{name:'滑球',speed:132,ax:-3.6,ay:-7.4},curve:{name:'曲球',speed:118,ax:-1.5,ay:-13.4},fork:{name:'指叉球',speed:125,ax:0,ay:-9.1}};
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
- function makePitch(type,speed,target){
-   const spec=TYPES[type],distance=C.rubberDistance-C.extension,v0=speed/3.6;
+ function makePitch(type,speed,target,profile=null){
+   const spec=profile||TYPES[type],distance=C.rubberDistance-C.extension,v0=speed/3.6;
    const duration=(Math.exp(C.drag*distance)-1)/(C.drag*v0),x0=.32,y0=1.80;
-   return {type,speed,v0,distance,duration,x0,y0,ax:spec.ax,ay:spec.ay,
-     vx:(target.x-x0-.5*spec.ax*duration*duration)/duration,
-     vy:(target.y-y0-.5*spec.ay*duration*duration)/duration,target:{...target}};
+   // Approximate measured aggregate movement as constant lateral acceleration.
+   // inducedZ excludes gravity; positive IVB reduces drop, not absolute rise.
+   const ax=profile?2*profile.breakX*.0254/(duration*duration):spec.ax;
+   const ay=profile?-C.g+2*profile.inducedZ*.0254/(duration*duration):spec.ay;
+   return {type,speed,v0,distance,duration,x0,y0,ax,ay,
+     vx:(target.x-x0-.5*ax*duration*duration)/duration,
+     vy:(target.y-y0-.5*ay*duration*duration)/duration,target:{...target}};
  }
  function pitchAt(p,t){
    t=Math.max(0,t);const traveled=Math.log(1+C.drag*p.v0*t)/C.drag;
    return {x:p.x0+p.vx*t+.5*p.ax*t*t,y:p.y0+p.vy*t+.5*p.ay*t*t,z:p.distance-traveled,
      vx:p.vx+p.ax*t,vy:p.vy+p.ay*t,vz:-p.v0/(1+C.drag*p.v0*t)};
  }
- function makeSwing(speed,aim,attack=10){
+ function makeSwing(speed,aim,attack=10,hand='R'){
    const radius=.70,v=speed/3.6,contactTime=4*1.65*radius/v,scale=115/speed;
-   return {speed,aim:{...aim},attack,radius,contactTime,tail:.19*scale,recovery:.12*scale,
+   return {speed,aim:{...aim},attack,hand,radius,contactTime,tail:.19*scale,recovery:.12*scale,
      duration:contactTime+.31*scale};
  }
  function swingAt(s,t){
@@ -81,14 +82,15 @@ const BaseballPhysics=(()=>{
    const after=Math.max(0,t-s.contactTime),tau=.065*115/s.speed;
    const theta=before?-1.65*(1-u**4):omega*tau*(1-Math.exp(-after/tau));
    const angularSpeed=before?6.6/s.contactTime*u**3:omega*Math.exp(-after/tau);
-   const x=s.aim.x+s.radius*(Math.cos(theta)-1),z=s.radius*Math.sin(theta);
+   const direction=s.hand==='L'?-1:1;
+   const x=s.aim.x+direction*s.radius*(Math.cos(theta)-1),z=s.radius*Math.sin(theta);
    const y=s.aim.y+z*Math.tan(s.attack*Math.PI/180);
-   return {x,y,z,theta,batSpeed:s.radius*angularSpeed*3.6};
+   return {x,y,z,theta,hand:s.hand,batSpeed:s.radius*angularSpeed*3.6};
  }
  function collision(ball,swing,age){
    if(age<0||age>swing.contactTime+swing.tail)return null;
    const bat=swingAt(swing,age);if(Math.abs(bat.theta)>1.18||Math.abs(ball.z)>.90)return null;
-   const axis={x:Math.cos(bat.theta),z:Math.sin(bat.theta)};
+   const axis={x:(swing.hand==='L'?-1:1)*Math.cos(bat.theta),z:Math.sin(bat.theta)};
    const dx=ball.x-bat.x,dy=ball.y-bat.y,dz=ball.z-bat.z;
    const along=clamp(dx*axis.x+dz*axis.z,-.10,.10);
    const distance=Math.hypot(dx-along*axis.x,dy,dz-along*axis.z);
@@ -103,7 +105,7 @@ const BaseballPhysics=(()=>{
    const pitchSpeed=Math.abs(ball.vz)*3.6;
    const exitSpeed=(.20*pitchSpeed+1.20*contact.bat.batSpeed)*quality;
    const launchAngle=clamp(attack+Math.asin(clamp(contact.dy/.0701,-.98,.98))*180/Math.PI,-65,80);
-   const sprayAngle=clamp(Math.atan(Math.abs(ball.vz)*timing/.70)*180/Math.PI*1.25+contact.along*80,-85,85);
+   const sprayAngle=clamp((contact.bat.hand==='L'?-1:1)*(Math.atan(Math.abs(ball.vz)*timing/.70)*180/Math.PI*1.25+contact.along*80),-85,85);
    const spin=clamp(1200+Math.max(0,launchAngle)*45,900,3500);
    return {exitSpeed,launchAngle,sprayAngle,quality,spin,contactHeight:Math.max(.10,ball.y),originX:ball.x,originForward:ball.z,batSpeed:contact.bat.batSpeed,pitchSpeed};
  }
@@ -150,26 +152,34 @@ const BaseballPhysics=(()=>{
 })();
 if(typeof module!=='undefined'&&module.exports)module.exports=BaseballPhysics;
 
+// Official season averages; roster height proxies ABS measured height.
+const MLB_PLAYERS={"season":2026,"asOf":"2026-10-08","pitchers":{"skenes":{"name":"Paul Skenes","team":"海盜","hand":"R","id":694973,"source":"https://baseballsavant.mlb.com/savant-player/paul-skenes-694973?season=2026","arsenal":{"FF":{"name":"四縫線直球","mph":96.8,"breakX":-12.6,"inducedZ":13.0,"count":1180},"SI":{"name":"伸卡球","mph":96.6,"breakX":-17.0,"inducedZ":7.3,"count":340},"FS":{"name":"指叉球","mph":93.2,"breakX":-13.3,"inducedZ":1.7,"count":291},"CH":{"name":"變速球","mph":88.7,"breakX":-15.4,"inducedZ":6.5,"count":360},"SL":{"name":"滑球","mph":86.7,"breakX":3.3,"inducedZ":1.9,"count":249},"ST":{"name":"橫掃球","mph":84.3,"breakX":10.2,"inducedZ":5.7,"count":460},"CU":{"name":"曲球","mph":81.8,"breakX":10.9,"inducedZ":-7.9,"count":10}}},"yamamoto":{"name":"山本由伸","team":"道奇","hand":"R","id":808967,"source":"https://baseballsavant.mlb.com/savant-player/yoshinobu-yamamoto-808967?season=2026","arsenal":{"FF":{"name":"四縫線直球","mph":96.1,"breakX":-8.3,"inducedZ":16.1,"count":716},"SI":{"name":"伸卡球","mph":95.5,"breakX":-14.5,"inducedZ":11.6,"count":358},"FC":{"name":"卡特球","mph":91.6,"breakX":3.1,"inducedZ":8.2,"count":406},"FS":{"name":"指叉球","mph":91.5,"breakX":-11.8,"inducedZ":1.8,"count":728},"SL":{"name":"滑球","mph":86.9,"breakX":5.5,"inducedZ":1.9,"count":166},"CU":{"name":"曲球","mph":76.9,"breakX":12.5,"inducedZ":-16.0,"count":360}}}},"batters":{"judge":{"name":"Aaron Judge","team":"洋基","hand":"R","id":592450,"height":2.0066,"batMph":76.1,"attackAngle":12.3,"source":"https://baseballsavant.mlb.com/savant-player/aaron-judge-592450?season=2026"},"ohtani":{"name":"大谷翔平","team":"道奇","hand":"L","id":660271,"height":1.9304,"batMph":74.7,"attackAngle":13.4,"source":"https://baseballsavant.mlb.com/savant-player/shohei-ohtani-660271?season=2026"}}};
+
 (()=>{'use strict';
 const P=BaseballPhysics,$=id=>document.getElementById(id),canvas=$('field');
 let ctx=canvas.getContext('2d');
 const map=$('landingMap'),ppm=112/P.C.plateWidth;
 let mc=map.getContext('2d');
-const zone={x:466,y:386.6-.35*ppm,w:112,h:(P.C.zoneTop-P.C.zoneBottom)*ppm},camera={x:522,y:1.28,back:1.6};
-const battingArea={x:330,y:215,w:384,h:340};
-const cy=zone.y+(P.C.zoneTop-camera.y)*ppm,focal=ppm*camera.back;
-const clamp=P.clamp,pitches=P.TYPES;
+const groundY=660,zone={x:466,y:0,w:112,h:0},camera={x:522,y:1.5054,back:1.6};
+const battingArea={x:305,y:285,w:434,h:330};
+const cy=groundY-camera.y*ppm,focal=ppm*camera.back;
+const clamp=P.clamp;
+function pitcher(){return MLB_PLAYERS.pitchers[$('pitcherSelect').value]}
+function batter(){return MLB_PLAYERS.batters[$('batterSelect').value]}
+function pitchProfile(){return pitcher().arsenal[s.type]}
+function zoneBounds(){return {bottom:batter().height*.27,top:batter().height*.535}}
+function targetCenter(){const z=zoneBounds();return {x:0,y:(z.bottom+z.top)/2}}
 let s,previousTime=0,touchStart=null,audioContext=null,soundEnabled=false;
-function world(screen){return {x:(screen.x-522)/ppm,y:P.C.zoneTop-(screen.y-zone.y)/ppm}}
-function screen(world){return {x:522+world.x*ppm,y:zone.y+(P.C.zoneTop-world.y)*ppm}}
+function world(screen){return {x:(screen.x-522)/ppm,y:(groundY-screen.y)/ppm}}
+function screen(world){return {x:522+world.x*ppm,y:groundY-world.y*ppm}}
 function project(point){const depth=Math.max(.20,point.z+camera.back);return {x:camera.x+focal*point.x/depth,y:cy+focal*(camera.y-point.y)/depth,r:focal*P.C.radius/depth}}
 // Reserve room for the entire sweep so the barrel never snaps at an edge.
 function pose(aim){
- const center={x:clamp(aim.x,battingArea.x+126,battingArea.x+battingArea.w-42),
- y:clamp(aim.y,battingArea.y+58,battingArea.y+battingArea.h-58)};
+ const center={x:clamp(aim.x,battingArea.x+140,battingArea.x+battingArea.w-160),
+ y:clamp(aim.y,battingArea.y+85,battingArea.y+battingArea.h-85)};
  return {...center,angle:.34,scale:.9,sweet:{...center}};
 }
-function neutralBat(){return screen({x:0,y:.85})}
+function neutralBat(){return screen(targetCenter())}
 function batLocked(){return $('targetMode').value==='center'&&$('batControl').value==='center'}
 function syncBatControl(){
  if($('targetMode').value!=='center')$('batControl').value='free';
@@ -178,7 +188,7 @@ function syncBatControl(){
  $('inputLabel').textContent=batLocked()?'固定中央 → 專心掌握揮棒時機':'滑鼠移動 → 擊球棒身';
  controls();
 }
-function initial(type='fastball'){
+function initial(type='FF'){
  return {type,phase:'idle',bat:neutralBat(),pitch:null,release:0,
    swing:null,swingStart:0,swingOrigin:null,swingIsPractice:false,swingTested:false,hit:false,
    path:null,hitData:null,hitAt:0,lastHit:null,windupAt:0,seenPitch:false,resultAt:0};
@@ -186,35 +196,63 @@ function initial(type='fastball'){
 s=initial();
 function phaseBusy(){return s.phase==='windup'||s.phase==='flight'}
 function swingActive(now=performance.now()){return !!s.swing&&(now-s.swingStart)/1000<s.swing.duration}
-function speed(){return Number($('pitchSpeed').value)}
-function batSpeed(){return Number($('batSpeed').value)}
-function attack(){return Number($('attackAngle').value)}
+function speed(){return pitchProfile().mph*1.609344}
+function batSpeed(){return batter().batMph*1.609344}
+function attack(){return batter().attackAngle}
 function controls(){
  const busy=phaseBusy(),active=swingActive();$('fieldThrow').hidden=busy;
  $('fieldThrow').disabled=active;$('fieldPractice').disabled=busy||active;
  $('fieldThrow').textContent=s.phase==='result'?'再投一球 ↗':'開始投球 ↗';
  $('fieldHint').textContent=s.phase==='flight'?'左鍵全揮 · 提前啟動揮棒':
  s.phase==='windup'?'投手準備出手 · 觀察出手':active?'完整揮棒中…':batLocked()?'球棒固定中央 · 左鍵試揮／打擊':'移動棒身 · 左鍵試揮／打擊';
- for(const id of ['pitchSpeed','batSpeed','attackAngle','targetMode','batControl'])$(id).disabled=busy||active;
+ for(const id of ['pitcherSelect','batterSelect','targetMode','batControl'])$(id).disabled=busy||active;
  document.querySelectorAll('.pitch-option').forEach(b=>b.disabled=busy||active);
  canvas.setAttribute('aria-label',batLocked()?'打擊練習：球棒固定中央，左鍵完整揮棒；没有來球時可試揮。':'打擊練習：滑鼠在打擊區控制棒身，左鍵完整揮棒；沒有來球時可試揮。');
 }
 function show(title,detail){$('resultTitle').textContent=title;$('resultDetail').textContent=detail;$('announcement').classList.add('show')}
 function beep(kind){if(!soundEnabled)return;try{audioContext??=new(window.AudioContext||window.webkitAudioContext)();audioContext.resume();const o=audioContext.createOscillator(),g=audioContext.createGain();o.connect(g);g.connect(audioContext.destination);o.type=kind==='hit'?'triangle':'sine';o.frequency.setValueAtTime(kind==='hit'?570:220,audioContext.currentTime);o.frequency.exponentialRampToValueAtTime(kind==='hit'?920:100,audioContext.currentTime+.14);g.gain.setValueAtTime(.07,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioContext.currentTime+.2);o.start();o.stop(audioContext.currentTime+.21)}catch{}}
 function updateSettings(){
- $('pitchSpeedValue').textContent=speed()+' km/h';$('batSpeedValue').textContent=batSpeed()+' km/h';$('attackAngleValue').textContent=attack()+'°';
- $('swingValue').textContent=batSpeed();$('swingDelay').textContent=Math.round(P.makeSwing(batSpeed(),{x:0,y:.85},attack()).contactTime*1000)+' ms';
- const sample=P.makePitch(s.type,speed(),{x:0,y:.85});$('flightTime').textContent=sample.duration.toFixed(3)+' s';
- $('zoneSize').textContent='43.18 cm × 70 cm';
+ const profile=pitchProfile(),b=batter(),z=zoneBounds(),center=targetCenter();
+ zone.y=groundY-z.top*ppm;zone.h=(z.top-z.bottom)*ppm;
+ const el=$('zone');el.style.left=zone.x/900*100+'%';el.style.top=zone.y/720*100+'%';el.style.width=zone.w/900*100+'%';el.style.height=zone.h/720*100+'%';
+ const label=$('zoneLabel');label.style.left=zone.x/900*100+'%';label.style.width=zone.w/900*100+'%';label.style.top=(zone.y+zone.h+12)/720*100+'%';
+ $('pitchSpeedValue').textContent=speed().toFixed(1)+' km/h';
+ $('batSpeedValue').textContent=batSpeed().toFixed(1)+' km/h';$('attackAngleValue').textContent=attack().toFixed(1)+'°';
+ $('swingDelay').textContent=Math.round(P.makeSwing(batSpeed(),center,attack(),b.hand).contactTime*1000)+' ms';
+ const sample=P.makePitch(s.type,speed(),center,profile);$('flightTime').textContent=sample.duration.toFixed(3)+' s';
+ $('zoneSize').textContent='43.18 × '+((z.top-z.bottom)*100).toFixed(1)+' cm';
+ $('zoneHeight').textContent=(z.bottom*100).toFixed(1)+'–'+(z.top*100).toFixed(1)+' cm';
+ $('pitcherName').textContent='P · '+pitcher().name;$('batterName').textContent='BAT · '+b.name;
+ $('pitcherInfo').textContent=pitcher().team+' · 右投 · '+Object.keys(pitcher().arsenal).length+' 球種';
+ $('batterInfo').textContent=b.team+' · '+(b.hand==='R'?'右打':'左打')+' · '+(b.height*100).toFixed(1)+' cm';
+ $('pitchData').textContent=profile.mph.toFixed(1)+' mph · '+profile.count+' 球'+(profile.count<30?'（小樣本）':'');
+ $('pitchSource').href=pitcher().source;$('batterSource').href=b.source;
+ $('ballLabel').textContent=profile.name;$('speed').textContent=speed().toFixed(1);
+}
+function renderArsenal(){
+ if(!pitcher().arsenal[s.type])s.type='FF';
+ const list=$('pitchList');list.replaceChildren();
+ for(const [type,profile] of Object.entries(pitcher().arsenal)){
+   const button=document.createElement('button');button.className='pitch-option';button.dataset.type=type;
+   button.setAttribute('aria-pressed',String(type===s.type));button.classList.toggle('active',type===s.type);
+   const title=document.createElement('b');title.textContent=profile.name;
+   const value=document.createElement('small');value.textContent=(profile.mph*1.609344).toFixed(1)+' km/h';
+   button.append(title,value);button.onclick=()=>{if(phaseBusy()||swingActive())return;s.type=type;renderArsenal();updateSettings();};list.append(button);
+ }
+ controls();
+}
+function changePlayer(){
+ if(phaseBusy()||swingActive())return;
+ renderArsenal();reset();syncBatControl();
 }
 function start(){
  if(phaseBusy()||swingActive()||$('helpDialog').open)return;
  const now=performance.now();s.phase='windup';s.windupAt=now;s.release=now+720;
- let target={x:0,y:.85};
- if($('targetMode').value==='random')target={x:(Math.random()-.5)*.29,y:.61+Math.random()*.48};
- s.pitch=P.makePitch(s.type,speed(),target);s.hit=false;s.seenPitch=true;s.swing=null;s.path=null;s.hitData=null;
- $('announcement').classList.remove('show');$('speed').textContent=speed();$('ballLabel').textContent=pitches[s.type].name;
- $('status').textContent=`${speed()} km/h ${pitches[s.type].name}，出手至本壘約 ${s.pitch.duration.toFixed(3)} 秒。觀察出手，提前約 ${$('swingDelay').textContent} 啟動揮棒。`;
+ let target=targetCenter();
+ if($('targetMode').value==='random'){const z=zoneBounds();target={x:(Math.random()-.5)*.29,y:z.bottom+.065+Math.random()*(z.top-z.bottom-.13)};}
+ s.pitch=P.makePitch(s.type,speed(),target,pitchProfile());s.hit=false;s.seenPitch=true;s.swing=null;s.path=null;s.hitData=null;
+ $('announcement').classList.remove('show');$('speed').textContent=speed().toFixed(1);$('ballLabel').textContent=pitchProfile().name;
+ $('status').textContent=`${speed().toFixed(1)} km/h ${pitchProfile().name}，出手至本壘約 ${s.pitch.duration.toFixed(3)} 秒。觀察出手，提前約 ${$('swingDelay').textContent} 啟動揮棒。`;
  controls();beep('throw');
 }
 function beginSwing(practice=false){
@@ -224,9 +262,9 @@ function beginSwing(practice=false){
  const lateAttempt=!practice&&s.phase==='result'&&s.pitch&&!s.hit&&!s.swing&&now-s.resultAt<350;
  const isPractice=practice||(!phaseBusy()&&!lateAttempt);
  const contactPose=pose(s.bat);s.swingOrigin={x:contactPose.x,y:contactPose.y};
- s.swing=P.makeSwing(batSpeed(),world(contactPose.sweet),attack());s.swingStart=now;s.swingIsPractice=isPractice;s.swingTested=false;
+ s.swing=P.makeSwing(batSpeed(),world(contactPose.sweet),attack(),batter().hand);s.swingStart=now;s.swingIsPractice=isPractice;s.swingTested=false;
  $('announcement').classList.remove('show');
- if(isPractice){$('status').textContent=`試揮：棒頭接觸區速度 ${batSpeed()} km/h，啟動至接觸點約 ${Math.round(s.swing.contactTime*1000)} ms。`;$('liveState').textContent='試揮';}
+ if(isPractice){$('status').textContent=`試揮：棒頭接觸區速度 ${batSpeed().toFixed(1)} km/h，啟動至接觸點約 ${Math.round(s.swing.contactTime*1000)} ms。`;$('liveState').textContent='試揮';}
  else if(lateAttempt)showMiss();
  controls();beep('swing');
 }
@@ -288,8 +326,7 @@ document.addEventListener('keydown',e=>{
  if(e.target.closest('input,select,textarea,[contenteditable="true"]'))return;
  e.preventDefault();if(!e.repeat)start();
 });
-document.querySelectorAll('.pitch-option').forEach(b=>b.onclick=()=>{if(phaseBusy()||swingActive())return;s.type=b.dataset.type;$('pitchSpeed').value=pitches[s.type].speed;document.querySelectorAll('.pitch-option').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});updateSettings();});
-for(const id of ['pitchSpeed','batSpeed','attackAngle'])$(id).oninput=updateSettings;
+$('pitcherSelect').onchange=changePlayer;$('batterSelect').onchange=changePlayer;
 $('fieldThrow').onclick=start;$('fieldPractice').onclick=()=>beginSwing(true);$('targetMode').onchange=syncBatControl;$('batControl').onchange=syncBatControl;$('reset').onclick=reset;
 function pause(){if(phaseBusy()){s.phase='idle';s.pitch=null;$('status').textContent='練習已暫停，按開始投球重新送出來球。';}s.swing=null;controls();}
 $('help').onclick=()=>{pause();$('helpDialog').showModal()};$('closeHelp').onclick=()=>$('helpDialog').close();
@@ -309,7 +346,7 @@ function createBackground(){ctx.save();const sky=ctx.createLinearGradient(0,0,0,
 for(let i=0;i<14;i++){let x=i*75-40;ellipse(x,164,55,50,'#b2cdb0');ellipse(x+30,166,36,35,'#a0c19d')}
 path([[0,169],[900,169],[900,252],[0,252]],'#89a491');for(let y=179;y<230;y+=14){line(0,y,900,y,'#c4d2b6',7);for(let x=7;x<900;x+=17){ellipse(x+(y%3)*3,y-4,3,4,['#688a7c','#e6dbbc','#dcac87','#b6c3a2'][Math.floor(x/17+y)%4])}}
 roundRect(358,112,186,78,7,'#426d60');ctx.fillStyle='#d6e3c3';ctx.font='600 9px sans-serif';ctx.textAlign='center';ctx.fillText('HIYORI  FIELD',451,132);ctx.font='bold 10px monospace';ctx.fillText('REAL TIME  /  BATTING',451,151);ctx.fillStyle='#ead995';ctx.fillText('FREE BATTING',451,169);line(0,238,900,238,'#567c62',27);line(0,228,900,228,'#e1d9ab',4);for(let x=0;x<900;x+=54){line(x,228,x,167,'#7f9f89',2)}
-path([[0,251],[900,251],[900,720],[0,565]],'#a9c788');for(let i=0;i<8;i++)path([[i*170-300,720],[i*170-80,251],[i*170+10,251],[i*170-210,720]],'#bad09266');ellipse(480,640,525,380,'#cfb583');ellipse(514,284,45,16,'#e5d2a5');ellipse(514,283,7,3,'#f9f5df');path([[0,275],[522,648],[900,275],[900,720],[0,720]],'#d8be8c');line(0,275,522,648,'#f9eed7',3);line(900,275,522,648,'#f9eed7',3);path([[466,607],[578,607],[578,625],[522,648],[466,625]],'#f8f0db');path([[320,577],[448,577],[448,681],[303,681]],null,'#efddb5',2);path([[596,577],[724,577],[741,681],[596,681]],null,'#efddb5',2);ctx.restore();bgctx.drawImage(canvas,0,0)}
+path([[0,251],[900,251],[900,720],[0,565]],'#a9c788');for(let i=0;i<8;i++)path([[i*170-300,720],[i*170-80,251],[i*170+10,251],[i*170-210,720]],'#bad09266');ellipse(480,640,525,380,'#cfb583');ellipse(514,284,45,16,'#e5d2a5');ellipse(514,283,7,3,'#f9f5df');path([[0,275],[522,701],[900,275],[900,720],[0,720]],'#d8be8c');line(0,275,522,648,'#f9eed7',3);line(900,275,522,648,'#f9eed7',3);path([[466,660],[578,660],[578,678],[522,701],[466,678]],'#f8f0db');path([[320,625],[448,625],[448,720],[303,720]],null,'#efddb5',2);path([[596,625],[724,625],[741,720],[596,720]],null,'#efddb5',2);ctx.restore();bgctx.drawImage(canvas,0,0)}
 createBackground();
 
 
@@ -324,7 +361,8 @@ function swingView(age){
    alpha=Math.abs(2*u-1);alpha=alpha*alpha*(3-2*alpha);recovered=u>=.5;
  }
  let theta=recovered?0:P.swingAt(s.swing,motionAge).theta;
- let x=origin.x+42*(Math.cos(theta)-1),y=origin.y-17*Math.sin(theta)+13*(Math.cos(theta)-1);
+ const direction=s.swing.hand==='L'?-1:1;
+ let x=origin.x+direction*42*(Math.cos(theta)-1),y=origin.y-17*Math.sin(theta)+13*(Math.cos(theta)-1);
  let dx=Math.cos(theta),dy=.34*Math.cos(theta)-.55*Math.sin(theta);
  let angle=Math.atan2(dy,dx),horizontalScale=.9*Math.max(.32,Math.hypot(dx,dy));
  if(age<s.swing.contactTime*.23){
@@ -345,20 +383,20 @@ function cursorBat(t){
    for(let i=0;i<=10;i++){const past=swingView(Math.max(0,age-.035+i*.0035));i?ctx.lineTo(past.tip.x,past.tip.y):ctx.moveTo(past.tip.x,past.tip.y)}ctx.stroke();
  }
  ctx.translate(p.x,p.y);ctx.rotate(p.angle);ctx.scale(p.horizontalScale,p.thicknessScale);
- ctx.drawImage(barrelSprite,-47,-24);
+ ctx.drawImage(barrelSprite,-90,-24);
  ctx.restore();
 }
-const barrelSprite=document.createElement('canvas');barrelSprite.width=94;barrelSprite.height=48;
+const barrelSprite=document.createElement('canvas');barrelSprite.width=140;barrelSprite.height=48;
 {
- const mainContext=ctx;ctx=barrelSprite.getContext('2d');ctx.translate(47,24);
+ const mainContext=ctx;ctx=barrelSprite.getContext('2d');ctx.translate(90,24);
  const grad=ctx.createLinearGradient(0,-15,0,15);grad.addColorStop(0,'#f7dfafee');grad.addColorStop(.5,'#c09662ee');grad.addColorStop(1,'#956f45ee');
  // Contact barrel only: no grip, handle or knob in the aiming icon.
- ctx.shadowColor='#5caabf';ctx.shadowBlur=4;ctx.beginPath();ctx.moveTo(-35,-9);
- ctx.bezierCurveTo(-22,-10.5,-12,-15,22,-15);ctx.quadraticCurveTo(35,-15,35,0);
- ctx.quadraticCurveTo(35,15,22,15);ctx.bezierCurveTo(-12,15,-22,10.5,-35,9);
- ctx.quadraticCurveTo(-38,0,-35,-9);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+ ctx.shadowColor='#5caabf';ctx.shadowBlur=4;ctx.beginPath();ctx.moveTo(-80,-7);
+ ctx.bezierCurveTo(-57,-8,-12,-15,22,-15);ctx.quadraticCurveTo(35,-15,35,0);
+ ctx.quadraticCurveTo(35,15,22,15);ctx.bezierCurveTo(-12,15,-57,8,-80,7);
+ ctx.quadraticCurveTo(-83,0,-80,-7);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
  ctx.strokeStyle='#a1dfed';ctx.lineWidth=1.5;ctx.stroke();ctx.shadowBlur=0;
- line(-23,-6,23,-9,'#f9e9c69c',1);line(-6,0,6,0,'#fff8e2',1.4);line(0,-6,0,6,'#fff8e2',1.4);
+ line(-65,-4,23,-9,'#f9e9c69c',1);line(-6,0,6,0,'#fff8e2',1.4);line(0,-6,0,6,'#fff8e2',1.4);
 
  ctx=mainContext;
 }
@@ -447,8 +485,7 @@ function draw(t){
  if(s.swing&&!swingActive(t)&&!s.swingTested){s.swingTested=true;if(s.swingIsPractice)$('liveState').textContent='自由練習';controls();}
  requestAnimationFrame(draw);
 }
-const zoneEl=$('zone');zoneEl.style.left=zone.x/900*100+'%';zoneEl.style.top=zone.y/720*100+'%';zoneEl.style.width=zone.w/900*100+'%';zoneEl.style.height=zone.h/720*100+'%';
-reset();syncBatControl();requestAnimationFrame(draw);
+renderArsenal();reset();syncBatControl();requestAnimationFrame(draw);
 })();
 
 </script></body></html>
