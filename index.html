@@ -392,6 +392,11 @@ function BaseballOnline(cb){
  n.ready=ready;n.isPitcher=()=>n.connected&&BaseballMatch.fielding(n.state)===n.side;n.isBatter=()=>n.connected&&BaseballMatch.batting(n.state)===n.side;
  function message(text){$('netStatus').textContent=text;}
  function render(){
+   $('sceneMode').textContent=!n.active?'FREE BATTING':!n.connected?'ONLINE · WAITING':n.isPitcher()?'ONLINE · PITCHING':'ONLINE · BATTING';
+   document.querySelector('.lab-title b').textContent=n.active?'兩隊棒球對戰':'節奏打擊練習';
+   document.querySelector('.field-aim-panel h3').textContent=n.active&&n.isPitcher()?'投球控制':'打擊控制';
+   if(n.active)$('inputLabel').textContent=n.isPitcher()?'點框內／框外 → 指定落點':'滑鼠移動 → 擊球棒身';
+   $('inputLabel').nextElementSibling.textContent=n.active&&n.isPitcher()?'左側選球種，再按投球或空白鍵。':'對準棒身，球到框附近時點左鍵。';
    $('netCreate').disabled=n.active;$('netJoin').disabled=n.active;$('netRoomInput').disabled=n.active;$('netLeave').hidden=!n.active;$('netCopy').hidden=!n.active||!peer?.id;
    $('matchBoard').hidden=!n.connected;$('netRoomDisplay').hidden=!n.active||!peer?.id;
    if(peer?.id)$('netRoomCode').textContent=peer.id.startsWith(prefix)?peer.id.slice(prefix.length):$('netRoomInput').value;
@@ -424,7 +429,7 @@ function BaseballOnline(cb){
  }
  function ping(){if(!n.host||!conn?.open)return;const id=crypto.randomUUID(),sent=now();pings.set(id,sent);if(pings.size>12)pings.delete(pings.keys().next().value);send({type:'ping',id,sent});}
  function attach(c,token){
-   conn=c;c.on('open',()=>{if(token!==generation)return;lastSeen=now();if(n.host)send({type:'hello',state:n.state,teams:n.teams});else message('已連上房間，正在同步比賽…');
+   conn=c;c.on('open',()=>{if(token!==generation)return;lastSeen=now();if(n.host)send({type:'hello',state:n.state,teams:n.teams});else{if(n.connected)send({type:'helloAck'});message('已連上房間，正在同步比賽…');}
      heartbeat=setInterval(()=>{if(now()-lastSeen>15000){fail('對方已離線，比賽停止。可重新建立房間。');return;}if(n.host)ping();else send({type:'alive'});},2500);
    });
    c.on('data',d=>{if(token!==generation||!d||d.v!==version||typeof d.type!=='string')return;lastSeen=now();receive(d);});
@@ -432,10 +437,10 @@ function BaseballOnline(cb){
  }
  function receive(d){
    if(d.type==='reject'){fail(d.reason||'無法加入房間。');return;}
-   if(d.type==='hello'&&!n.host){n.state=d.state;n.teams=d.teams;n.connected=true;clearTimeout(timer);send({type:'helloAck'});cb.players?.(n.teams,n.state);render();return;}
-   if(d.type==='helloAck'&&n.host){n.connected=true;clearTimeout(timer);cb.players?.(n.teams,n.state);ping();render();return;}
+   if(d.type==='hello'&&!n.host){if(n.connected){send({type:'helloAck'});return;}n.state=d.state;n.teams=d.teams;n.connected=true;clearTimeout(timer);send({type:'helloAck'});cb.players?.(n.teams,n.state);render();return;}
+   if(d.type==='helloAck'&&n.host){if(n.connected)return;n.connected=true;clearTimeout(timer);cb.players?.(n.teams,n.state);ping();render();return;}
    if(d.type==='ping'){send({type:'pong',id:d.id,guest:now()});return;}
-   if(d.type==='pong'&&n.host&&pings.has(d.id)){const t=pings.get(d.id),rtt=now()-t;pings.delete(d.id);n.rtt=rtt;if(rtt<bestRtt){bestRtt=rtt;n.offset=d.guest-(t+now())/2;}n.clockReady=true;send({type:'clock',offset:n.offset,rtt});message('已連線 · 約 '+Math.round(rtt)+' ms · 兩隊九局對戰');render();return;}
+   if(d.type==='pong'&&n.host&&pings.has(d.id)){if(!n.connected){n.connected=true;clearTimeout(timer);cb.players?.(n.teams,n.state);}const t=pings.get(d.id),rtt=now()-t;pings.delete(d.id);n.rtt=rtt;if(rtt<bestRtt){bestRtt=rtt;n.offset=d.guest-(t+now())/2;}n.clockReady=true;send({type:'clock',offset:n.offset,rtt});message('已連線 · 約 '+Math.round(rtt)+' ms · 兩隊九局對戰');render();return;}
    if(d.type==='clock'&&!n.host){n.offset=d.offset;n.rtt=d.rtt;n.clockReady=true;message('已連線 · 約 '+Math.round(n.rtt)+' ms · 兩隊九局對戰');render();return;}
    if(!n.connected)return;
    if(d.type==='settings'){
