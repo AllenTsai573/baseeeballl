@@ -51,7 +51,7 @@ body{min-width:1100px}.app{padding:22px 26px 20px;max-width:1220px}.layout{displ
 </section></div>
 <div class="footer"><span>原創棒球 · 找到節奏，打出漂亮的一球。</span><span>MADE FOR THE LOVE OF BASEBALL ⚾</span></div>
 </main>
-<dialog id="helpDialog"><h3>節奏打擊練習</h3><p><b>操作</b><br>滑鼠移動棒身，等球到好球框附近時按左鍵。圓環收合至十字附近、亮起時就是點擊節奏。沒有來球時可試揮；空白鍵或畫面按鈕開始／再次投球。中央來球可把球棒也固定中央。每球只接受一次打擊輸入。</p><p><b>節奏判定</b><br>以按下左鍵的時間比較球到達本壘中段的時間：±35 ms 為 Perfect、±90 ms 為 Good，更早或更晚顯示太早／太慢。時機接近但畫面棒身沒有覆蓋球的落點時，顯示位置偏離。棒身與球的可見輪廓作為位置判定，十字在揮棒時保持原瞄準位置；完整揮擊是視覺回饋。正式擊球不用提前扣除揮棒動畫時間。</p><p><b>選手與球種</b><br>遊戲上方選投手、打者，左側選球種，右側切換來球位置與球棒控制。預設隨機球種，依 2026 投球比例抽選；均速上下 5 km/h 的遊戲範圍內隨機出球。隨機球種到球通過或被擊中才公布。投球／擊球位置保留到下一球開始。Judge 右打、大谷左打，棒身與揮擊方向鏡射。</p><p><b>投手姿勢</b><br>Skenes 採低臂角、長跨步風格；山本採直立、小抬腿踏步與較高臂角風格。切換投手會改變火柴人的體型、動作節奏與出手位置，球從各自手部飛出。參考 <a href="https://www.mlb.com/amp/news/paul-skenes-2026-metrics-comparison-deep-dive.html" target="_blank" rel="noopener">Skenes 官方分析</a>、<a href="https://www.mlb.com/news/the-range-of-pitcher-arm-angles-in-the-2024-mlb-postseason" target="_blank" rel="noopener">山本臂角資料</a>。關節與時間是作者近似設定，非球員動作捕捉或實測出手座標。</p><p><b>資料與落點</b><br>球種、均速、球路位移與打者平均揮速／上揚角，採 Baseball Savant 的 2026-10-08 靜態快照。投球按真實時間飛行；擊球初速、仰角、方向會依節奏判定與棒身接觸位置調整，屬遊戲估算。首次落地以重力、阻力和簡化升力計算，不包含守備及落地滾動。</p><p><b>球場與好球框</b><br>投手板至本壘後尖角 18.44 m、投手丘高 25.4 cm，投手與球場共用透視座標。好球框寬 43.18 cm，上下緣為公開身高的 53.5%／27%，屬 ABS 近似參考；只有外框。自由練習不計好壞球、出局及分數。</p><button class="primary" id="closeHelp">開始練習</button></dialog>
+<dialog id="helpDialog"><h3>節奏打擊練習</h3><p><b>操作</b><br>滑鼠移動棒身，等球到好球框附近時按左鍵。圓環收合至十字附近、亮起時就是點擊節奏。沒有來球時可試揮；空白鍵或畫面按鈕開始／再次投球。中央來球可把球棒也固定中央。每球只接受一次打擊輸入。</p><p><b>節奏判定</b><br>以按下左鍵的時間比較球到達本壘中段的時間：±35 ms 為 Perfect、±90 ms 為 Good，更早或更晚顯示太早／太慢。時機接近但畫面棒身沒有覆蓋球的落點時，顯示位置偏離。以按下左鍵時的棒身與球的可見輪廓作為位置判定。球棒恢復原本帶棒、加速全揮、透視縮放與收棒的動畫；動畫僅作視覺回饋，不影響擊球判定。正式擊球不用提前扣除揮棒動畫時間。</p><p><b>選手與球種</b><br>遊戲上方選投手、打者，左側選球種，右側切換來球位置與球棒控制。預設隨機球種，依 2026 投球比例抽選；均速上下 5 km/h 的遊戲範圍內隨機出球。隨機球種到球通過或被擊中才公布。投球／擊球位置保留到下一球開始。Judge 右打、大谷左打，棒身與揮擊方向鏡射。</p><p><b>投手姿勢</b><br>Skenes 採低臂角、長跨步風格；山本採直立、小抬腿踏步與較高臂角風格。切換投手會改變火柴人的體型、動作節奏與出手位置，球從各自手部飛出。參考 <a href="https://www.mlb.com/amp/news/paul-skenes-2026-metrics-comparison-deep-dive.html" target="_blank" rel="noopener">Skenes 官方分析</a>、<a href="https://www.mlb.com/news/the-range-of-pitcher-arm-angles-in-the-2024-mlb-postseason" target="_blank" rel="noopener">山本臂角資料</a>。關節與時間是作者近似設定，非球員動作捕捉或實測出手座標。</p><p><b>資料與落點</b><br>球種、均速、球路位移與打者平均揮速／上揚角，採 Baseball Savant 的 2026-10-08 靜態快照。投球按真實時間飛行；擊球初速、仰角、方向會依節奏判定與棒身接觸位置調整，屬遊戲估算。首次落地以重力、阻力和簡化升力計算，不包含守備及落地滾動。</p><p><b>球場與好球框</b><br>投手板至本壘後尖角 18.44 m、投手丘高 25.4 cm，投手與球場共用透視座標。好球框寬 43.18 cm，上下緣為公開身高的 53.5%／27%，屬 ABS 近似參考；只有外框。自由練習不計好壞球、出局及分數。</p><button class="primary" id="closeHelp">開始練習</button></dialog>
 <script>
 /* SI units. A simplified baseball model, not a calibrated Statcast simulator. */
 const BaseballPhysics=(()=>{
@@ -247,16 +247,6 @@ const BaseballRhythm=(()=>{
    return {hit:onBeat&&position.accepted,grade,deltaMs,position,
      detail:(deltaMs<-.5?'早 ':deltaMs>.5?'晚 ':'時間差 ')+Math.round(abs)+' ms'};
  }
- function makeSwing(speed,aim,angle,hand){return {speed,aim,angle,hand,duration:.36*122.5/speed};}
- function swingView(swing,age){
-   const u=clamp(age/swing.duration,0,1),ease=t=>t*t*(3-2*t);
-   let angle=0,alpha=1;
-   if(u<.08)angle=-.20*ease(u/.08);
-   else if(u<.68)angle=-.20+3.95*ease((u-.08)/.60);
-   else if(u<.84){angle=3.75;alpha=1-ease((u-.68)/.16);}
-   else{angle=0;alpha=ease((u-.84)/.16);}
-   return {rotation:angle,alpha};
- }
  function impact(pitch,ball,judgment,batter){
    const batSpeed=batter.batMph*1.609344,pitchSpeed=Math.abs(ball.vz)*3.6;
    const quality=(judgment.grade==='Perfect'?1:.82)*judgment.position.quality;
@@ -266,14 +256,42 @@ const BaseballRhythm=(()=>{
    return {exitSpeed,launchAngle,sprayAngle,quality,spin:clamp(1200+Math.max(0,launchAngle)*45,900,3500),
      contactHeight:ball.y,originX:ball.x,originForward:0,batSpeed,pitchSpeed};
  }
- return {windows,outline,trace,aimContact,judge,makeSwing,swingView,impact};
+ return {windows,outline,trace,aimContact,judge,impact};
+})();
+
+/* Original full-swing look, isolated from rhythm judgment and ball simulation.
+   These animation times never offset the player's press or decide a hit. */
+const BaseballSwingAnimation=(()=>{
+ const clamp=BaseballPhysics.clamp;
+ function makeSwing(speed,aim,angle,hand){
+   const radius=.70,scale=115/speed,windupTime=4*1.65*radius/(speed/3.6);
+   return {speed,aim:{...aim},angle,hand,windupTime,tail:.19*scale,recovery:.12*scale,
+     duration:windupTime+.31*scale};
+ }
+ function sweep(swing,age){
+   const u=clamp(age/swing.windupTime,0,1),after=Math.max(0,age-swing.windupTime),tau=.065*115/swing.speed;
+   return age<=swing.windupTime?-1.65*(1-u**4):swing.speed/3.6/.70*tau*(1-Math.exp(-after/tau));
+ }
+ function view(swing,age,origin){
+   const end=swing.windupTime+swing.tail;
+   let motionAge=Math.min(age,end),alpha=1,recovered=false;
+   if(age>end){const u=clamp((age-end)/swing.recovery,0,1);alpha=Math.abs(2*u-1);alpha=alpha*alpha*(3-2*alpha);recovered=u>=.5;}
+   const theta=recovered?0:sweep(swing,motionAge),dir=swing.hand==='L'?-1:1;
+   let x=origin.x+dir*42*(Math.cos(theta)-1),y=origin.y-17*Math.sin(theta)+13*(Math.cos(theta)-1);
+   const dx=Math.cos(theta),dy=Math.tan(origin.angle)*Math.cos(theta)-.55*Math.sin(theta);
+   let angle=Math.atan2(dy,dx),horizontalScale=.9*Math.max(.32,Math.hypot(dx,dy)/Math.hypot(1,Math.tan(origin.angle)));
+   if(age<swing.windupTime*.23){const u=clamp(age/(swing.windupTime*.23),0,1),ease=u*u*(3-2*u);x=origin.x+(x-origin.x)*ease;y=origin.y+(y-origin.y)*ease;angle=origin.angle+(angle-origin.angle)*ease;horizontalScale=.9+(horizontalScale-.9)*ease;}
+   return {x,y,angle,horizontalScale,thicknessScale:.9,alpha,
+     tip:{x:x+dir*35*horizontalScale*Math.cos(dir*angle),y:y+dir*35*horizontalScale*Math.sin(dir*angle)}};
+ }
+ return {makeSwing,view};
 })();
 
 // Official season averages; roster height proxies ABS measured height.
 const MLB_PLAYERS={"season":2026,"asOf":"2026-10-08","pitchers":{"skenes":{"name":"Paul Skenes","team":"海盜","hand":"R","id":694973,"source":"https://baseballsavant.mlb.com/savant-player/paul-skenes-694973?season=2026","arsenal":{"FF":{"name":"四縫線直球","mph":96.8,"breakX":-12.6,"inducedZ":13.0,"count":1180},"SI":{"name":"伸卡球","mph":96.6,"breakX":-17.0,"inducedZ":7.3,"count":340},"FS":{"name":"指叉球","mph":93.2,"breakX":-13.3,"inducedZ":1.7,"count":291},"CH":{"name":"變速球","mph":88.7,"breakX":-15.4,"inducedZ":6.5,"count":360},"SL":{"name":"滑球","mph":86.7,"breakX":3.3,"inducedZ":1.9,"count":249},"ST":{"name":"橫掃球","mph":84.3,"breakX":10.2,"inducedZ":5.7,"count":460},"CU":{"name":"曲球","mph":81.8,"breakX":10.9,"inducedZ":-7.9,"count":10}}},"yamamoto":{"name":"山本由伸","team":"道奇","hand":"R","id":808967,"source":"https://baseballsavant.mlb.com/savant-player/yoshinobu-yamamoto-808967?season=2026","arsenal":{"FF":{"name":"四縫線直球","mph":96.1,"breakX":-8.3,"inducedZ":16.1,"count":716},"SI":{"name":"伸卡球","mph":95.5,"breakX":-14.5,"inducedZ":11.6,"count":358},"FC":{"name":"卡特球","mph":91.6,"breakX":3.1,"inducedZ":8.2,"count":406},"FS":{"name":"指叉球","mph":91.5,"breakX":-11.8,"inducedZ":1.8,"count":728},"SL":{"name":"滑球","mph":86.9,"breakX":5.5,"inducedZ":1.9,"count":166},"CU":{"name":"曲球","mph":76.9,"breakX":12.5,"inducedZ":-16.0,"count":360}}}},"batters":{"judge":{"name":"Aaron Judge","team":"洋基","hand":"R","id":592450,"height":2.0066,"batMph":76.1,"attackAngle":12.3,"source":"https://baseballsavant.mlb.com/savant-player/aaron-judge-592450?season=2026"},"ohtani":{"name":"大谷翔平","team":"道奇","hand":"L","id":660271,"height":1.9304,"batMph":74.7,"attackAngle":13.4,"source":"https://baseballsavant.mlb.com/savant-player/shohei-ohtani-660271?season=2026"}}};
 
 (()=>{'use strict';
-const P=BaseballPhysics,F=BaseballField,R=BaseballRhythm,$=id=>document.getElementById(id),canvas=$('field');
+const P=BaseballPhysics,F=BaseballField,R=BaseballRhythm,A=BaseballSwingAnimation,$=id=>document.getElementById(id),canvas=$('field');
 let ctx=canvas.getContext('2d');
 const map=$('landingMap'),ppm=112/P.C.plateWidth;
 let mc=map.getContext('2d');
@@ -422,9 +440,9 @@ function beginSwing(practice=false){
  const lateAttempt=!practice&&s.phase==='result'&&s.pitch&&!s.hit&&!s.attempt&&now-arrival<350;
  const isPractice=practice||(!phaseBusy()&&!lateAttempt),contactPose=pose(s.bat);
  s.swingOrigin={x:contactPose.x,y:contactPose.y};
- s.swing=R.makeSwing(batSpeed(),s.swingOrigin,contactPose.angle,batter().hand);s.swingStart=now;s.swingIsPractice=isPractice;s.swingTested=false;
+ s.swing=A.makeSwing(batSpeed(),s.swingOrigin,contactPose.angle,batter().hand);s.swingStart=now;s.swingIsPractice=isPractice;s.swingTested=false;
  $('announcement').classList.remove('show');
- if(isPractice){$('status').textContent='試揮：十字維持在瞄準位置，棒身完整揮過。正式打擊時，等球到框附近再點左鍵。';$('liveState').textContent='試揮';}
+ if(isPractice){$('status').textContent='試揮：恢復原本的完整揮擊與收棒動畫。正式打擊時，等球到框附近再點左鍵。';$('liveState').textContent='試揮';}
  else{
    const endpoint=P.pitchAt(s.pitch,s.pitch.duration),judgment=R.judge(now,arrival,screen(endpoint),contactPose,batter().hand,ppm*P.C.radius);
    s.attempt={judgment,at:now};
@@ -588,11 +606,7 @@ createBackground();
 
 
 
-function swingView(age){
- const origin=pose(s.swingOrigin),view=R.swingView(s.swing,age),dir=batter().hand==='L'?-1:1;
- return {x:origin.x,y:origin.y,angle:origin.angle+view.rotation,horizontalScale:origin.scale,
-   thicknessScale:origin.scale,alpha:view.alpha,tip:{x:origin.x+dir*35*origin.scale*Math.cos(dir*(origin.angle+view.rotation)),y:origin.y+dir*35*origin.scale*Math.sin(dir*(origin.angle+view.rotation))}};
-}
+function swingView(age){return A.view(s.swing,age,pose(s.swingOrigin))}
 function drawBeat(t){
  const aim=s.attempt?pose(s.swingOrigin||s.bat):pose(s.bat),dir=batter().hand==='L'?-1:1;
  if(s.phase==='flight'&&s.pitch&&!s.attempt){
@@ -614,22 +628,14 @@ function drawBeat(t){
  }
 }
 function cursorBat(t){
- const age=s.swing?(t-s.swingStart)/1000:0,active=swingActive(t),dir=batter().hand==='L'?-1:1;
+ const age=s.swing?(t-s.swingStart)/1000:0,active=swingActive(t);
  const resting=pose(s.bat),p=active?swingView(age):{...resting,horizontalScale:resting.scale,thicknessScale:resting.scale,alpha:1};
- ctx.save();ctx.beginPath();ctx.rect(battingArea.x,battingArea.y,battingArea.w,battingArea.h);ctx.clip();
- if(active){
-   // The static silhouette shows the actual input area while the swing is visual feedback.
-   const aim=pose(s.swingOrigin);ctx.save();ctx.translate(aim.x,aim.y);ctx.rotate(dir*aim.angle);ctx.scale(dir*aim.scale,aim.scale);
-   R.trace(ctx);ctx.fillStyle='#c9f0ed25';ctx.strokeStyle='#c9f0ed85';ctx.lineWidth=1.3;ctx.fill();ctx.stroke();ctx.restore();
-   if(age<s.swing.duration*.68){
-     ctx.save();ctx.strokeStyle='#c3efff85';ctx.lineWidth=3;ctx.lineCap='round';ctx.beginPath();
-     for(let i=0;i<=12;i++){const past=swingView(Math.max(0,age-.055+i*.055/12));i?ctx.lineTo(past.tip.x,past.tip.y):ctx.moveTo(past.tip.x,past.tip.y)}ctx.stroke();ctx.restore();
-   }
+ ctx.save();ctx.beginPath();ctx.rect(battingArea.x,battingArea.y,battingArea.w,battingArea.h);ctx.clip();ctx.globalAlpha=p.alpha;
+ if(active&&age<s.swing.windupTime+s.swing.tail){
+   ctx.strokeStyle='#c3efff65';ctx.lineWidth=2;ctx.lineCap='round';ctx.beginPath();
+   for(let i=0;i<=10;i++){const past=swingView(Math.max(0,age-.035+i*.0035));i?ctx.lineTo(past.tip.x,past.tip.y):ctx.moveTo(past.tip.x,past.tip.y)}ctx.stroke();
  }
- ctx.save();ctx.globalAlpha=p.alpha;ctx.translate(p.x,p.y);ctx.rotate(dir*p.angle);ctx.scale(dir*p.horizontalScale,p.thicknessScale);ctx.drawImage(barrelSprite,-90,-24);ctx.restore();
- // Sweet spot remains fixed throughout the full swing.
- const aim=active?pose(s.swingOrigin):resting;line(aim.x-5,aim.y,aim.x+5,aim.y,'#fff8e2',1.5);line(aim.x,aim.y-5,aim.x,aim.y+5,'#fff8e2',1.5);
- ctx.restore();
+ ctx.translate(p.x,p.y);ctx.rotate(batter().hand==='L'?-p.angle:p.angle);ctx.scale((batter().hand==='L'?-1:1)*p.horizontalScale,p.thicknessScale);ctx.drawImage(barrelSprite,-90,-24);ctx.restore();
 }
 const barrelSprite=document.createElement('canvas');barrelSprite.width=140;barrelSprite.height=48;
 {
