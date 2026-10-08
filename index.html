@@ -842,11 +842,12 @@ function baseball(x,y,r,alpha=1){
  ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.strokeStyle='#4b6c64';ctx.lineWidth=Math.max(.65,r*.065);ctx.stroke();ctx.restore();
 }
 const background=document.createElement('canvas');background.width=900;background.height=720;const bgctx=background.getContext('2d');
-function createBackground(){ctx.save();const sky=ctx.createLinearGradient(0,0,0,250);sky.addColorStop(0,'#d4eae3');sky.addColorStop(1,'#edf2de');ctx.fillStyle=sky;ctx.fillRect(0,0,900,720);[[102,57,42],[154,51,35],[650,78,34],[699,71,44],[753,78,31]].forEach(c=>ellipse(c[0],c[1],c[2],14,'#fffdf0aa'));ellipse(795,45,25,25,'#f5e8b4');
+function createBackground(){ctx.save();const sky=ctx.createLinearGradient(0,0,0,F.camera.horizon);sky.addColorStop(0,'#d4eae3');sky.addColorStop(1,'#edf2de');ctx.fillStyle=sky;ctx.fillRect(0,0,900,720);[[102,57,42],[154,51,35],[650,78,34],[699,71,44],[753,78,31]].forEach(c=>ellipse(c[0],c[1],c[2],14,'#fffdf0aa'));ellipse(795,45,25,25,'#f5e8b4');
+ctx.save();ctx.translate(0,F.camera.horizon-252);
 for(let i=0;i<14;i++){let x=i*75-40;ellipse(x,164,55,50,'#b2cdb0');ellipse(x+30,166,36,35,'#a0c19d')}
 path([[0,169],[900,169],[900,252],[0,252]],'#89a491');for(let y=179;y<230;y+=14){line(0,y,900,y,'#c4d2b6',7);for(let x=7;x<900;x+=17){ellipse(x+(y%3)*3,y-4,3,4,['#688a7c','#e6dbbc','#dcac87','#b6c3a2'][Math.floor(x/17+y)%4])}}
 roundRect(358,112,186,78,7,'#426d60');ctx.fillStyle='#d6e3c3';ctx.font='600 9px sans-serif';ctx.textAlign='center';ctx.fillText('HIYORI  FIELD',451,132);ctx.font='bold 10px monospace';ctx.fillText('REAL TIME  /  BATTING',451,151);ctx.fillStyle='#ead995';ctx.fillText('FREE BATTING',451,169);line(0,238,900,238,'#567c62',27);line(0,228,900,228,'#e1d9ab',4);for(let x=0;x<900;x+=54){line(x,228,x,167,'#7f9f89',2)}
-drawGround();ctx.restore();bgctx.drawImage(canvas,0,0)}
+ctx.restore();drawGround();ctx.restore();bgctx.drawImage(canvas,0,0)}
 createBackground();
 
 
