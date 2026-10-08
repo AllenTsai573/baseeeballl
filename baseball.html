@@ -125,18 +125,16 @@ if(typeof module!=='undefined'&&module.exports)module.exports=BaseballPhysics;
    The camera is a level catcher view; dimensions are metres, time is ms. */
 const BaseballField=(()=>{
  const C=BaseballPhysics.C,ppm=112/C.plateWidth;
- // A narrower catcher view makes the distant release and movement readable;
- // focal/back preserves the exact home-plate scale and batting coordinates.
- const camera={x:522,y:1.22,back:6.8,groundY:660,focal:ppm*6.8};
+ // Catcher-side camera, 2.1 m behind the strike plane. Keep plate scale fixed,
+ // but use its actual perspective for the 18.44 m field, pitcher and ball.
+ const camera={x:522,y:1.4,back:2.1,groundY:660,focal:ppm*2.1};
  camera.horizon=camera.groundY-camera.y*ppm;
  const windup=720,motionEnd=1370,R=C.rubberZ;
  function project(p){const d=Math.max(.20,p.z+camera.back);return {
    x:camera.x+camera.focal*p.x/d,y:camera.horizon+camera.focal*(camera.y-p.y)/d,
    r:camera.focal*C.radius/d,scale:camera.focal/d};}
  function screen(p){return {x:camera.x+p.x*ppm,y:camera.groundY-p.y*ppm};}
- // Readability scaling for the incoming sprite only, never the contact radius.
- // Continuous in depth, including after the plate: no size reset on a late pitch.
- function ballRadius(p){const q=project(p),near=BaseballPhysics.clamp(1-p.z/C.rubberZ,0,1);return q.r*(1.15+near*near*1.1);}
+ function ballRadius(p){return project(p).r;}
  function world(p){return {x:(p.x-camera.x)/ppm,y:(camera.groundY-p.y)/ppm};}
  function moundHeight(x,z){
    const radial=Math.hypot(x,z-(R-.4572));
@@ -537,7 +535,7 @@ function syncBatControl(){
 function initial(type='random'){
  return {type,phase:'idle',bat:neutralBat(),pitch:null,release:0,
    swing:null,swingStart:0,swingOrigin:null,swingIsPractice:false,swingTested:false,hit:false,
-   path:null,hitData:null,hitAt:0,lastHit:null,onlineTarget:targetCenter(),matchPlay:null,windupAt:0,pitcherSettled:true,seenPitch:false,resultAt:0,revealed:false,pitchLocation:null,attempt:null,beatFeedback:null};
+   path:null,hitData:null,hitAt:0,lastHit:null,onlineTarget:targetCenter(),matchPlay:null,windupAt:0,pitcherSettled:true,seenPitch:false,resultAt:0,revealed:false,pitchLocation:null,attempt:null,beatFeedback:null,pitchTrace:[]};
 }
 s=initial();
 function phaseBusy(){return s.phase==='windup'||s.phase==='flight'}
@@ -646,6 +644,7 @@ function start(){
 function startPrepared(config,at){
  if(!validConfig(config))return;
  clearPitchResult();s.matchPlay=null;s.phase='windup';s.windupAt=at;s.release=at+delivery().windup;s.pitcherSettled=false;s.attempt=null;s.beatFeedback=null;
+ s.pitchTrace=[];
  const profile=pitchProfile(config.type),velocity=config.speed;
  s.pitch=P.makePitch(config.type,velocity,config.target,profile,delivery().release);s.hit=false;s.seenPitch=true;s.swing=null;s.path=null;s.hitData=null;
  const hiddenType=N?.active?!N.isPitcher():s.type==='random',pitchText=hiddenType?(N?.active?'對手球種 · 待揭曉':'隨機球種 · 待揭曉'):profile.name;
@@ -783,9 +782,6 @@ function drawGround(){
  ctx.save();ctx.beginPath();ctx.rect(0,F.camera.horizon,900,720-F.camera.horizon);ctx.clip();
  ctx.fillStyle='#a9c788';ctx.fillRect(0,F.camera.horizon,900,720);
  for(let z=0;z<150;z+=8)worldPolygon([{x:-150,y:0,z},{x:150,y:0,z},{x:150,y:0,z:z+4},{x:-150,y:0,z:z+4}],'#b7ce9866');
- // The dirt/grass edges give persistent perspective references along the flight.
- groundPath({x:0,z:4},{x:0,z:P.C.rubberZ-3},1.35,'#d6bf9666');
- for(const z of [5,9,13])groundPath({x:-.7,z},{x:.7,z},.12,'#b99f7440');
  const back={x:0,z:-P.C.plateDepth/2},base=27.432/Math.sqrt(2);
  const first={x:base,z:base+back.z},second={x:0,z:base*2+back.z},third={x:-base,z:base+back.z};
  for(const [a,b] of [[back,first],[first,second],[second,third],[third,back]])groundPath(a,b,2.1,'#cfb583');
@@ -997,21 +993,21 @@ function drawIncomingPitch(elapsed){
  const ball=P.pitchAt(s.pitch,elapsed),p=project(ball);
  // Ground shadow and visible size share the field's perspective, not a future-position marker.
  const ground=project({x:ball.x,y:Math.max(0,F.moundHeight(ball.x,ball.z)),z:ball.z});
- const near=clamp(1-ball.z/s.pitch.distance,0,1),radius=F.ballRadius(ball);
- damage(ground.x-radius*1.5-3,ground.y-radius*.4-3,radius*3+6,radius*.8+6);
- ctx.save();ctx.globalAlpha=.18+near*.16;
- ellipse(ground.x,ground.y,radius*1.3,Math.max(1,radius*.24),'#456654');ctx.restore();
- // A short trail contains only previous positions, so the curve remains observable without a prediction ring.
- const history=.060,steps=8;
- let a=project(P.pitchAt(s.pitch,Math.max(0,elapsed-history)));
- ctx.save();
- for(let i=0;i<steps;i++){
-   const b=project(P.pitchAt(s.pitch,Math.max(0,elapsed-history+(i+1)*history/steps)));
-   damage(Math.min(a.x,b.x)-radius,Math.min(a.y,b.y)-radius,Math.abs(a.x-b.x)+radius*2,Math.abs(a.y-b.y)+radius*2);
-   ctx.globalAlpha=.04+.35*(i+1)/steps;
-   line(a.x,a.y,b.x,b.y,'#fffdf1',Math.max(1.2,radius*.40));a=b;
+ const radius=p.r;
+ damage(ground.x-radius-2,ground.y-radius*.3-2,radius*2+4,radius*.6+4);
+ ctx.save();ctx.globalAlpha=.18;
+ ellipse(ground.x,ground.y,radius,Math.max(.4,radius*.20),'#456654');ctx.restore();
+ // Ghost only ball positions that were actually drawn in previous frames.
+ // No generated path, connecting ribbon, future sample, or amplified radius.
+ const trace=s.pitchTrace,last=trace.at(-1),history=.024;
+ if(!last||elapsed>last.t+1e-7)trace.push({t:elapsed,x:p.x,y:p.y,r:radius});
+ while(trace.length&&trace[0].t<elapsed-history)trace.shift();
+ if(trace.length>8)trace.splice(0,trace.length-8);
+ for(const point of trace){const age=elapsed-point.t;if(age<=1e-7)continue;
+   damage(point.x-point.r-3,point.y-point.r-3,point.r*2+6,point.r*2+6);
+   baseball(point.x,point.y,point.r,.14*(1-age/history));
  }
- ctx.restore();damage(p.x-radius-3,p.y-radius-3,radius*2+6,radius*2+6);
+ damage(p.x-radius-3,p.y-radius-3,radius*2+6,radius*2+6);
  baseball(p.x,p.y,radius);
 }
 function draw(t){
