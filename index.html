@@ -360,7 +360,7 @@ const BaseballMatch=(()=>{
    if(path.fair&&path.clearsFence)return {kind:'hit',bases:4,label:'全壘打'};
    if(hit.launchAngle>=8){
      for(let i=1;i<path.samples.length;i++){
-       const p=path.samples[i],prev=path.samples[i-1];if(p.t<.3||p.h>2.6||p.h>prev.h)continue;
+       const p=path.samples[i],prev=path.samples[i-1];if(p.t<.3||p.h<=.10||p.h>2.6||p.h>prev.h)continue;
        const f=fielders.find(f=>Math.hypot(p.x-f.x,p.y-f.y)<=1.2+5.4*Math.max(0,p.t-.35));
        if(f)return {kind:'out',label:(path.fair?'':'界外')+'飛球接殺 · '+f.name,catchTime:p.t,catchPoint:p};
      }
