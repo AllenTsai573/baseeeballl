@@ -40,7 +40,7 @@ body{min-width:1100px}.app{padding:22px 26px 20px;max-width:1220px}.layout{displ
 .timing-feedback[data-grade="foul"]{background:#f5e3cf;color:#976347;border-color:#dfba92;font-size:18px;font-weight:800}.bat-contact-result{border-top:1px solid #d8dfc9;margin-top:12px;padding-top:10px}.bat-contact-result>div{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:12px;color:#82947c}.bat-contact-result b{font-size:13px;color:#526f59}.scene .bat-contact-result canvas{display:block;width:100%;height:58px;position:static;margin:3px 0}.bat-contact-result small{font-size:11px}.pitch-result-panel{bottom:118px;padding:13px 16px}.pitch-result-panel p{margin:9px 0 6px}.resolved-pitch{margin-top:10px}.field-aim-panel .hint{margin-top:9px}.field-aim-panel h3{margin-bottom:10px}.field-aim-panel #reset{margin-top:10px}
 .prediction-controls{position:absolute;left:50%;bottom:55px;transform:translateX(-50%);display:flex;align-items:center;gap:17px;padding:11px 14px;background:#fffbeeef;border:1px solid #fff8df;border-radius:11px;z-index:6;box-shadow:0 2px 10px #52714d12;white-space:nowrap}.prediction-controls label{display:flex;align-items:center;gap:8px;font-size:13px;color:#4f785e;cursor:pointer}.prediction-controls input{margin:0;width:18px;height:18px;accent-color:#548574;cursor:pointer}.prediction-controls input:focus-visible{outline:2px solid #bd925b;outline-offset:3px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.net-lobby{padding:17px 20px;margin-bottom:18px;border:1px solid #cbdccd;background:#edf4e8;border-radius:15px}.net-heading{display:flex;align-items:center;gap:16px;margin-bottom:13px}.net-heading b{font-size:19px;color:#396b58}.net-heading span{font-size:13px;color:#7a917c}.net-buttons{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.net-buttons button{border:1px solid #bacfb8;border-radius:9px;background:#fffbed;padding:11px 16px;font-size:14px;color:#4b765e;min-height:43px}.net-buttons #netCreate{background:#467d68;color:#fffbed;border-color:#467d68}.net-buttons input{width:150px;padding:11px 12px;border:1px solid #bacfb8;border-radius:9px;font:600 16px monospace;letter-spacing:2px;text-transform:uppercase;background:#fffef5;color:#426d58;min-height:43px}.net-buttons input:focus-visible{outline:2px solid #c7965c;outline-offset:2px}.net-bottom{display:flex;justify-content:space-between;align-items:center;gap:15px;font-size:13px;color:#6c886c;margin-top:12px;line-height:1.7}.net-bottom b{letter-spacing:2px;font:700 20px monospace;color:#3b715c}.match-board{border:1px solid #cbdccd;border-radius:14px;padding:14px 20px;background:#385f54;color:#fffae5;margin-bottom:12px}.match-top,.match-bottom{display:flex;align-items:center;gap:24px}.match-top{font-size:16px}.net-half{padding:7px 12px;background:#e6cf8c;color:#495c43;border-radius:6px;font-weight:800}.net-score{display:flex;gap:25px}.net-score b{font-size:29px;margin-left:8px}.net-role{margin-left:auto;border:1px solid #6e9580;padding:7px 12px;border-radius:8px;font-size:14px}.match-bottom{font-size:13px;margin-top:13px;color:#d6e4c7;gap:16px;min-height:29px}.match-bottom b{margin-left:auto;color:#fff3bc;font-size:15px}.net-diamond{position:relative;width:36px;height:30px;margin-right:3px}.net-diamond i{position:absolute;width:10px;height:10px;transform:rotate(45deg);background:#719480;border:1px solid #a7c3a3}.net-diamond i.occupied{background:#f1ce73;border-color:#ffedb5}#netFirst{right:0;top:15px}#netSecond{left:13px;top:2px}#netThird{left:0;top:15px}
-.scene #fieldBackdrop{position:absolute;inset:0;pointer-events:none}.scene #field{position:relative;display:block}
+.scene #fieldBackdrop{position:absolute;inset:0;pointer-events:none}.scene #players3d{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.scene #field{position:relative;display:block}
 /* ===== Stadium redesign: dark dome, field-first batting view ===== */
 :root{--night:#0b1220;--panel:#121c2e;--panel-2:#18253b;--edge:#26354f;--text:#e8eef7;--muted:#8b9ab2;--accent:#ffcf3f;--accent-ink:#2a1f00;--red:#e2463c;--cyan:#59d0ff}
 body{background:radial-gradient(1200px 600px at 50% -10%,#1d2c47 0,var(--night) 60%) fixed;color:var(--text);min-width:1000px}
@@ -139,14 +139,15 @@ dialog a{color:var(--cyan)}
 <div class="layout"><section class="game" aria-label="球場與比賽狀態">
 <div class="match-board" id="matchBoard" hidden><div class="match-top"><span class="net-half" id="netHalf">1 局上</span><div class="net-score"><span>客隊 <b id="netAwayScore">0</b></span><span>主隊 <b id="netHomeScore">0</b></span></div><span id="netCounts">B 0　S 0　O 0</span><span class="net-role" id="netRole"></span></div><div class="match-bottom"><div class="net-diamond" aria-hidden="true"><i id="netFirst"></i><i id="netSecond"></i><i id="netThird"></i></div><span id="netBases"></span><span id="netOrder"></span><b id="netPlay" aria-live="polite"></b></div></div>
 <div class="scoreboard lab-board"><div class="lab-title"><span class="team-icon" aria-hidden="true">⚾</span><div><b>節奏打擊練習</b><small>RHYTHM BATTING · REAL-TIME</small></div></div><div class="field-distance" title="投手板前緣至本壘後尖角的標準距離；球從延伸後的出手位置飛至本壘中段">投手板 → 本壘 <b>18.44 m</b></div><div class="lab-flight"><span>出手 → 本壘</span><b id="flightTime">0.435 s</b></div><span class="fps-readout" aria-label="目前畫面更新率">FPS <b id="fpsValue">—</b></span><span class="lab-state" id="liveState" aria-live="polite">自由練習</span></div>
-<div class="scene" id="scene"><canvas id="fieldBackdrop" width="900" height="720" aria-hidden="true"></canvas><canvas id="field" width="900" height="720" role="application" tabindex="0" aria-label="打擊球場：移動滑鼠控制球棒，按左鍵揮棒"></canvas><div class="scene-chip"><span>●</span><span id="sceneMode">FREE BATTING</span></div><div class="pitch-readout"><b id="speed">—</b> <span style="font-size:9px">km/h</span><small id="speedCaption">本球球速</small><small id="ballLabel">等待投球</small></div>
+<div class="scene" id="scene"><canvas id="fieldBackdrop" width="900" height="720" aria-hidden="true"></canvas><canvas id="players3d" width="900" height="720" aria-hidden="true"></canvas><canvas id="field" width="900" height="720" role="application" tabindex="0" aria-label="打擊球場：移動滑鼠控制球棒，按左鍵揮棒"></canvas><div class="scene-chip"><span>●</span><span id="sceneMode">FREE BATTING</span></div><div class="pitch-readout"><b id="speed">—</b> <span style="font-size:9px">km/h</span><small id="speedCaption">本球球速</small><small id="ballLabel">等待投球</small></div>
 <div id="pitchLocation" class="pitch-location" role="img" aria-label="投球落點" hidden></div><div class="pitch-result-panel" id="pitchResult" aria-live="polite" hidden><div class="pitch-result-head"><span class="point-legend">●</span><b id="pointKind">投球落點</b><span>本球結果</span></div><div class="resolved-pitch"><b id="resolvedPitch"></b><strong id="resolvedSpeed"></strong></div><p id="resolvedLocation"></p><small>位置標記保留至下一球開始</small><div class="bat-contact-result" id="batContactResult" hidden><div><span>棒身接觸</span><b id="contactLabel"></b></div><canvas id="batContact" width="260" height="58" role="img" aria-label="棒身接觸位置"></canvas><small>十字：甜蜜點　橘點：本球接觸</small></div></div><div class="zone" id="zone" aria-hidden="true"></div><div class="zone-label" id="zoneLabel">STRIKE ZONE</div><div class="announcement" id="announcement" aria-live="polite"><b id="resultTitle"></b><small id="resultDetail"></small></div><div class="scene-bottom"><span class="player-name" id="pitcherName"></span><span>HIYORI BASEBALL CLUB</span><span class="player-name" id="batterName"></span></div><div class="field-controls"><span id="fieldHint">移動球棒 · 左鍵試揮／打擊</span><div class="field-buttons"><button id="fieldPractice" class="practice-button">試揮 ⤾</button><button id="fieldThrow">開始投球 ↗</button></div></div></div>
-<div class="dugout" aria-label="打擊設定"><div class="dugout-card matchup-card"><h3>對戰</h3><div class="matchup-selectors" aria-label="球場選手選擇"><label><span>投手</span><select id="pitcherSelect"><option value="skenes">Paul Skenes</option><option value="yamamoto">山本由伸</option></select></label><label><span>打者</span><select id="batterSelect"><option value="judge">Judge · 右打</option><option value="ohtani">大谷翔平 · 左打</option></select></label></div></div><div class="arsenal-panel" aria-label="球場球種選擇"><h3>投球球種</h3><div class="pitch-list" id="pitchList"></div><div class="field-speed"><span>投手平均值</span><b id="pitchSpeedValue"></b><small id="pitchData"></small><span>隨機球速範圍</span><b id="speedRange"></b><small>遊戲變動：球種均速 ±5 km/h</small></div><p id="actualPitch" aria-live="polite">等待投球</p></div><div class="aim-tools field-aim-panel"><h3>打擊控制</h3><div class="setting"><label for="targetMode">來球落點</label><select id="targetMode"><option value="center">固定中央</option><option value="random" selected>隨機框內</option><option value="manual" hidden>投手指定</option></select></div><div class="setting"><label for="batControl">球棒位置</label><select id="batControl"><option value="free">滑鼠移動</option><option value="center">固定中央</option></select></div><p id="inputLabel" class="hint"></p><p class="hint">對準棒身，球到框附近時點左鍵。</p><div id="timingFeedback" class="timing-feedback" data-grade="idle" aria-live="polite">等球到框，再點左鍵</div><div class="prediction-controls" role="group" aria-label="預測圈開關"><label title="顯示球棒周圍的擊球時機提示圈"><input type="checkbox" id="batPredictionToggle"><span>球棒預測圈</span></label><label title="顯示來球預計到達好球框的位置與接近提示"><input type="checkbox" id="pitchPredictionToggle"><span>球路預測圈</span></label></div><button class="quiet" id="reset">↻ 重新練習</button></div></div><div class="status"><span class="status-icon">i</span><span id="status" aria-live="polite">可移動棒身或選擇固定中央，點左鍵試揮，再按畫面內的「開始投球」。</span></div>
+<div class="dugout" aria-label="打擊設定"><div class="dugout-card matchup-card"><h3>對戰</h3><div class="matchup-selectors" aria-label="球場選手選擇"><label><span>投手</span><select id="pitcherSelect"><option value="skenes">Paul Skenes</option><option value="yamamoto">山本由伸</option></select></label><label><span>打者</span><select id="batterSelect"><option value="judge">Judge · 右打</option><option value="ohtani">大谷翔平 · 左打</option></select></label></div></div><div class="arsenal-panel" aria-label="球場球種選擇"><h3>投球球種</h3><div class="pitch-list" id="pitchList"></div><div class="field-speed"><span>投手平均值</span><b id="pitchSpeedValue"></b><small id="pitchData"></small><span>隨機球速範圍</span><b id="speedRange"></b><small>遊戲變動：球種均速 ±5 km/h</small></div><p id="actualPitch" aria-live="polite">等待投球</p></div><div class="aim-tools field-aim-panel"><h3>打擊控制</h3><div class="setting"><label for="targetMode">來球落點</label><select id="targetMode"><option value="center">固定中央</option><option value="random" selected>隨機框內</option><option value="manual" hidden>投手指定</option></select></div><div class="setting"><label for="batControl">球棒位置</label><select id="batControl"><option value="free">滑鼠移動</option><option value="center">固定中央</option></select></div><p id="inputLabel" class="hint"></p><p class="hint">對準棒身，球到框附近時點左鍵。</p><div id="timingFeedback" class="timing-feedback" data-grade="idle" aria-live="polite">等球到框，再點左鍵</div><div class="prediction-controls" role="group" aria-label="預測圈開關"><label title="顯示球棒周圍的擊球時機提示圈"><input type="checkbox" id="batPredictionToggle"><span>球棒預測圈</span></label><label title="顯示來球預計到達好球框的位置與接近提示"><input type="checkbox" id="pitchPredictionToggle"><span>球路預測圈</span></label><label title="在來球後方留下實際飛過位置的發光軌跡"><input type="checkbox" id="pitchTraceToggle" checked><span>球路軌跡</span></label></div><button class="quiet" id="reset">↻ 重新練習</button></div></div><div class="status"><span class="status-icon">i</span><span id="status" aria-live="polite">可移動棒身或選擇固定中央，點左鍵試揮，再按畫面內的「開始投球」。</span></div>
 <div class="practice-settings"><div><h3>選手資料</h3><p id="pitcherInfo" class="player-info"></p><p class="delivery-info">投球姿勢：<b id="deliveryName"></b> <small>風格近似</small></p><a id="pitchSource" class="data-link" target="_blank" rel="noopener">2026 投手資料 ↗</a><p id="batterInfo" class="player-info"></p><div class="player-metrics"><div><span>甜蜜點揮速</span><b id="batSpeedValue"></b></div><div><span>揮棒上揚角</span><b id="attackAngleValue"></b></div><div><span>甜蜜點強力擊球範圍</span><b id="swingDelay"></b></div></div><a id="batterSource" class="data-link" target="_blank" rel="noopener">2026 打者資料 ↗</a></div><div><h3>好球框參考</h3><div class="player-metrics"><div><span>寬 × 高</span><b id="zoneSize"></b></div><div><span>距地面高度</span><b id="zoneHeight"></b></div></div><p class="hint">球棒上緣較平、下緣較斜。<br>空白鍵再投一球；左鍵試揮／打擊。<br>自由練習不計好壞球及出局。</p></div></div><section class="landing-panel" aria-label="擊球飛行與估算落點"><div class="landing-head"><h3>這一球，會落在哪裡？</h3><span id="landingState">等待擊球</span></div><div class="hit-metrics"><div><span>擊球初速</span><b><span id="exitSpeed">—</span> <small>km/h</small></b></div><div><span>仰角</span><b id="launchAngle">—</b></div><div><span>方向</span><b id="sprayAngle">—</b></div><div><span>首次落地距離</span><b><span id="carryValue">—</span> <small>m</small></b></div></div><canvas id="landingMap" width="900" height="360" role="img" aria-label="俯視棒球場，顯示估算的击球軌跡及首次落地位置"></canvas><div class="landing-foot"><span id="landingInfo" aria-live="polite">擊中來球後顯示首次落地位置</span><span>空氣阻力＋重力＋簡化旋轉升力</span></div></section>
 </section></div>
 <div class="footer"><span>原創棒球 · 找到節奏，打出漂亮的一球。</span><span>MADE FOR THE LOVE OF BASEBALL ⚾</span></div>
 </main>
 <dialog id="helpDialog"><p><b>網路兩隊對戰</b><br>主隊建立房間，朋友在另一台電腦輸入房號加入。客隊先攻；三出局換邊，九局定勝負，平手延長賽從二壘有人開始。三好球三振、四壞保送；兩好球後一般界外不增加好球。主隊九局下或延長賽取得領先即再見勝利。</p><p><b>攻守操作</b><br>投球方點框內或框外指定落點，左側選球種，按投球或空白鍵送出；打擊方用滑鼠移動棒身、左鍵揮擊，也可不揮。守備與跑壘採自動判定；目前九棒輪替共用各隊選定打者的能力。此版先不包含手動守備、盜壘、觸擊、換人及失誤。連線不成功時可換網路再試；離開頁面會中止比賽。</p><h3>節奏打擊練習</h3><p><b>操作</b><br>滑鼠移動棒身，等球到好球框附近時按左鍵。預設不顯示預測圈；可在球場下方分別開啟球棒預測圈與球路預測圈。球棒圈提示揮棒時機；球路圈標示來球預計到達好球框的位置，並隨來球接近收合。沒有來球時可試揮；空白鍵或畫面按鈕開始／再次投球。中央來球可把球棒也固定中央。每球只接受一次打擊輸入。</p><p><b>擊球結果</b><br>以按下左鍵的時間與棒身覆蓋位置判定，完整揮擊動畫保持原本感覺。甜蜜點附近、前後 50 ms 內保留強力擊球機會；全壘打仍須有足夠初速、合適仰角，並在界內越過外野牆。較大的早晚誤差會減少力道、偏向界外；超過前後 140 ms 或棒身沒碰到來球則揮空。左右打的拉打方向鏡射。這些時間範圍是遊戲設定。</p><p><b>棒身接觸</b><br>球碰棒身上緣容易成為高飛球，下緣容易成為滾地球；靠棒頭或內側會降低力道。畫面直接顯示全壘打、場內／界外的高飛、平飛或滾地球，以及估算落點，不顯示節奏分數。右側棒身圖以十字標甜蜜點、橘點標這一球的接觸位置。位置判定取按下左鍵時的棒身可見輪廓；動畫只提供視覺回饋，不用提前扣除揮棒時間。</p><p><b>選手與球種</b><br>遊戲上方選投手、打者，左側選球種，右側切換來球位置與球棒控制。來球落點預設隨機框內，兩種預測圈預設關閉，可隨時獨立切換。預設隨機球種，依 2026 投球比例抽選；均速上下 5 km/h 的遊戲範圍內隨機出球。隨機球種到球通過或被擊中才公布。投球／擊球位置保留到下一球開始。Judge 右打、大谷左打，棒身與揮擊方向鏡射。</p><p><b>投手姿勢</b><br>Skenes 採低臂角、長跨步風格；山本採直立、小抬腿踏步與較高臂角風格。切換投手會改變火柴人的體型、動作節奏與出手位置，球從各自手部飛出。參考 <a href="https://www.mlb.com/amp/news/paul-skenes-2026-metrics-comparison-deep-dive.html" target="_blank" rel="noopener">Skenes 官方分析</a>、<a href="https://www.mlb.com/news/the-range-of-pitcher-arm-angles-in-the-2024-mlb-postseason" target="_blank" rel="noopener">山本臂角資料</a>。關節與時間是作者近似設定，非球員動作捕捉或實測出手座標。</p><p><b>資料與落點</b><br>球種、均速、球路位移與打者平均揮速／上揚角，採 Baseball Savant 的 2026-10-08 靜態快照。投球按真實時間飛行；擊球初速、仰角、方向會依點擊早晚與棒身接觸位置調整，屬遊戲估算。首次落地以重力、阻力和簡化升力計算，不包含守備及落地滾動。</p><p><b>觀察來球</b><br>視角已拉近，遠處的球與投手較容易辨認；球隨距離縮短逐漸變大，地面陰影提供遠近參考。短尾跡只顯示球剛飛過的位置，幫助觀察橫移和下墜。實際飛行時間、球路參數與本壘打擊座標維持一致。若需要輔助，可開啟球路預測圈。</p><p><b>球場與好球框</b><br>投手板至本壘後尖角 18.44 m、投手丘高 25.4 cm，投手與球場共用透視座標。好球框寬 43.18 cm，上下緣為公開身高的 53.5%／27%，屬 ABS 近似參考；只有外框。自由練習不計好壞球、出局及分數。</p><button class="primary" id="closeHelp">開始練習</button></dialog>
+<script src="three-0.158.0.min.js"></script>
 <script>
 /* SI units. A simplified baseball model, not a calibrated Statcast simulator. */
 const BaseballPhysics=(()=>{
@@ -912,6 +913,7 @@ function drawGround(){
 function stickPitcher(elapsed=0,holdingBall=false){
  const pose=F.pitcherPose(elapsed,$('pitcherSelect').value),q=Object.fromEntries(Object.entries(pose).map(([k,p])=>[k,F.project(p)]));
  for(const p of Object.values(q))damage(p.x-32,p.y-32,64,64);
+ if(P3){if(holdingBall)baseball(q.hand.x,q.hand.y,F.ballRadius(pose.hand));return;}
  const width=Math.max(2.4,q.hip.scale*.11),uniform='#f1f3f7',outline='#0b1220',cap=delivery().color,shade='#c5cbd6';
  const link=(a,b,color=uniform,w=width)=>capsule(q[a],q[b],w*.62,w*.55,color,color===shade?.12:0);
  const shadow=F.project({x:pose.hip.x,y:F.moundHeight(pose.hip.x,pose.hip.z),z:pose.hip.z});
@@ -1044,6 +1046,7 @@ function batterHands(t){
  return {grip:at(-98),knob:at(-112),barrelEnd:at(-80),twist,alpha:active?p.alpha:1};
 }
 function drawBatter(t){
+ if(P3)return;
  const b=batter(),side=b.hand==='R'?-1:1,k=b.height/1.95,u=uniforms[$('batterSelect').value]||uniforms.judge;
  const hands=batterHands(t),tw=hands.twist,ease=tw*tw*(3-2*tw);
  // Seen from behind like a broadcast batting cam: lx > 0 points away from the plate.
@@ -1139,6 +1142,220 @@ function drawBatter(t){
  ctx.save();ctx.globalAlpha=.7;ctx.fillStyle='#0b0b0b';for(const o of [-.32,.32]){ctx.beginPath();ctx.ellipse(h.x+o*hr,h.y-hr*.62,hr*.07,hr*.04,0,0,Math.PI*2);ctx.fill();}ctx.restore();
  ctx.restore();
 }
+// Real-time 3D players (Three.js) on a transparent layer between the field and the
+// 2D overlay canvas. The camera reproduces F.project exactly, so the 3D bat meets
+// the same aim point the hit judgment uses. Falls back to the 2D figures if WebGL
+// or the library is unavailable.
+const P3=(()=>{
+ if(typeof THREE==='undefined')return null;
+ const el=document.getElementById('players3d');let renderer;
+ try{renderer=new THREE.WebGLRenderer({canvas:el,alpha:true,antialias:true});}catch{return null;}
+ renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));renderer.setSize(900,720,false);
+ renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
+ renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+ const V=(x=0,y=0,z=0)=>new THREE.Vector3(x,y,z),T=p=>V(p.x,p.y,-p.z); // game metres -> three (z flipped)
+ const scene=new THREE.Scene(),cam=F.camera;
+ const fullW=2*Math.max(cam.x,900-cam.x),fullH=2*Math.max(cam.horizon,720-cam.horizon);
+ const camera=new THREE.PerspectiveCamera(2*Math.atan(fullH/2/cam.focal)*180/Math.PI,fullW/fullH,.05,200);
+ camera.setViewOffset(fullW,fullH,fullW/2-cam.x,fullH/2-cam.horizon,900,720);
+ camera.position.set(0,cam.y,cam.back);camera.lookAt(0,cam.y,0);
+ // Stadium lighting: warm key from high behind the plate, cool rim from centre field.
+ scene.add(new THREE.HemisphereLight(0xdde6ff,0x7a4b2c,1.25));
+ const key=new THREE.DirectionalLight(0xfff0d8,3.1);key.position.copy(T({x:-3.5,y:9,z:-6}));key.target.position.copy(T({x:0,y:1,z:0}));
+ key.castShadow=true;key.shadow.mapSize.set(2048,2048);Object.assign(key.shadow.camera,{left:-3,right:3,top:3,bottom:-3,near:1,far:25});key.shadow.bias=-.0004;key.shadow.radius=4;
+ scene.add(key,key.target);
+ const rim=new THREE.DirectionalLight(0xbcd4ff,1.9);rim.position.copy(T({x:4,y:7,z:14}));scene.add(rim);
+ const catcher=new THREE.Mesh(new THREE.PlaneGeometry(7,5),new THREE.ShadowMaterial({opacity:.42}));
+ catcher.rotation.x=-Math.PI/2;catcher.position.set(0,.003,-.3);catcher.receiveShadow=true;scene.add(catcher);
+ const mat=(color,rough=.72,extra={})=>new THREE.MeshStandardMaterial({color,roughness:rough,metalness:0,...extra});
+ const UP=V(0,1,0);
+ function figure(c){
+   const g=new THREE.Group(),parts={};scene.add(g);
+   const add=(name,geo,m)=>{const mesh=new THREE.Mesh(geo,m);mesh.castShadow=true;mesh.receiveShadow=true;g.add(mesh);parts[name]=mesh;return mesh;};
+   const limb=(name,rA,rB,m)=>{add(name,new THREE.CylinderGeometry(rB,rA,1,20,1,false),m);add(name+'A',new THREE.SphereGeometry(rA,20,14),m);};
+   const M={jersey:mat(c.jersey,.68),pants:mat(c.pants,.82),sock:mat(c.sock,.75),skin:mat(c.skin,.55),glove:mat(c.glove,.6),cleat:mat(0x101114,.38),belt:mat(0x15171c,.5),
+     helmet:new THREE.MeshPhysicalMaterial({color:c.helmet,roughness:.26,metalness:.05,clearcoat:1,clearcoatRoughness:.12})};
+   for(const s of ['L','R']){
+     limb('thigh'+s,.104,.074,M.pants);limb('shin'+s,.072,.058,M.pants);limb('sock'+s,.057,.043,M.sock);
+     add('foot'+s,new THREE.SphereGeometry(1,20,12),M.cleat);
+     limb('sleeve'+s,.078,.068,M.jersey);limb('upper'+s,.057,.049,M.skin);limb('fore'+s,.05,.037,M.skin);
+     add('hand'+s,new THREE.SphereGeometry(.05,16,12),M.glove);
+   }
+   add('pelvis',new THREE.SphereGeometry(1,24,16),M.pants);add('belt',new THREE.CylinderGeometry(1,1,1,28,1,true),M.belt);
+   add('abdomen',new THREE.SphereGeometry(1,24,16),M.jersey);add('yoke',new THREE.SphereGeometry(1,28,16),M.jersey);add('chest',new THREE.SphereGeometry(1,28,18),M.jersey);
+   limb('neck',.064,.057,M.skin);add('head',new THREE.SphereGeometry(.098,24,18),M.skin);
+   if(c.helmet!=null){
+     add('helmet',new THREE.SphereGeometry(.124,32,20,0,Math.PI*2,0,Math.PI*.62),M.helmet);
+     add('flap',new THREE.SphereGeometry(1,20,14),M.helmet);
+     add('brim',new THREE.SphereGeometry(1,24,8,0,Math.PI*2,0,Math.PI*.5),M.helmet);
+   }else{
+     add('cap',new THREE.SphereGeometry(.104,24,14,0,Math.PI*2,0,Math.PI*.5),mat(c.cap,.6));
+     add('brim',new THREE.CylinderGeometry(.075,.075,.012,20,1,false,0,Math.PI),mat(c.cap,.6));
+   }
+   if(c.chestText){
+     const tc=document.createElement('canvas');tc.width=256;tc.height=128;const x=tc.getContext('2d');
+     x.font='italic 900 92px "Arial Black",sans-serif';x.textAlign='center';x.textBaseline='middle';x.lineWidth=10;x.strokeStyle=c.textEdge;x.strokeText(c.chestText,128,68);x.fillStyle=c.text;x.fillText(c.chestText,128,68);
+     const tex=new THREE.CanvasTexture(tc);tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=4;
+     add('logo',new THREE.PlaneGeometry(.2,.1),new THREE.MeshStandardMaterial({map:tex,transparent:true,roughness:.6,polygonOffset:true,polygonOffsetFactor:-2}));
+   }
+   if(c.number){
+     const tc=document.createElement('canvas');tc.width=256;tc.height=256;const x=tc.getContext('2d');
+     x.font='900 170px "Arial Black",sans-serif';x.textAlign='center';x.textBaseline='middle';x.lineWidth=12;x.strokeStyle=c.textEdge;x.strokeText(c.number,128,136);x.fillStyle=c.text;x.fillText(c.number,128,136);
+     const tex=new THREE.CanvasTexture(tc);tex.colorSpace=THREE.SRGBColorSpace;
+     add('number',new THREE.PlaneGeometry(.24,.24),new THREE.MeshStandardMaterial({map:tex,transparent:true,roughness:.6,polygonOffset:true,polygonOffsetFactor:-2}));
+   }
+   return {g,parts};
+ }
+ // Place a unit cylinder (and its joint sphere) between two game-space points.
+ const tmp=V(),q=new THREE.Quaternion();
+ function setLimb(f,name,a,b){
+   const A=T(a),B=T(b),m=f.parts[name],d=tmp.subVectors(B,A),len=d.length()||1e-4;
+   m.position.addVectors(A,B).multiplyScalar(.5);m.quaternion.setFromUnitVectors(UP,d.multiplyScalar(1/len));m.scale.set(1,len,1);
+   f.parts[name+'A'].position.copy(A);
+ }
+ // Orient a part with a basis given in game space: x = forward, y = up.
+ const basis=new THREE.Matrix4();
+ function orient(m,at,fwd,up,sx,sy,sz){
+   const X=T(fwd).normalize(),Y=T(up).normalize(),Z=V().crossVectors(X,Y).normalize();Y.crossVectors(Z,X);
+   basis.makeBasis(X,Y,Z);m.quaternion.setFromRotationMatrix(basis);m.position.copy(T(at));m.scale.set(sx,sy,sz);
+ }
+ function orientPlane(m,at,normal,up){
+   const N=T(normal).normalize(),Y=T(up).normalize(),X=V().crossVectors(Y,N).normalize();Y.crossVectors(N,X);
+   basis.makeBasis(X,Y,N);m.quaternion.setFromRotationMatrix(basis);m.position.copy(T(at));
+ }
+ function ik(a,target,l1,l2,pole){
+   const d=V().subVectors(target,a),dist=Math.min(Math.max(d.length(),1e-3),(l1+l2)*.999),dir=d.normalize();
+   const cosA=clamp((l1*l1+dist*dist-l2*l2)/(2*l1*dist),-1,1),sinA=Math.sqrt(1-cosA*cosA);
+   const p=pole.clone().addScaledVector(dir,-pole.dot(dir)).normalize();
+   return {mid:a.clone().addScaledVector(dir,l1*cosA).addScaledVector(p,l1*sinA),end:a.clone().addScaledVector(dir,dist)};
+ }
+ const kits={
+   judge:{jersey:0x223a6e,pants:0xc9ced8,sock:0x1a2b55,skin:0x9c6a4c,glove:0xf2f2f2,helmet:0x15254d,chestText:'HIYORI',number:'99',text:'#ffffff',textEdge:'#0b1838'},
+   ohtani:{jersey:0x1f5fbf,pants:0xd4d8df,sock:0x1f5fbf,skin:0xc8956d,glove:0x1f5fbf,helmet:0x123f8f,chestText:'HIYORI',number:'17',text:'#ffffff',textEdge:'#c8102e'}
+ };
+ const batters={};let current=null;
+ function batterFigure(id){
+   if(!batters[id]){batters[id]=figure(kits[id]||kits.judge);
+     const bat=new THREE.Mesh(new THREE.LatheGeometry([[0,0],[.03,0],[.032,.012],[.014,.024],[.012,.3],[.016,.42],[.026,.56],[.0315,.66],[.0325,.81],[.028,.838],[0,.842]].map(([r,y])=>new THREE.Vector2(r,y)),28),
+       new THREE.MeshPhysicalMaterial({color:0x17110c,roughness:.32,clearcoat:.8,clearcoatRoughness:.2}));
+     bat.castShadow=false;batters[id].g.add(bat);batters[id].bat=bat;}
+   for(const [k,f] of Object.entries(batters))f.g.visible=k===id;
+   return batters[id];
+ }
+ const pitcherFig=figure({jersey:0xf3f4f7,pants:0xf3f4f7,sock:0x22324f,skin:0xb88160,glove:0x6b3a1c,helmet:null,cap:0x22324f});
+ for(const m of Object.values(pitcherFig.parts))m.castShadow=false;
+ const nl=(a,b,u)=>a.clone().lerp(b,u).normalize(),bez=(a,m,b,u)=>a.clone().multiplyScalar((1-u)*(1-u)).addScaledVector(m,2*u*(1-u)).addScaledVector(b,u*u);
+ function poseBatter(t){
+   const b=batter(),id=$('batterSelect').value,fig=batterFigure(id),P=fig.parts,k=b.height/1.95,f=b.hand==='R'?1:-1,spineX=-f*.86;
+   // Local frame: lx toward the plate, z toward the pitcher. W() converts to game metres.
+   const W=(lx,y,z)=>V(spineX+f*lx,y,z),toW=v=>W(v.x,v.y,v.z);
+   const age=s.swing?(t-s.swingStart)/1000:0,active=swingActive(t)&&!!s.swing;
+   let theta=-1.65,back=0;
+   if(active){const end=s.swing.windupTime+s.swing.tail;theta=A.sweep(s.swing,Math.min(age,end));if(age>end)back=clamp((age-end)/s.swing.recovery,0,1);}
+   const twist=clamp((theta+1.65)/3.15,0,1)*(1-back),e=twist*twist*(3-2*twist);
+   const stride=active?Math.min(1,(theta+1.65)/1.2)*(1-back)*.1:0;
+   const yawH=-.12+e*1.0,yawS=-.22+e*1.5,lean=.24;
+   const rot=(x,z,a)=>[x*Math.cos(a)-z*Math.sin(a),x*Math.sin(a)+z*Math.cos(a)];
+   // Lower body.
+   const pelvis=V(.02,.9*k,.02+stride*.4),hipLat=.105;
+   const hipF=(()=>{const [x,z]=rot(0,hipLat,yawH);return V(pelvis.x+x,pelvis.y-.04,pelvis.z+z)})(),hipB=(()=>{const [x,z]=rot(0,-hipLat,yawH);return V(pelvis.x+x,pelvis.y-.04,pelvis.z+z)})();
+   const footF=V(.06,.05,.44+stride),footB=V(-.02,.05+e*.04,-.38);
+   const thigh=.47*k,shin=.45*k;
+   for(const [s2,hip,foot,side] of [['L',hipF,footF,1],['R',hipB,footB,-1]]){
+     const leg=ik(hip,foot,thigh,shin,V(1,0,side*.35+(side<0?e*.6:0)));
+     const ankle=leg.end,calf=leg.mid.clone().lerp(ankle,.55);
+     setLimb(fig,'thigh'+s2,toW(hip),toW(leg.mid));setLimb(fig,'shin'+s2,toW(leg.mid),toW(calf));setLimb(fig,'sock'+s2,toW(calf),toW(ankle));
+     const toe=side>0?V(.85,0,.5):V(.7+e*.3,0,-.3+e*.6);
+     orient(P['foot'+s2],toW(V(ankle.x+toe.x*.05,.035,ankle.z+toe.z*.05)),V(f*toe.x,0,toe.z),V(0,1,0),.15,.045,.055);
+   }
+   // Torso leans toward the plate and turns toward the pitcher through the swing.
+   const fwdS=(()=>{const [x,z]=rot(1,0,yawS);return V(x,0,z)})(),fwdH=(()=>{const [x,z]=rot(1,0,yawH);return V(x,0,z)})();
+   const spineUp=V(0,1,0).addScaledVector(fwdS,lean).normalize(),chestTop=pelvis.clone().addScaledVector(spineUp,.52*k);
+   const lat=V(-fwdS.z,0,fwdS.x),shF=chestTop.clone().addScaledVector(lat,.205).add(V(0,-.03,0)),shB=chestTop.clone().addScaledVector(lat,-.205).add(V(0,-.03,0));
+   const wf=v=>V(f*v.x,v.y,v.z);
+   orient(P.pelvis,toW(pelvis),wf(fwdH),V(0,1,0),.14,.13,.19);
+   orient(P.belt,toW(pelvis.clone().add(V(0,.07,0))),wf(fwdH),V(0,1,0),.145,.035,.185);P.belt.rotation.order='XYZ';
+   orient(P.abdomen,toW(pelvis.clone().addScaledVector(spineUp,.2*k)),wf(fwdH.clone().lerp(fwdS,.5)),wf(spineUp),.14,.18,.18);
+   const chestC=pelvis.clone().addScaledVector(spineUp,.36*k);
+   orient(P.chest,toW(chestC),wf(fwdS),wf(spineUp),.148,.235,.225);
+   if(P.logo)orientPlane(P.logo,toW(chestC.clone().addScaledVector(fwdS,.148).addScaledVector(spineUp,.07)),wf(fwdS),wf(spineUp));
+   if(P.number)orientPlane(P.number,toW(chestC.clone().addScaledVector(fwdS,-.152).addScaledVector(spineUp,.03)),wf(fwdS.clone().multiplyScalar(-1)),wf(spineUp));
+   // Shoulder yoke bridges chest and sleeves so the silhouette stays smooth when the torso turns.
+   orient(P.yoke,toW(chestTop.clone().addScaledVector(spineUp,-.06*k)),wf(fwdS),wf(spineUp),.115,.08,.235);
+   // Bat path: stance -> lag -> contact at the aim point -> wrap-around finish.
+   const stanceGrip=V(.17,1.42*k,-.31),stanceDir=V(.28,1,-.22).normalize();
+   let grip=stanceGrip,dir=stanceDir;
+   if(active){
+     const aim=pose(s.swingOrigin),w=F.world(aim),contact=V(f*(w.x-spineX),w.y,0);
+     const dirC=V(Math.cos(aim.angle),-Math.sin(aim.angle),.12).normalize(),gripC=contact.clone().addScaledVector(dirC,-.6);
+     // Follow-through stays in front of the chest (toward the pitcher), then wraps over the lead shoulder clear of the helmet.
+     const lagGrip=V(.12,1.12*k,-.06),lagDir=V(-.1,.35,-1).normalize(),extGrip=V(.3,1.02*k,.48),extDir=V(.2,.25,1).normalize(),finGrip=V(-.05,1.45*k,.42),finDir=V(-.45,.55,-.7).normalize();
+     if(theta<=0){const u=(theta+1.65)/1.65,v=u*u;grip=bez(stanceGrip,lagGrip,gripC,v);dir=nl(nl(stanceDir,lagDir,v),nl(lagDir,dirC,v),v);}
+     else if(theta<.8){const u=theta/.8;grip=gripC.clone().lerp(extGrip,u);dir=nl(dirC,extDir,u);}
+     else{const u=clamp((theta-.8)/.9,0,1),v=u*(2-u);grip=bez(extGrip,V(.12,1.35*k,.55),finGrip,v);dir=nl(nl(extDir,V(-.2,.9,.2).normalize(),v),nl(V(-.2,.9,.2).normalize(),finDir,v),v);}
+     if(back){grip=grip.clone().lerp(stanceGrip,back);dir=nl(dir,stanceDir,back);}
+   }
+   // Keep the bat out of the body for any aim: push the hands out along the
+   // surface normal of whichever volume (chest, shoulders, helmet) it would enter.
+   if(active){
+     const lat2=V(-fwdS.z,0,fwdS.x).normalize(),axes=[fwdS.clone().normalize(),spineUp,lat2],pad=.035;
+     const vols=[[pelvis.clone().addScaledVector(spineUp,.36*k),[.148,.235,.225]],[chestTop.clone().addScaledVector(spineUp,-.06*k),[.115,.08,.235]],[chestTop.clone().add(V(.02,.2*k,.03)),[.14,.14,.14]]];
+     grip=grip.clone();
+     for(let iter=0;iter<5;iter++){
+       let worst=1,push=null;
+       for(let n=0;n<=12;n++){const pt=grip.clone().addScaledVector(dir,-.07+n*.07);
+         for(const [c,r] of vols){const l=axes.map((ax,i)=>pt.clone().sub(c).dot(ax)/(r[i]+pad)),d=Math.hypot(...l);
+           if(d<worst){worst=d;push=axes.reduce((acc,ax,i)=>acc.addScaledVector(ax,l[i]/(r[i]+pad)),V()).normalize().multiplyScalar((1-d)*(Math.min(...r)+pad)*1.15+.004);}}}
+       if(!push)break;grip.add(push);
+     }
+   }
+   const top=grip.clone().addScaledVector(dir,.09);
+   fig.bat.quaternion.setFromUnitVectors(UP,T(wf(dir)).normalize());fig.bat.position.copy(T(toW(grip.clone().addScaledVector(dir,-.07))));
+   // Arms: lead (front) arm to the bottom hand, back arm to the top hand.
+   const upper=.3*k,fore=.29*k;
+   for(const [s2,sh,hand,pole] of [['L',shF,grip,V(-.2,-1,.4)],['R',shB,top,V(-.3,-1,-.5)]]){
+     const arm=ik(sh,hand,upper,fore,pole),sleeveEnd=sh.clone().lerp(arm.mid,.55);
+     setLimb(fig,'sleeve'+s2,toW(sh),toW(sleeveEnd));setLimb(fig,'upper'+s2,toW(sleeveEnd),toW(arm.mid));setLimb(fig,'fore'+s2,toW(arm.mid),toW(arm.end));
+     P['hand'+s2].position.copy(T(toW(arm.end)));
+   }
+   // Head turned to the pitcher; ear flap covers the pitcher-side ear.
+   const neckTop=chestTop.clone().add(V(0,.09*k,0)),head=neckTop.clone().add(V(.02,.11*k,.03));
+   setLimb(fig,'neck',toW(chestTop),toW(neckTop));P.head.position.copy(T(toW(head.clone().add(V(.01,-.01,.02)))));
+   const look=V(.15,-.08,1).normalize();
+   orient(P.helmet,toW(head.clone().add(V(-.01,.012,-.005))),wf(look),V(0,1,0),1,1.04,1);
+   orient(P.flap,toW(head.clone().add(V(f>0?.0:0,-.04,0)).addScaledVector(V(-1,0,.15).normalize(),.1)),V(0,0,1),V(0,1,0),.03,.065,.06);
+   orient(P.brim,toW(head.clone().add(V(.0,.005,0)).addScaledVector(look,.105)),wf(V(0,1,0)),wf(look.clone().multiplyScalar(-1)),.085,.02,.085);
+ }
+ function posePitcher(t){
+   const elapsed=pitcherActive(t)?t-s.windupAt:0,p=F.pitcherPose(elapsed,$('pitcherSelect').value),P=pitcherFig.parts,g=o=>V(o.x,o.y,o.z);
+   const hip=g(p.hip),chest=g(p.chest),head=g(p.head),up=chest.clone().sub(hip).normalize(),side=V(1,0,0);
+   const fwd=V().crossVectors(up,side).normalize().multiplyScalar(-1);
+   const hipL=hip.clone().add(V(-.09,0,0)),hipR=hip.clone().add(V(.09,0,0));
+   for(const [s2,h,knee,foot] of [['L',hipL,p.leadKnee,p.leadFoot],['R',hipR,p.rearKnee,p.rearFoot]]){
+     const kn=g(knee),ft=g(foot),calf=kn.clone().lerp(ft,.55);
+     setLimb(pitcherFig,'thigh'+s2,h,kn);setLimb(pitcherFig,'shin'+s2,kn,calf);setLimb(pitcherFig,'sock'+s2,calf,ft);
+     orient(P['foot'+s2],ft.clone().add(V(0,.03,-.04)),V(0,0,-1),V(0,1,0),.13,.04,.05);
+   }
+   orient(P.pelvis,hip,fwd,up,.12,.12,.17);orient(P.belt,hip.clone().addScaledVector(up,.07),fwd,up,.13,.03,.165);
+   orient(P.abdomen,hip.clone().lerp(chest,.4),fwd,up,.12,.17,.16);orient(P.chest,hip.clone().lerp(chest,.78),fwd,up,.125,.22,.2);orient(P.yoke,chest.clone().addScaledVector(up,-.05),fwd,up,.11,.09,.24);
+   for(const [s2,sh,el,hand] of [['R',p.shoulder,p.elbow,p.hand],['L',p.gloveShoulder,p.gloveElbow,p.glove]]){
+     const S0=g(sh),E=g(el),H=g(hand),sl=S0.clone().lerp(E,.55);
+     setLimb(pitcherFig,'sleeve'+s2,S0,sl);setLimb(pitcherFig,'upper'+s2,sl,E);setLimb(pitcherFig,'fore'+s2,E,H);P['hand'+s2].position.copy(T(H));
+   }
+   P.handL.scale.setScalar(1.7);
+   const neck=chest.clone().addScaledVector(up,.08);setLimb(pitcherFig,'neck',chest,neck);P.head.position.copy(T(head));
+   orient(P.cap,head.clone().add(V(0,.02,0)),V(0,0,-1),V(0,1,0),1,1,1);
+   orient(P.brim,head.clone().add(V(0,.03,-.08)),V(0,0,-1),V(0,1,0),1,1,1);
+ }
+ let lastKey='';
+ function update(t){
+   const pitching=pitcherActive(t),active=swingActive(t);
+   const keyNow=[$('batterSelect').value,$('pitcherSelect').value,pitching,active,active?t:0,pitching?t:0].join(':');
+   if(keyNow===lastKey)return;lastKey=keyNow;
+   poseBatter(t);posePitcher(t);renderer.render(scene,camera);
+ }
+ return {update};
+})();
 function swingView(age){return A.view(s.swing,age,pose(s.swingOrigin))}
 function drawBeat(t){
  if(!$('batPredictionToggle').checked||(N?.active&&!N.isBatter()))return;
@@ -1282,21 +1499,39 @@ function drawIncomingPitch(elapsed){
  damage(ground.x-radius-2,ground.y-radius*.3-2,radius*2+4,radius*.6+4);
  ctx.save();ctx.globalAlpha=.18;
  ellipse(ground.x,ground.y,radius,Math.max(.4,radius*.20),'#456654');ctx.restore();
- // Ghost only ball positions that were actually drawn in previous frames.
- // No generated path, connecting ribbon, future sample, or amplified radius.
- const trace=s.pitchTrace,last=trace.at(-1),history=.024;
+ // Tracer built only from positions the ball has actually occupied: no future
+ // samples or predicted path. The switch falls back to the short ghost trail.
+ const tracer=$('pitchTraceToggle').checked,trace=s.pitchTrace,last=trace.at(-1),history=tracer?.42:.024;
  if(!last||elapsed>last.t+1e-7)trace.push({t:elapsed,x:p.x,y:p.y,r:radius});
  while(trace.length&&trace[0].t<elapsed-history)trace.shift();
- if(trace.length>8)trace.splice(0,trace.length-8);
- for(const point of trace){const age=elapsed-point.t;if(age<=1e-7)continue;
-   damage(point.x-point.r-3,point.y-point.r-3,point.r*2+6,point.r*2+6);
-   baseball(point.x,point.y,point.r,.14*(1-age/history));
+ if(trace.length>120)trace.splice(0,trace.length-120);
+ if(tracer&&trace.length>1){
+   ctx.save();ctx.lineCap='round';
+   for(const [color,widthScale,alphaScale,maxW] of [['#ffcf3f',2.2,.22,16],['#fffbe8',.85,.85,6]]){
+     for(let i=1;i<trace.length;i++){
+       const a=trace[i-1],b=trace[i],fade=Math.pow(clamp(1-(elapsed-b.t)/history,0,1),1.4);
+       const w=clamp(b.r*widthScale,1.2,maxW);
+       damage(Math.min(a.x,b.x)-w-2,Math.min(a.y,b.y)-w-2,Math.abs(a.x-b.x)+w*2+4,Math.abs(a.y-b.y)+w*2+4);
+       ctx.globalAlpha=fade*alphaScale;ctx.strokeStyle=color;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+     }
+   }
+   ctx.restore();
+   // Soft halo keeps the small, physically sized ball readable against crowd and dirt.
+   const halo=clamp(radius*2.6,6,26),g=ctx.createRadialGradient(p.x,p.y,radius*.6,p.x,p.y,halo);
+   g.addColorStop(0,'#ffffffb3');g.addColorStop(.45,'#fff3c455');g.addColorStop(1,'#fff3c400');
+   damage(p.x-halo-2,p.y-halo-2,halo*2+4,halo*2+4);ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,halo,0,Math.PI*2);ctx.fill();
+ }else{
+   for(const point of trace){const age=elapsed-point.t;if(age<=1e-7)continue;
+     damage(point.x-point.r-3,point.y-point.r-3,point.r*2+6,point.r*2+6);
+     baseball(point.x,point.y,point.r,.14*(1-age/history));
+   }
  }
  damage(p.x-radius-3,p.y-radius-3,radius*2+6,radius*2+6);
  baseball(p.x,p.y,radius);
 }
 function draw(t){
  N?.tick();
+ P3?.update(t);
  simulate(previousTime||t,t);previousTime=t;
  cachePitcher();const pitching=pitcherActive(t);
  const bgKey=cachedPitcher+':'+pitching;
