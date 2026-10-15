@@ -41,18 +41,107 @@ body{min-width:1100px}.app{padding:22px 26px 20px;max-width:1220px}.layout{displ
 .prediction-controls{position:absolute;left:50%;bottom:55px;transform:translateX(-50%);display:flex;align-items:center;gap:17px;padding:11px 14px;background:#fffbeeef;border:1px solid #fff8df;border-radius:11px;z-index:6;box-shadow:0 2px 10px #52714d12;white-space:nowrap}.prediction-controls label{display:flex;align-items:center;gap:8px;font-size:13px;color:#4f785e;cursor:pointer}.prediction-controls input{margin:0;width:18px;height:18px;accent-color:#548574;cursor:pointer}.prediction-controls input:focus-visible{outline:2px solid #bd925b;outline-offset:3px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.net-lobby{padding:17px 20px;margin-bottom:18px;border:1px solid #cbdccd;background:#edf4e8;border-radius:15px}.net-heading{display:flex;align-items:center;gap:16px;margin-bottom:13px}.net-heading b{font-size:19px;color:#396b58}.net-heading span{font-size:13px;color:#7a917c}.net-buttons{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.net-buttons button{border:1px solid #bacfb8;border-radius:9px;background:#fffbed;padding:11px 16px;font-size:14px;color:#4b765e;min-height:43px}.net-buttons #netCreate{background:#467d68;color:#fffbed;border-color:#467d68}.net-buttons input{width:150px;padding:11px 12px;border:1px solid #bacfb8;border-radius:9px;font:600 16px monospace;letter-spacing:2px;text-transform:uppercase;background:#fffef5;color:#426d58;min-height:43px}.net-buttons input:focus-visible{outline:2px solid #c7965c;outline-offset:2px}.net-bottom{display:flex;justify-content:space-between;align-items:center;gap:15px;font-size:13px;color:#6c886c;margin-top:12px;line-height:1.7}.net-bottom b{letter-spacing:2px;font:700 20px monospace;color:#3b715c}.match-board{border:1px solid #cbdccd;border-radius:14px;padding:14px 20px;background:#385f54;color:#fffae5;margin-bottom:12px}.match-top,.match-bottom{display:flex;align-items:center;gap:24px}.match-top{font-size:16px}.net-half{padding:7px 12px;background:#e6cf8c;color:#495c43;border-radius:6px;font-weight:800}.net-score{display:flex;gap:25px}.net-score b{font-size:29px;margin-left:8px}.net-role{margin-left:auto;border:1px solid #6e9580;padding:7px 12px;border-radius:8px;font-size:14px}.match-bottom{font-size:13px;margin-top:13px;color:#d6e4c7;gap:16px;min-height:29px}.match-bottom b{margin-left:auto;color:#fff3bc;font-size:15px}.net-diamond{position:relative;width:36px;height:30px;margin-right:3px}.net-diamond i{position:absolute;width:10px;height:10px;transform:rotate(45deg);background:#719480;border:1px solid #a7c3a3}.net-diamond i.occupied{background:#f1ce73;border-color:#ffedb5}#netFirst{right:0;top:15px}#netSecond{left:13px;top:2px}#netThird{left:0;top:15px}
 .scene #fieldBackdrop{position:absolute;inset:0;pointer-events:none}.scene #field{position:relative;display:block}
+/* ===== Stadium redesign: dark dome, field-first batting view ===== */
+:root{--night:#0b1220;--panel:#121c2e;--panel-2:#18253b;--edge:#26354f;--text:#e8eef7;--muted:#8b9ab2;--accent:#ffcf3f;--accent-ink:#2a1f00;--red:#e2463c;--cyan:#59d0ff}
+body{background:radial-gradient(1200px 600px at 50% -10%,#1d2c47 0,var(--night) 60%) fixed;color:var(--text);min-width:1000px}
+.app{max-width:1280px;padding:14px 22px 24px}
+header{margin-bottom:12px}
+.brand-mark{background:linear-gradient(145deg,#1e3a6b,#0f1f3d);box-shadow:0 0 0 2px var(--accent),0 6px 18px #0008;transform:none;border-radius:12px;width:42px;height:42px;font-size:22px}
+.brand h1{font-size:22px;font-style:italic;font-weight:900;letter-spacing:2px;color:#fff}
+.brand p{color:var(--accent);letter-spacing:4px}
+.quiet{background:var(--panel-2);border-color:var(--edge);color:var(--text)}
+.quiet[aria-expanded="true"],.quiet[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.hero{display:none}
+.net-lobby{background:var(--panel);border-color:var(--edge)}
+.net-heading b{color:#fff}.net-heading span,.net-bottom{color:var(--muted)}
+.net-buttons button{background:var(--panel-2);border-color:var(--edge);color:var(--text)}
+.net-buttons #netCreate{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:800}
+.net-buttons input{background:#0c1424;border-color:var(--edge);color:#fff}
+.net-bottom b{color:var(--accent)}
+.match-board{background:linear-gradient(180deg,#14213a,#0d1628);border-color:var(--edge)}
+/* Thin broadcast bar above the field */
+.scoreboard.lab-board{background:linear-gradient(90deg,#0f1a2e,#16243d);border:1px solid var(--edge);border-bottom:0;border-radius:14px 14px 0 0;padding:10px 18px}
+.lab-title b{color:#fff;font-style:italic}.lab-title small,.lab-flight span,.field-distance,.fps-readout{color:var(--muted)}
+.lab-flight b,.field-distance b{color:#fff}
+.team-icon{background:var(--accent);color:var(--accent-ink)}
+.lab-state{background:var(--red);color:#fff;font-weight:800;letter-spacing:1px}
+/* The field takes the stage */
+.scene{border:1px solid var(--edge);border-top:0;border-radius:0 0 14px 14px;background:#06090f;box-shadow:0 30px 80px #000a;width:100%;max-width:calc((100vh - 120px)*1.25);min-width:860px;margin:0 auto}
+.game>.scoreboard{max-width:calc((100vh - 120px)*1.25);min-width:860px;margin:0 auto}
+.scene-chip{background:#0b1220cc;color:#fff;border:1px solid #ffffff22;backdrop-filter:blur(6px);font-weight:800;letter-spacing:1.5px;font-style:italic}
+.scene-chip span{color:var(--red)}
+.pitch-readout{background:linear-gradient(180deg,#0f1b30ee,#0a1222ee);border:1px solid #ffffff1f;border-left:4px solid var(--accent);border-radius:10px;backdrop-filter:blur(6px)}
+.pitch-readout b{font-style:italic;font-size:34px;color:#fff;font-variant-numeric:tabular-nums}
+.pitch-readout small{color:#b8c6dc}
+.zone{border:2px solid #fffffff0;box-shadow:0 0 10px #ffffff40,inset 0 0 18px #ffffff14;border-radius:2px}
+.zone-label{color:#ffffffaa;text-shadow:0 1px 3px #000;letter-spacing:2px}
+.announcement{left:22%;right:22%}
+.announcement b{color:#fff;font-size:58px;letter-spacing:2px;text-shadow:0 0 24px #ffcf3f88,3px 3px 0 #b3261e,-1px -1px 0 #2a1f00,1px -1px 0 #2a1f00,-1px 1px 0 #2a1f00}
+.announcement small{background:#0b1220e0;color:#fff;border:1px solid #ffffff22}
+.scene-bottom .player-name{background:#0b1220d9;border:1px solid #ffffff22;font-weight:700}
+.scene-bottom .player-name:last-child{background:#b3261ee6;border-color:#ff8f86}
+.field-controls{bottom:52px}
+.field-controls span{background:#0b1220c4;color:#e9f0fb;text-shadow:none;border:1px solid #ffffff1c}
+.field-controls button{background:linear-gradient(180deg,#ffe066,#ffbf1f);border:0;color:var(--accent-ink);box-shadow:0 4px 0 #b07d00,0 10px 24px #0008;border-radius:999px;font-style:italic;letter-spacing:1px}
+.field-controls button:active{transform:translateY(2px);box-shadow:0 2px 0 #b07d00}
+.field-controls button.practice-button{background:#0b1220d0;color:#fff;border:1px solid #ffffff33;box-shadow:0 6px 18px #0006}
+.pitch-location{background:var(--red);box-shadow:0 0 0 2px #fff,0 0 14px #e2463caa}
+.pitch-result-panel{background:#0b1220e6;border-color:#ffffff22;color:var(--text);backdrop-filter:blur(8px);right:16px;bottom:118px}
+.pitch-result-head,.resolved-pitch b,.resolved-pitch strong{color:#fff}
+.pitch-result-panel p,.pitch-result-panel small,.pitch-result-head>span:last-child,.bat-contact-result>div{color:var(--muted)}
+.bat-contact-result{border-color:#ffffff1f}.bat-contact-result b{color:var(--accent)}
+/* Dugout strip: all setup lives under the field */
+.dugout{display:grid;grid-template-columns:240px minmax(0,1fr) 300px;gap:14px;margin:14px auto 0;max-width:calc((100vh - 120px)*1.25);min-width:860px}
+.dugout-card,.dugout .arsenal-panel,.dugout .field-aim-panel{position:static;width:auto;background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:16px;box-shadow:none;color:var(--text);backdrop-filter:none}
+.dugout h3,.dugout .arsenal-panel h3,.dugout .field-aim-panel h3{color:#fff;font-size:14px;letter-spacing:1px;margin:0 0 12px;text-transform:uppercase}
+.dugout .matchup-selectors{position:static;flex-direction:column;gap:10px}
+.dugout .matchup-selectors label{background:var(--panel-2);border:1px solid var(--edge);box-shadow:none;border-radius:10px;padding:10px 12px;min-height:0}
+.dugout .matchup-selectors label>span{color:var(--muted);font-size:12px;white-space:nowrap;flex-shrink:0}
+.dugout .matchup-selectors select{color:#fff;font-size:15px;min-width:0;width:100%}
+.dugout select option{background:#121c2e;color:#fff}
+.dugout .arsenal-panel .pitch-list{grid-template-columns:repeat(4,1fr)}
+.dugout .pitch-option{background:var(--panel-2);border-color:var(--edge);color:#fff;min-height:52px}
+.dugout .pitch-option small{color:var(--muted)}
+.dugout .pitch-option.active{background:#2a2410;border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.dugout .pitch-option.active:after{color:var(--accent)}
+.dugout .field-speed{grid-template-columns:auto 1fr auto 1fr;align-items:baseline;column-gap:10px;border-color:var(--edge)}
+.dugout .field-speed>span{color:var(--muted);font-size:12px;margin:0}
+.dugout .field-speed>b{color:#fff;font-size:16px}
+.dugout .field-speed>small{display:none}
+.dugout .arsenal-panel>p{color:var(--accent);border-color:var(--edge);font-size:13px}
+.dugout .setting{color:var(--muted)}
+.dugout .setting select{background:var(--panel-2);border-color:var(--edge);color:#fff}
+.dugout .hint{color:var(--muted)}
+.dugout .prediction-controls{position:static;transform:none;background:transparent;border:0;padding:0;margin-top:12px;gap:14px}
+.dugout .prediction-controls label{color:var(--text)}
+.dugout .prediction-controls input{accent-color:var(--accent)}
+.dugout #reset{width:100%;margin-top:12px}
+.timing-feedback{background:var(--panel-2);border-color:var(--edge);color:var(--text)}
+.timing-feedback[data-grade="home-run"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.timing-feedback[data-grade="fair"]{background:#0e3a52;color:#bfeaff;border-color:#2b7aa0}
+.timing-feedback[data-grade="miss"],.timing-feedback[data-grade="foul"]{background:#3a1715;color:#ffb3ad;border-color:#7c2a24}
+.status{color:var(--muted);max-width:calc((100vh - 120px)*1.25);min-width:860px;margin:14px auto 0}
+.status-icon{background:var(--panel-2);color:var(--accent)}
+.practice-settings,.landing-panel{background:var(--panel);border-color:var(--edge);color:var(--text)}
+.practice-settings .player-metrics>div,.player-info,.delivery-info,.practice-settings .hint,.landing-head>span,.hit-metrics>div>span,.landing-foot{color:var(--muted)}
+.player-metrics b,.hit-metrics b,.delivery-info b{color:#fff}
+.data-link,.profile-note a{color:var(--cyan)!important}
+.footer{color:#5d6b82}
+dialog{background:var(--panel);color:var(--text);border-color:var(--edge)}
+dialog a{color:var(--cyan)}
+.primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 3px 0 #b07d00}
 </style></head>
 <body>
 <main class="app">
-<header><div class="brand"><div class="brand-mark" aria-hidden="true">⚾</div><div><h1>野球日和</h1><p>A LITTLE BASEBALL, A GOOD DAY.</p></div></div><div class="header-actions"><button class="quiet" id="sound" aria-pressed="false">♪ 音效關</button><button class="quiet" id="help">玩法 ?</button></div></header>
+<header><div class="brand"><div class="brand-mark" aria-hidden="true">⚾</div><div><h1>野球日和</h1><p>A LITTLE BASEBALL, A GOOD DAY.</p></div></div><div class="header-actions"><button class="quiet" id="netToggle" aria-expanded="false" aria-controls="netLobby">網路對戰</button><button class="quiet" id="sound" aria-pressed="false">♪ 音效關</button><button class="quiet" id="help">玩法 ?</button></div></header>
 <div class="hero"><div><h2>今天，也來一場好球。</h2><p>移動球棒、看準來球，在球場直接揮出漂亮的一擊。</p></div><span class="tag">春日球場 · 練習賽</span></div>
-<section class="net-lobby" aria-label="網路對戰房間"><div class="net-heading"><b>網路對戰</b><span>各用自己的電腦，一人一隊。</span></div><div class="net-buttons"><button id="netCreate">主隊建立房間</button><label for="netRoomInput" class="sr-only">8 碼房號</label><input id="netRoomInput" placeholder="8 碼房號" maxlength="8" autocomplete="off" spellcheck="false"><button id="netJoin">客隊加入</button><button id="netCopy" hidden>複製邀請連結</button><button id="netLeave" hidden>回自由練習</button></div><div class="net-bottom"><span id="netStatus" aria-live="polite">建立房間後，將房號或連結傳給朋友。九局比賽，守備與跑壘自動處理。</span><span id="netRoomDisplay" hidden>房號 <b id="netRoomCode"></b></span></div></section>
+<section class="net-lobby" id="netLobby" aria-label="網路對戰房間" hidden><div class="net-heading"><b>網路對戰</b><span>各用自己的電腦，一人一隊。</span></div><div class="net-buttons"><button id="netCreate">主隊建立房間</button><label for="netRoomInput" class="sr-only">8 碼房號</label><input id="netRoomInput" placeholder="8 碼房號" maxlength="8" autocomplete="off" spellcheck="false"><button id="netJoin">客隊加入</button><button id="netCopy" hidden>複製邀請連結</button><button id="netLeave" hidden>回自由練習</button></div><div class="net-bottom"><span id="netStatus" aria-live="polite">建立房間後，將房號或連結傳給朋友。九局比賽，守備與跑壘自動處理。</span><span id="netRoomDisplay" hidden>房號 <b id="netRoomCode"></b></span></div></section>
 <div class="layout"><section class="game" aria-label="球場與比賽狀態">
 <div class="match-board" id="matchBoard" hidden><div class="match-top"><span class="net-half" id="netHalf">1 局上</span><div class="net-score"><span>客隊 <b id="netAwayScore">0</b></span><span>主隊 <b id="netHomeScore">0</b></span></div><span id="netCounts">B 0　S 0　O 0</span><span class="net-role" id="netRole"></span></div><div class="match-bottom"><div class="net-diamond" aria-hidden="true"><i id="netFirst"></i><i id="netSecond"></i><i id="netThird"></i></div><span id="netBases"></span><span id="netOrder"></span><b id="netPlay" aria-live="polite"></b></div></div>
 <div class="scoreboard lab-board"><div class="lab-title"><span class="team-icon" aria-hidden="true">⚾</span><div><b>節奏打擊練習</b><small>RHYTHM BATTING · REAL-TIME</small></div></div><div class="field-distance" title="投手板前緣至本壘後尖角的標準距離；球從延伸後的出手位置飛至本壘中段">投手板 → 本壘 <b>18.44 m</b></div><div class="lab-flight"><span>出手 → 本壘</span><b id="flightTime">0.435 s</b></div><span class="fps-readout" aria-label="目前畫面更新率">FPS <b id="fpsValue">—</b></span><span class="lab-state" id="liveState" aria-live="polite">自由練習</span></div>
-<div class="scene" id="scene"><canvas id="fieldBackdrop" width="900" height="720" aria-hidden="true"></canvas><canvas id="field" width="900" height="720" role="application" tabindex="0" aria-label="打擊球場：移動滑鼠控制球棒，按左鍵揮棒"></canvas><div class="scene-chip"><span>●</span><span id="sceneMode">FREE BATTING</span></div><div class="pitch-readout"><b id="speed">—</b> <span style="font-size:9px">km/h</span><small id="speedCaption">本球球速</small><small id="ballLabel">等待投球</small></div><div class="matchup-selectors" aria-label="球場選手選擇"><label><span>投手</span><select id="pitcherSelect"><option value="skenes">Paul Skenes</option><option value="yamamoto">山本由伸</option></select></label><label><span>打者</span><select id="batterSelect"><option value="judge">Judge · 右打</option><option value="ohtani">大谷翔平 · 左打</option></select></label></div>
-<div class="arsenal-panel" aria-label="球場球種選擇"><h3>投球球種</h3><div class="pitch-list" id="pitchList"></div><div class="field-speed"><span>投手平均值</span><b id="pitchSpeedValue"></b><small id="pitchData"></small><span>隨機球速範圍</span><b id="speedRange"></b><small>遊戲變動：球種均速 ±5 km/h</small></div><p id="actualPitch" aria-live="polite">等待投球</p></div><div class="aim-tools field-aim-panel"><h3>打擊控制</h3><div class="setting"><label for="targetMode">來球落點</label><select id="targetMode"><option value="center">固定中央</option><option value="random" selected>隨機框內</option><option value="manual" hidden>投手指定</option></select></div><div class="setting"><label for="batControl">球棒位置</label><select id="batControl"><option value="free">滑鼠移動</option><option value="center">固定中央</option></select></div><p id="inputLabel" class="hint"></p><p class="hint">對準棒身，球到框附近時點左鍵。</p><div id="timingFeedback" class="timing-feedback" data-grade="idle" aria-live="polite">等球到框，再點左鍵</div><button class="quiet" id="reset">↻ 重新練習</button></div><div id="pitchLocation" class="pitch-location" role="img" aria-label="投球落點" hidden></div><div class="pitch-result-panel" id="pitchResult" aria-live="polite" hidden><div class="pitch-result-head"><span class="point-legend">●</span><b id="pointKind">投球落點</b><span>本球結果</span></div><div class="resolved-pitch"><b id="resolvedPitch"></b><strong id="resolvedSpeed"></strong></div><p id="resolvedLocation"></p><small>位置標記保留至下一球開始</small><div class="bat-contact-result" id="batContactResult" hidden><div><span>棒身接觸</span><b id="contactLabel"></b></div><canvas id="batContact" width="260" height="58" role="img" aria-label="棒身接觸位置"></canvas><small>十字：甜蜜點　橘點：本球接觸</small></div></div><div class="zone" id="zone" aria-hidden="true"></div><div class="zone-label" id="zoneLabel">STRIKE ZONE</div><div class="announcement" id="announcement" aria-live="polite"><b id="resultTitle"></b><small id="resultDetail"></small></div><div class="scene-bottom"><span class="player-name" id="pitcherName"></span><span>HIYORI BASEBALL CLUB</span><span class="player-name" id="batterName"></span></div><div class="prediction-controls" role="group" aria-label="預測圈開關"><label title="顯示球棒周圍的擊球時機提示圈"><input type="checkbox" id="batPredictionToggle"><span>球棒預測圈</span></label><label title="顯示來球預計到達好球框的位置與接近提示"><input type="checkbox" id="pitchPredictionToggle"><span>球路預測圈</span></label></div><div class="field-controls"><span id="fieldHint">移動球棒 · 左鍵試揮／打擊</span><div class="field-buttons"><button id="fieldPractice" class="practice-button">試揮 ⤾</button><button id="fieldThrow">開始投球 ↗</button></div></div></div>
-<div class="status"><span class="status-icon">i</span><span id="status" aria-live="polite">可移動棒身或選擇固定中央，點左鍵試揮，再按畫面內的「開始投球」。</span></div>
+<div class="scene" id="scene"><canvas id="fieldBackdrop" width="900" height="720" aria-hidden="true"></canvas><canvas id="field" width="900" height="720" role="application" tabindex="0" aria-label="打擊球場：移動滑鼠控制球棒，按左鍵揮棒"></canvas><div class="scene-chip"><span>●</span><span id="sceneMode">FREE BATTING</span></div><div class="pitch-readout"><b id="speed">—</b> <span style="font-size:9px">km/h</span><small id="speedCaption">本球球速</small><small id="ballLabel">等待投球</small></div>
+<div id="pitchLocation" class="pitch-location" role="img" aria-label="投球落點" hidden></div><div class="pitch-result-panel" id="pitchResult" aria-live="polite" hidden><div class="pitch-result-head"><span class="point-legend">●</span><b id="pointKind">投球落點</b><span>本球結果</span></div><div class="resolved-pitch"><b id="resolvedPitch"></b><strong id="resolvedSpeed"></strong></div><p id="resolvedLocation"></p><small>位置標記保留至下一球開始</small><div class="bat-contact-result" id="batContactResult" hidden><div><span>棒身接觸</span><b id="contactLabel"></b></div><canvas id="batContact" width="260" height="58" role="img" aria-label="棒身接觸位置"></canvas><small>十字：甜蜜點　橘點：本球接觸</small></div></div><div class="zone" id="zone" aria-hidden="true"></div><div class="zone-label" id="zoneLabel">STRIKE ZONE</div><div class="announcement" id="announcement" aria-live="polite"><b id="resultTitle"></b><small id="resultDetail"></small></div><div class="scene-bottom"><span class="player-name" id="pitcherName"></span><span>HIYORI BASEBALL CLUB</span><span class="player-name" id="batterName"></span></div><div class="field-controls"><span id="fieldHint">移動球棒 · 左鍵試揮／打擊</span><div class="field-buttons"><button id="fieldPractice" class="practice-button">試揮 ⤾</button><button id="fieldThrow">開始投球 ↗</button></div></div></div>
+<div class="dugout" aria-label="打擊設定"><div class="dugout-card matchup-card"><h3>對戰</h3><div class="matchup-selectors" aria-label="球場選手選擇"><label><span>投手</span><select id="pitcherSelect"><option value="skenes">Paul Skenes</option><option value="yamamoto">山本由伸</option></select></label><label><span>打者</span><select id="batterSelect"><option value="judge">Judge · 右打</option><option value="ohtani">大谷翔平 · 左打</option></select></label></div></div><div class="arsenal-panel" aria-label="球場球種選擇"><h3>投球球種</h3><div class="pitch-list" id="pitchList"></div><div class="field-speed"><span>投手平均值</span><b id="pitchSpeedValue"></b><small id="pitchData"></small><span>隨機球速範圍</span><b id="speedRange"></b><small>遊戲變動：球種均速 ±5 km/h</small></div><p id="actualPitch" aria-live="polite">等待投球</p></div><div class="aim-tools field-aim-panel"><h3>打擊控制</h3><div class="setting"><label for="targetMode">來球落點</label><select id="targetMode"><option value="center">固定中央</option><option value="random" selected>隨機框內</option><option value="manual" hidden>投手指定</option></select></div><div class="setting"><label for="batControl">球棒位置</label><select id="batControl"><option value="free">滑鼠移動</option><option value="center">固定中央</option></select></div><p id="inputLabel" class="hint"></p><p class="hint">對準棒身，球到框附近時點左鍵。</p><div id="timingFeedback" class="timing-feedback" data-grade="idle" aria-live="polite">等球到框，再點左鍵</div><div class="prediction-controls" role="group" aria-label="預測圈開關"><label title="顯示球棒周圍的擊球時機提示圈"><input type="checkbox" id="batPredictionToggle"><span>球棒預測圈</span></label><label title="顯示來球預計到達好球框的位置與接近提示"><input type="checkbox" id="pitchPredictionToggle"><span>球路預測圈</span></label></div><button class="quiet" id="reset">↻ 重新練習</button></div></div><div class="status"><span class="status-icon">i</span><span id="status" aria-live="polite">可移動棒身或選擇固定中央，點左鍵試揮，再按畫面內的「開始投球」。</span></div>
 <div class="practice-settings"><div><h3>選手資料</h3><p id="pitcherInfo" class="player-info"></p><p class="delivery-info">投球姿勢：<b id="deliveryName"></b> <small>風格近似</small></p><a id="pitchSource" class="data-link" target="_blank" rel="noopener">2026 投手資料 ↗</a><p id="batterInfo" class="player-info"></p><div class="player-metrics"><div><span>甜蜜點揮速</span><b id="batSpeedValue"></b></div><div><span>揮棒上揚角</span><b id="attackAngleValue"></b></div><div><span>甜蜜點強力擊球範圍</span><b id="swingDelay"></b></div></div><a id="batterSource" class="data-link" target="_blank" rel="noopener">2026 打者資料 ↗</a></div><div><h3>好球框參考</h3><div class="player-metrics"><div><span>寬 × 高</span><b id="zoneSize"></b></div><div><span>距地面高度</span><b id="zoneHeight"></b></div></div><p class="hint">球棒上緣較平、下緣較斜。<br>空白鍵再投一球；左鍵試揮／打擊。<br>自由練習不計好壞球及出局。</p></div></div><section class="landing-panel" aria-label="擊球飛行與估算落點"><div class="landing-head"><h3>這一球，會落在哪裡？</h3><span id="landingState">等待擊球</span></div><div class="hit-metrics"><div><span>擊球初速</span><b><span id="exitSpeed">—</span> <small>km/h</small></b></div><div><span>仰角</span><b id="launchAngle">—</b></div><div><span>方向</span><b id="sprayAngle">—</b></div><div><span>首次落地距離</span><b><span id="carryValue">—</span> <small>m</small></b></div></div><canvas id="landingMap" width="900" height="360" role="img" aria-label="俯視棒球場，顯示估算的击球軌跡及首次落地位置"></canvas><div class="landing-foot"><span id="landingInfo" aria-live="polite">擊中來球後顯示首次落地位置</span><span>空氣阻力＋重力＋簡化旋轉升力</span></div></section>
 </section></div>
 <div class="footer"><span>原創棒球 · 找到節奏，打出漂亮的一球。</span><span>MADE FOR THE LOVE OF BASEBALL ⚾</span></div>
@@ -317,7 +406,7 @@ const BaseballSwingAnimation=(()=>{
    return {x,y,angle,horizontalScale,thicknessScale:.9,alpha,
      tip:{x:x+dir*35*horizontalScale*Math.cos(dir*angle),y:y+dir*35*horizontalScale*Math.sin(dir*angle)}};
  }
- return {makeSwing,view};
+ return {makeSwing,view,sweep};
 })();
 
 // Official season averages; roster height proxies ABS measured height.
@@ -754,6 +843,9 @@ document.addEventListener('keydown',e=>{
 $('pitcherSelect').onchange=changePlayer;$('batterSelect').onchange=changePlayer;
 $('fieldThrow').onclick=start;$('fieldPractice').onclick=()=>beginSwing(true);$('targetMode').onchange=syncBatControl;$('batControl').onchange=syncBatControl;$('reset').onclick=reset;
 function pause(){if(N?.active)N.pause();if(phaseBusy()){s.phase='idle';s.pitch=null;clearPitchResult();$('speed').textContent='—';$('ballLabel').textContent='等待投球';$('actualPitch').textContent='等待投球';$('status').textContent='練習已暫停，按開始投球重新送出來球。';}s.pitcherSettled=true;s.swing=null;s.attempt=null;s.beatFeedback=null;controls();}
+function showLobby(open){$('netLobby').hidden=!open;$('netToggle').setAttribute('aria-expanded',String(open));}
+$('netToggle').onclick=()=>showLobby($('netLobby').hidden);
+if(new URL(location.href).searchParams.get('room'))showLobby(true);
 $('help').onclick=()=>{pause();$('helpDialog').showModal()};$('closeHelp').onclick=()=>$('helpDialog').close();
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent=soundEnabled?'♪ 音效開':'♪ 音效關';$('sound').setAttribute('aria-pressed',String(soundEnabled));if(soundEnabled)beep('hit')};
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();fpsStart=0;fpsFrames=0;previousTime=0;});
@@ -779,47 +871,62 @@ function groundPath(a,b,width,color){
    {x:b.x-nx,z:b.z-nz,y:0},{x:a.x-nx,z:a.z-nz,y:0}],color);
 }
 function drawGround(){
- ctx.save();ctx.beginPath();ctx.rect(0,F.camera.horizon,900,720-F.camera.horizon);ctx.clip();
- ctx.fillStyle='#a9c788';ctx.fillRect(0,F.camera.horizon,900,720);
- for(let z=0;z<150;z+=8)worldPolygon([{x:-150,y:0,z},{x:150,y:0,z},{x:150,y:0,z:z+4},{x:-150,y:0,z:z+4}],'#b7ce9866');
+ const H=F.camera.horizon;
+ ctx.save();ctx.beginPath();ctx.rect(0,H,900,720-H);ctx.clip();
+ ctx.fillStyle='#2f7a35';ctx.fillRect(0,H,900,720);
+ // Mowed checkerboard, laid out in field metres so it shares the camera perspective.
+ for(let z=-2;z<140;z+=6)for(let x=-84;x<84;x+=6){
+   if(((x+z)/6&1)===0)worldPolygon([{x,y:0,z},{x:x+6,y:0,z},{x:x+6,y:0,z:z+6},{x,y:0,z:z+6}],'#3d8f3f');
+ }
  const back={x:0,z:-P.C.plateDepth/2},base=27.432/Math.sqrt(2);
  const first={x:base,z:base+back.z},second={x:0,z:base*2+back.z},third={x:-base,z:base+back.z};
- for(const [a,b] of [[back,first],[first,second],[second,third],[third,back]])groundPath(a,b,2.1,'#cfb583');
- for(const p of [first,second,third])worldPolygon([[-.23,-.23],[.23,-.23],[.23,.23],[-.23,.23]].map(([x,z])=>({x:p.x+x,z:p.z+z,y:.04})),'#fff6df');
- groundCircle(0,0,3.96,'#d8be8c');
+ // Infield skin: dirt arc behind the bases, then the grass diamond inside it.
+ groundCircle(0,P.C.rubberZ,28.96,'#a8643a');
+ const inset=1.2,grass=[{x:0,z:back.z+inset*2.6},{x:first.x-inset*1.4,z:first.z},{x:0,z:second.z-inset*1.4},{x:third.x+inset*1.4,z:third.z}].map(p=>({...p,y:0}));
+ worldPolygon(grass,'#3a8a3c');
+ for(const [a,b] of [[back,first],[first,second],[second,third],[third,back]])groundPath(a,b,1.5,'#a8643a');
+ for(const p of [first,second,third])worldPolygon([[-.23,-.23],[.23,-.23],[.23,.23],[-.23,.23]].map(([x,z])=>({x:p.x+x,z:p.z+z,y:.04})),'#ffffff');
+ groundCircle(0,0,3.96,'#b06d40');
  // 18-foot mound; rubber lies 18 inches behind the mound centre.
- groundCircle(0,P.C.rubberZ-.4572,P.C.moundRadius,'#cfb583',F.moundHeight);
- groundCircle(0,P.C.rubberZ-.4572,1.32,'#dec798',F.moundHeight);
+ groundCircle(0,P.C.rubberZ-.4572,P.C.moundRadius,'#b5703f',F.moundHeight);
+ groundCircle(0,P.C.rubberZ-.4572,1.32,'#c27d4a',F.moundHeight);
  const rubber=P.C.rubberZ;
  worldPolygon([{x:-.3048,y:P.C.moundHeight,z:rubber},{x:.3048,y:P.C.moundHeight,z:rubber},
-   {x:.3048,y:P.C.moundHeight,z:rubber+.1524},{x:-.3048,y:P.C.moundHeight,z:rubber+.1524}],'#fff9e5');
- for(const side of [-1,1])groundPath(back,{x:side*90,z:90+back.z},.018,'#fff5da');
+   {x:.3048,y:P.C.moundHeight,z:rubber+.1524},{x:-.3048,y:P.C.moundHeight,z:rubber+.1524}],'#ffffff');
+ for(const side of [-1,1])groundPath({x:side*(P.C.plateWidth/2+1.5),z:0},{x:side*90,z:90+back.z},.09,'#f6f3ec');
+ // Floodlight wash and dirt grain on the near field.
+ const glow=ctx.createRadialGradient(522,560,40,522,560,620);glow.addColorStop(0,'#ffe9c41c');glow.addColorStop(1,'#00000038');
+ ctx.fillStyle=glow;ctx.fillRect(0,H,900,720-H);
+ let seed=7;const rand=()=>(seed=(seed*16807)%2147483647)/2147483647;
+ for(let i=0;i<2600;i++){const y=H+60+rand()*(720-H-60),x=rand()*900,r=.5+rand()*1.4*(y-H)/420;ctx.fillStyle=rand()<.5?'#7a43221f':'#e0a77426';ctx.fillRect(x,y,r,r);}
  const half=P.C.plateWidth/2;
- worldPolygon([{x:-half,y:0,z:half},{x:half,y:0,z:half},{x:half,y:0,z:0},{x:0,y:0,z:-half},{x:-half,y:0,z:0}],'#fff6df');
- // Batter boxes: 4 x 6 feet, six inches from the plate edge.
+ worldPolygon([{x:-half,y:.01,z:half},{x:half,y:.01,z:half},{x:half,y:.01,z:0},{x:0,y:.01,z:-half},{x:-half,y:.01,z:0}],'#fbfbf7','#00000033',1.5);
+ // Batter boxes: 4 x 6 feet, six inches from the plate edge; chalk width scales with depth.
  for(const side of [-1,1]){
-   const inner=side*(half+.1524),outer=inner+side*1.2192;
-   worldPolygon([{x:inner,y:.002,z:.9144},{x:outer,y:.002,z:.9144},{x:outer,y:.002,z:-.9144},{x:inner,y:.002,z:-.9144}],null,'#efddb5',2);
+   const inner=side*(half+.1524),outer=inner+side*1.2192,c=.05;
+   for(const [a,b] of [[{x:inner,z:.9144},{x:outer,z:.9144}],[{x:outer,z:.9144},{x:outer,z:-.9144}],[{x:inner,z:-.9144},{x:outer,z:-.9144}],[{x:inner,z:.9144},{x:inner,z:-.9144}]])
+     groundPath({x:a.x,z:a.z},{x:b.x,z:b.z},c*1.6,'#f4f1eae6');
  }
  ctx.restore();
 }
 function stickPitcher(elapsed=0,holdingBall=false){
  const pose=F.pitcherPose(elapsed,$('pitcherSelect').value),q=Object.fromEntries(Object.entries(pose).map(([k,p])=>[k,F.project(p)]));
  for(const p of Object.values(q))damage(p.x-32,p.y-32,64,64);
- const width=Math.max(2.1,q.hip.scale*.067),ink='#355f5a',rear='#628172';
- const link=(a,b,color=ink,w=width)=>line(q[a].x,q[a].y,q[b].x,q[b].y,color,w);
+ const width=Math.max(2.4,q.hip.scale*.11),uniform='#f1f3f7',outline='#0b1220',cap=delivery().color,shade='#c5cbd6';
+ const link=(a,b,color=uniform,w=width)=>{line(q[a].x,q[a].y,q[b].x,q[b].y,outline,w+1.6);line(q[a].x,q[a].y,q[b].x,q[b].y,color,w);};
  const shadow=F.project({x:pose.hip.x,y:F.moundHeight(pose.hip.x,pose.hip.z),z:pose.hip.z});
- ellipse(shadow.x,shadow.y,shadow.scale*.37,shadow.scale*.07,'#44684f24');
- link('hip','rearKnee',rear);link('rearKnee','rearFoot',rear);
- link('gloveShoulder','gloveElbow',rear);link('gloveElbow','glove',rear);
- link('hip','leadKnee');link('leadKnee','leadFoot');link('hip','chest',ink,width*1.3);
- link('gloveShoulder','shoulder',ink,width);link('chest','head',ink,width*.85);
+ ellipse(shadow.x,shadow.y,shadow.scale*.42,shadow.scale*.08,'#00000040');
+ link('hip','rearKnee',shade);link('rearKnee','rearFoot',shade);
+ link('gloveShoulder','gloveElbow',shade);link('gloveElbow','glove',shade);
+ link('hip','leadKnee');link('leadKnee','leadFoot');link('hip','chest',uniform,width*1.9);
+ link('gloveShoulder','shoulder',uniform,width*1.2);link('chest','head',uniform,width*.8);
  link('shoulder','elbow');link('elbow','hand');
- for(const name of ['rearFoot','leadFoot'])line(q[name].x-3,q[name].y,q[name].x+3,q[name].y,ink,width*1.1);
- const head=q.head;ellipse(head.x,head.y,head.scale*.115,head.scale*.135,'#fff5db');
- ctx.strokeStyle=ink;ctx.lineWidth=width*.85;ctx.beginPath();ctx.ellipse(head.x,head.y,head.scale*.115,head.scale*.135,0,0,Math.PI*2);ctx.stroke();
- line(head.x-head.scale*.13,head.y-head.scale*.10,head.x+head.scale*.13,head.y-head.scale*.10,delivery().color,width*1.1);
- ellipse(q.glove.x,q.glove.y,q.glove.scale*.10,q.glove.scale*.12,'#b88555');
+ for(const name of ['rearFoot','leadFoot'])line(q[name].x-3,q[name].y,q[name].x+3,q[name].y,outline,width*1.1);
+ const head=q.head,hr=head.scale*.115;
+ ellipse(head.x,head.y,hr,hr*1.15,'#d9a37c');
+ ctx.fillStyle=cap;ctx.beginPath();ctx.ellipse(head.x,head.y-hr*.35,hr*1.08,hr*.8,0,Math.PI,0);ctx.fill();
+ line(head.x-hr*1.3,head.y-hr*.35,head.x+hr*1.3,head.y-hr*.35,cap,Math.max(1.4,hr*.35));
+ ellipse(q.glove.x,q.glove.y,q.glove.scale*.11,q.glove.scale*.13,'#6b3b1f');
  if(holdingBall)baseball(q.hand.x,q.hand.y,F.ballRadius(pose.hand));
 }
 function ellipse(x,y,rx,ry,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fill()}
@@ -838,12 +945,49 @@ function baseball(x,y,r,alpha=1){
  ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.strokeStyle='#4b6c64';ctx.lineWidth=Math.max(.65,r*.065);ctx.stroke();ctx.restore();
 }
 const background=document.createElement('canvas');background.width=900;background.height=720;const bgctx=background.getContext('2d');
-function createBackground(){ctx.save();const sky=ctx.createLinearGradient(0,0,0,F.camera.horizon);sky.addColorStop(0,'#d4eae3');sky.addColorStop(1,'#edf2de');ctx.fillStyle=sky;ctx.fillRect(0,0,900,720);[[102,57,42],[154,51,35],[650,78,34],[699,71,44],[753,78,31]].forEach(c=>ellipse(c[0],c[1],c[2],14,'#fffdf0aa'));ellipse(795,45,25,25,'#f5e8b4');
-ctx.save();ctx.translate(0,F.camera.horizon-252);
-for(let i=0;i<14;i++){let x=i*75-40;ellipse(x,164,55,50,'#b2cdb0');ellipse(x+30,166,36,35,'#a0c19d')}
-path([[0,169],[900,169],[900,252],[0,252]],'#89a491');for(let y=179;y<230;y+=14){line(0,y,900,y,'#c4d2b6',7);for(let x=7;x<900;x+=17){ellipse(x+(y%3)*3,y-4,3,4,['#688a7c','#e6dbbc','#dcac87','#b6c3a2'][Math.floor(x/17+y)%4])}}
-roundRect(358,112,186,78,7,'#426d60');ctx.fillStyle='#d6e3c3';ctx.font='600 9px sans-serif';ctx.textAlign='center';ctx.fillText('HIYORI  FIELD',451,132);ctx.font='bold 10px monospace';ctx.fillText('REAL TIME  /  BATTING',451,151);ctx.fillStyle='#ead995';ctx.fillText('FREE BATTING',451,169);line(0,238,900,238,'#567c62',27);line(0,228,900,228,'#e1d9ab',4);for(let x=0;x<900;x+=54){line(x,228,x,167,'#7f9f89',2)}
-ctx.restore();drawGround();ctx.restore();bgctx.drawImage(canvas,0,0)}
+function createBackground(){
+ const H=F.camera.horizon;ctx.save();
+ let seed=11;const rand=()=>(seed=(seed*16807)%2147483647)/2147483647;
+ // Dome roof: lit fabric panels with ribs radiating from the crown.
+ const roof=ctx.createLinearGradient(0,0,0,130);roof.addColorStop(0,'#aeb7c4');roof.addColorStop(1,'#dfe4ea');
+ ctx.fillStyle=roof;ctx.fillRect(0,0,900,H);
+ ctx.save();ctx.beginPath();ctx.ellipse(450,-40,640,175,0,0,Math.PI*2);ctx.clip();
+ ctx.strokeStyle='#ffffff8c';ctx.lineWidth=1.2;
+ for(let r=60;r<700;r+=46){ctx.beginPath();ctx.ellipse(450,-120,r,r*.36,0,0,Math.PI);ctx.stroke();}
+ ctx.strokeStyle='#8d97a6aa';for(let a=-80;a<=80;a+=9){const t=a*Math.PI/180;line(450,-120,450+Math.sin(t)*900,-120+Math.cos(t)*330,'#8d97a699',1.4);}
+ ctx.restore();
+ // Roof rim, catwalk lights.
+ ctx.fillStyle='#2a3242';ctx.beginPath();ctx.ellipse(450,-40,640,175,0,0,Math.PI);ctx.lineTo(0,H);ctx.lineTo(900,H);ctx.closePath();
+ ctx.save();ctx.beginPath();ctx.rect(0,0,900,H);ctx.clip();
+ ctx.beginPath();ctx.rect(0,0,900,H);ctx.ellipse(450,-40,640,175,0,0,Math.PI*2);ctx.fillStyle='#1a2130';ctx.fill('evenodd');ctx.restore();
+ for(let i=0;i<46;i++){const a=Math.PI*(.06+.88*i/45),x=450+Math.cos(a)*640,y=-40+Math.sin(a)*175;if(y<0)continue;ctx.save();ctx.shadowColor='#fff6d8';ctx.shadowBlur=8;ellipse(x,y+3,2.2,1.6,'#fffbe9');ctx.restore();}
+ // Upper deck crowd.
+ const deckTop=128;
+ ctx.fillStyle='#161d2b';ctx.fillRect(0,deckTop,900,H-deckTop);
+ const crowd=['#e6e9ef','#2d4c8f','#c33b33','#f0c84c','#3d4555','#d9b08c','#8a5a44','#ffffff'];
+ for(let y=deckTop+6;y<deckTop+64;y+=5)for(let x=-2;x<902;x+=4+rand()*2){if(rand()<.18)continue;ctx.fillStyle=crowd[Math.floor(rand()*crowd.length)]+'b0';ctx.fillRect(x,y+rand()*2,2.4,2.6);}
+ for(let y=deckTop+12;y<deckTop+64;y+=12)line(0,y,900,y,'#0b0f1880',1);
+ // Big screen, left of centre, and sponsor boards.
+ roundRect(96,deckTop-38,188,98,4,'#05070c');
+ const scr=ctx.createLinearGradient(0,deckTop-32,0,deckTop+54);scr.addColorStop(0,'#103a7a');scr.addColorStop(1,'#071a3c');
+ ctx.fillStyle=scr;ctx.fillRect(102,deckTop-32,176,86);
+ ctx.fillStyle='#ffcf3f';ctx.font='italic 900 24px sans-serif';ctx.textAlign='center';ctx.fillText('HIYORI',190,deckTop+4);
+ ctx.fillStyle='#ffffff';ctx.font='bold 11px sans-serif';ctx.fillText('野球日和 · BATTING TIME',190,deckTop+24);
+ ctx.fillStyle='#ff5a4f';ctx.font='bold 10px monospace';ctx.fillText('● LIVE',190,deckTop+42);
+ const boards=[[348,'#0f2c66','WORLD BASEBALL','#ffffff'],[512,'#f2f2f2','CLUTCH TIME','#c22a24'],[650,'#123a8c','HIYORI FIELD','#ffcf3f'],[790,'#0c0c0c','野球日和','#ffffff']];
+ for(const [x,bg,txt,fg] of boards){roundRect(x-66,deckTop-24,132,28,3,bg);ctx.fillStyle=fg;ctx.font='italic 900 12px sans-serif';ctx.fillText(txt,x,deckTop-5);}
+ // LED ribbon between decks.
+ const ribbonY=deckTop+66;ctx.fillStyle='#070a12';ctx.fillRect(0,ribbonY,900,14);
+ for(let x=0,i=0;x<900;x+=150,i++){ctx.fillStyle=['#ffcf3f','#59d0ff','#ff5a4f'][i%3];ctx.font='bold 9px monospace';ctx.textAlign='left';ctx.fillText(['HIT IT  ◆','CLUTCH  ◆','HIYORI  ◆'][i%3],x+12,ribbonY+10);}
+ // Lower bowl crowd, brighter under the lights.
+ for(let y=ribbonY+16;y<H-14;y+=4)for(let x=-2;x<902;x+=3.4+rand()*2){if(rand()<.12)continue;ctx.fillStyle=crowd[Math.floor(rand()*crowd.length)]+'d0';ctx.fillRect(x,y+rand()*1.5,2.2,2.4);}
+ // Outfield wall padding and yellow home-run line.
+ ctx.fillStyle='#14305c';ctx.fillRect(0,H-14,900,16);line(0,H-14,900,H-14,'#ffcf3f',2);
+ for(const [x,t] of [[150,'99'],[522,'122'],[860,'99']]){ctx.fillStyle='#ffffffcc';ctx.font='bold 8px sans-serif';ctx.textAlign='center';ctx.fillText(t,x,H-4);}
+ drawGround();
+ // Vignette pulls the eye to the plate.
+ const v=ctx.createRadialGradient(522,400,220,522,400,720);v.addColorStop(0,'#00000000');v.addColorStop(1,'#00000070');ctx.fillStyle=v;ctx.fillRect(0,0,900,720);
+ ctx.restore();bgctx.drawImage(canvas,0,0)}
 createBackground();
 
 
@@ -854,6 +998,68 @@ createBackground();
 
 
 
+// Batter in the near box, seen from behind the plate. Body is styled art; the
+// hands follow the aiming barrel so the swing still reads from the bat icon.
+const uniforms={judge:{jersey:'#1d2b4f',trim:'#e8ecf3',helmet:'#0e1730',number:'99'},ohtani:{jersey:'#1e5bb8',trim:'#ffffff',helmet:'#0f3f8a',number:'17'}};
+function batterHands(t){
+ const age=s.swing?(t-s.swingStart)/1000:0,active=swingActive(t);
+ const rest=pose(s.bat),p=active?swingView(age):{...rest,horizontalScale:rest.scale};
+ const dir=batter().hand==='L'?-1:1,a=dir*p.angle,at=L=>({x:p.x+dir*L*p.horizontalScale*Math.cos(a),y:p.y+dir*L*p.horizontalScale*Math.sin(a)});
+ const twist=active?clamp((A.sweep(s.swing,Math.min(age,s.swing.windupTime+s.swing.tail))+1.65)/3.1,0,1):0;
+ return {grip:at(-98),knob:at(-112),barrelEnd:at(-80),twist,alpha:active?p.alpha:1};
+}
+function drawBatter(t){
+ const b=batter(),side=b.hand==='R'?-1:1,k=b.height/1.95,u=uniforms[$('batterSelect').value]||uniforms.judge;
+ const hands=batterHands(t),tw=hands.twist,ease=tw*tw*(3-2*tw);
+ // Seen from behind like a broadcast batting cam: lx > 0 points away from the plate.
+ const spineX=side*1.0,pt=(lx,y,z)=>F.project({x:spineX+side*lx,y:y*k,z});
+ const turn=(lx,y,z,amount)=>{const th=ease*amount*1.25;return F.project({x:spineX+side*lx*Math.cos(th),y:y*k,z:z+lx*Math.sin(th)});};
+ const stride=Math.min(1,tw*2.4)*.10;
+ const J={
+   farFoot:pt(-.31-stride,0,.16),nearFoot:pt(.31,0,.06),
+   farKnee:pt(-.25-stride*.7,.5,.20),nearKnee:pt(.27,.5,.12),
+   farHip:turn(-.15,.96,.1,.5),nearHip:turn(.15,.96,.1,.5),
+   farSh:turn(-.24,1.46,.1,1),nearSh:turn(.24,1.46,.1,1),
+   neck:turn(0,1.56,.1,1),head:turn(.02,1.73,.12,.6)
+ };
+ const xs=Object.values(J).map(p=>p.x).concat(hands.grip.x,hands.knob.x,hands.barrelEnd.x),ys=Object.values(J).map(p=>p.y).concat(hands.grip.y,hands.knob.y);
+ const minX=Math.min(...xs)-70,maxX=Math.max(...xs)+70,minY=Math.min(...ys)-70;
+ damage(minX,minY,maxX-minX,722-minY);
+ const sc=J.neck.scale,outline='#05080f',skin='#c98d66';
+ const limb=(a,c,w,color)=>{line(a.x,a.y,c.x,c.y,outline,w*sc+3);line(a.x,a.y,c.x,c.y,color,w*sc);};
+ ctx.save();
+ const sh=pt(0,0,.12);ctx.save();ctx.globalAlpha=.4;ellipse(sh.x,sh.y,sc*.62,sc*.11,'#1a0c04');ctx.restore();
+ // Legs: grey pants, team socks, black cleats.
+ const pants='#cfd4dd',pantsShade='#a7aebb';
+ for(const [hip,knee,foot,color] of [[J.farHip,J.farKnee,J.farFoot,pantsShade],[J.nearHip,J.nearKnee,J.nearFoot,pants]]){
+   limb(hip,knee,.2,color);limb(knee,foot,.15,color);
+   const m={x:knee.x+(foot.x-knee.x)*.55,y:knee.y+(foot.y-knee.y)*.55};line(m.x,m.y,foot.x,foot.y,u.jersey,.13*sc);
+   ellipse(foot.x,foot.y,.14*foot.scale,.06*foot.scale,'#0a0a0c');
+ }
+ // Back of the jersey with the number, narrowing as the shoulders turn.
+ const wSh=.07*sc,wHip=.05*sc,dx=s=>side*s;
+ path([[J.farHip.x-dx(wHip),J.farHip.y+.04*sc],[J.farSh.x-dx(wSh),J.farSh.y+.03*sc],[J.farSh.x,J.farSh.y-.05*sc],[J.neck.x,J.neck.y-.03*sc],[J.nearSh.x,J.nearSh.y-.05*sc],[J.nearSh.x+dx(wSh),J.nearSh.y+.03*sc],[J.nearHip.x+dx(wHip),J.nearHip.y+.04*sc]],u.jersey,outline,2.5);
+ const mx=(J.farSh.x+J.nearSh.x)/2,my=J.neck.y+(J.farHip.y-J.neck.y)*.45,spread=Math.abs(J.nearSh.x-J.farSh.x)/(.48*sc);
+ ctx.save();ctx.translate(mx,my);ctx.scale(Math.max(.15,spread),1);ctx.fillStyle=u.trim;ctx.strokeStyle='#0008';ctx.lineWidth=2;ctx.font='900 '+Math.round(.24*sc)+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.strokeText(u.number,0,0);ctx.fillText(u.number,0,0);ctx.restore();
+ line(J.farHip.x-dx(wHip),J.farHip.y+.04*sc,J.nearHip.x+dx(wHip),J.nearHip.y+.04*sc,'#0b0d12',.05*sc);
+ // Arms to the grip; elbows drop under the hands.
+ const elbow=(s0,out)=>{const mx=(s0.x+hands.grip.x)/2,my=(s0.y+hands.grip.y)/2,len=Math.hypot(hands.grip.x-s0.x,hands.grip.y-s0.y),reach=.64*sc,slack=Math.sqrt(Math.max(0,(reach/2)**2*4-len*len))/2;
+   return {x:mx+side*slack*out,y:my+slack*.8};};
+ ctx.globalAlpha=hands.alpha;
+ const ef=elbow(J.farSh,-.2),en=elbow(J.nearSh,.55);
+ limb(J.farSh,ef,.11,u.jersey);limb(ef,hands.grip,.085,skin);
+ line(hands.barrelEnd.x,hands.barrelEnd.y,hands.knob.x,hands.knob.y,'#1a1410',5);ellipse(hands.knob.x,hands.knob.y,4.5,4.5,'#1a1410');
+ limb(J.nearSh,en,.12,u.jersey);limb(en,hands.grip,.09,skin);
+ ellipse(hands.grip.x,hands.grip.y,.065*sc,.065*sc,'#f2f2f2');ctx.strokeStyle=outline;ctx.lineWidth=1.5;ctx.stroke();
+ ctx.globalAlpha=1;
+ // Helmet from behind, ear flap on the pitcher-facing side.
+ const h=J.head,hr=.14*h.scale;
+ line(J.neck.x,J.neck.y,h.x,h.y+hr*.6,skin,.11*sc);
+ const g=ctx.createRadialGradient(h.x-hr*.3,h.y-hr*.5,hr*.1,h.x,h.y,hr*1.15);g.addColorStop(0,'#ffffff66');g.addColorStop(.3,u.helmet);g.addColorStop(1,'#02040a');
+ ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(h.x,h.y,hr*1.02,hr,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle=outline;ctx.lineWidth=2;ctx.stroke();
+ ctx.fillStyle=u.helmet;ctx.beginPath();ctx.ellipse(h.x-side*hr*.78,h.y+hr*.35,hr*.36,hr*.5,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+ ctx.restore();
+}
 function swingView(age){return A.view(s.swing,age,pose(s.swingOrigin))}
 function drawBeat(t){
  if(!$('batPredictionToggle').checked||(N?.active&&!N.isBatter()))return;
@@ -903,10 +1109,10 @@ function cursorBat(t){
 const barrelSprite=document.createElement('canvas');barrelSprite.width=140;barrelSprite.height=48;
 {
  const mainContext=ctx;ctx=barrelSprite.getContext('2d');ctx.translate(90,24);
- const grad=ctx.createLinearGradient(0,-15,0,15);grad.addColorStop(0,'#f7dfafee');grad.addColorStop(.5,'#c09662ee');grad.addColorStop(1,'#956f45ee');
+ const grad=ctx.createLinearGradient(0,-15,0,15);grad.addColorStop(0,'#6b5546f2');grad.addColorStop(.45,'#2a1d15f2');grad.addColorStop(1,'#0d0806f2');
  // Contact barrel only: no grip, handle or knob in the aiming icon.
- ctx.shadowColor='#5caabf';ctx.shadowBlur=4;R.trace(ctx);ctx.fillStyle=grad;ctx.fill();
- ctx.strokeStyle='#a1dfed';ctx.lineWidth=1.5;ctx.stroke();ctx.shadowBlur=0;
+ ctx.shadowColor='#ffcf3f';ctx.shadowBlur=6;R.trace(ctx);ctx.fillStyle=grad;ctx.fill();
+ ctx.strokeStyle='#ffe28a';ctx.lineWidth=1.5;ctx.stroke();ctx.shadowBlur=0;
  line(-65,-4,23,-9,'#f9e9c69c',1);line(-6,0,6,0,'#fff8e2',1.4);line(0,-6,0,6,'#fff8e2',1.4);
 
  ctx=mainContext;
@@ -922,24 +1128,24 @@ function drawBattingArea(){
 function buildMapCache(){
  const w=900,h=360,ox=450,oy=329,scale=Math.min(2.18,288/Math.max(135,(s.lastHit?.path.distance||0)*1.08));
  const visibleWidth=mapWidth,fontFactor=900/Math.max(320,visibleWidth),compact=visibleWidth<560;
- mc.clearRect(0,0,w,h);mc.fillStyle='#f2f3e7';mc.fillRect(0,0,w,h);
+ mc.clearRect(0,0,w,h);mc.fillStyle='#0f1a2c';mc.fillRect(0,0,w,h);
  const point=p=>({x:ox+p.x*scale,y:oy-p.y*scale});
  const field=[];for(let a=-45;a<=45;a+=1){const angle=a*Math.PI/180,r=122-23*(Math.abs(a)/45)**1.6;field.push({x:Math.sin(angle)*r,y:Math.cos(angle)*r})}
- mc.beginPath();mc.moveTo(ox,oy);for(const p of field){const q=point(p);mc.lineTo(q.x,q.y)}mc.closePath();mc.fillStyle='#c9dbac';mc.fill();
- for(const r of [30,60,90]){mc.beginPath();mc.arc(ox,oy,r*scale,-Math.PI*.75,-Math.PI*.25);mc.strokeStyle='#fbfcf177';mc.lineWidth=1;mc.stroke();mc.fillStyle='#78976b';mc.font=(10*fontFactor)+'px sans-serif';mc.fillText(r+' m',ox+6,oy-r*scale+14)}
- mc.beginPath();field.forEach((p,i)=>{const q=point(p);i?mc.lineTo(q.x,q.y):mc.moveTo(q.x,q.y)});mc.strokeStyle='#769768';mc.lineWidth=4;mc.stroke();
+ mc.beginPath();mc.moveTo(ox,oy);for(const p of field){const q=point(p);mc.lineTo(q.x,q.y)}mc.closePath();mc.fillStyle='#2f7a35';mc.fill();
+ for(const r of [30,60,90]){mc.beginPath();mc.arc(ox,oy,r*scale,-Math.PI*.75,-Math.PI*.25);mc.strokeStyle='#ffffff40';mc.lineWidth=1;mc.stroke();mc.fillStyle='#b9d7b4';mc.font=(10*fontFactor)+'px sans-serif';mc.fillText(r+' m',ox+6,oy-r*scale+14)}
+ mc.beginPath();field.forEach((p,i)=>{const q=point(p);i?mc.lineTo(q.x,q.y):mc.moveTo(q.x,q.y)});mc.strokeStyle='#ffcf3f';mc.lineWidth=4;mc.stroke();
  const base=27.432/Math.sqrt(2),bases=[{x:0,y:0},{x:base,y:base},{x:0,y:base*2},{x:-base,y:base}];
- mc.beginPath();bases.forEach((p,i)=>{const q=point(p);i?mc.lineTo(q.x,q.y):mc.moveTo(q.x,q.y)});mc.closePath();mc.fillStyle='#d9bf8d';mc.fill();mc.strokeStyle='#fff9df';mc.lineWidth=2;mc.stroke();
+ mc.beginPath();bases.forEach((p,i)=>{const q=point(p);i?mc.lineTo(q.x,q.y):mc.moveTo(q.x,q.y)});mc.closePath();mc.fillStyle='#a8643a';mc.fill();mc.strokeStyle='#fff9df';mc.lineWidth=2;mc.stroke();
  for(const side of [-1,1]){const q=point({x:side*99/Math.sqrt(2),y:99/Math.sqrt(2)});mc.beginPath();mc.moveTo(ox,oy);mc.lineTo(q.x,q.y);mc.strokeStyle='#fff9e3';mc.lineWidth=2;mc.stroke()}
  for(const p of bases){const q=point(p);mc.fillStyle='#fffcec';mc.fillRect(q.x-3,q.y-3,6,6)}
- mc.fillStyle='#6e8763';mc.font=(11*fontFactor)+'px sans-serif';mc.textAlign='center';mc.fillText(compact?'99 m':'左外野 99 m',245,180);mc.fillText(compact?'中外野 122 m':'中外野 122 m',450,43);mc.fillText(compact?'99 m':'右外野 99 m',655,180);
- if(!compact){mc.fillStyle='#829076';mc.font=(10*fontFactor)+'px sans-serif';mc.textAlign='left';mc.fillText('俯視圖 · 估算首次落地',22,27);mc.textAlign='right';mc.fillText('球場假設 · 外野牆高 2.5 m',878,27);}
+ mc.fillStyle='#c9d3e2';mc.font=(11*fontFactor)+'px sans-serif';mc.textAlign='center';mc.fillText(compact?'99 m':'左外野 99 m',245,180);mc.fillText(compact?'中外野 122 m':'中外野 122 m',450,43);mc.fillText(compact?'99 m':'右外野 99 m',655,180);
+ if(!compact){mc.fillStyle='#8b9ab2';mc.font=(10*fontFactor)+'px sans-serif';mc.textAlign='left';mc.fillText('俯視圖 · 估算首次落地',22,27);mc.textAlign='right';mc.fillText('球場假設 · 外野牆高 2.5 m',878,27);}
  if(N?.connected){for(const f of BaseballMatch.fielders){const q=point(f);mc.beginPath();mc.arc(q.x,q.y,3,0,Math.PI*2);mc.fillStyle='#638c79';mc.fill();}}
  if(s.lastHit){
    const {hit,path,at}=s.lastHit;
-   mc.beginPath();path.samples.forEach((p,i)=>{const q=point(p);i?mc.lineTo(q.x,q.y):mc.moveTo(q.x,q.y)});mc.strokeStyle=path.fair?'#cd8350':'#aa8f70';mc.lineWidth=2;mc.setLineDash([5,4]);mc.stroke();mc.setLineDash([]);
+   mc.beginPath();path.samples.forEach((p,i)=>{const q=point(p);i?mc.lineTo(q.x,q.y):mc.moveTo(q.x,q.y)});mc.strokeStyle=path.fair?'#ffcf3f':'#ff8f86';mc.lineWidth=2;mc.setLineDash([5,4]);mc.stroke();mc.setLineDash([]);
    const land=point(path.landing);mc.beginPath();mc.arc(land.x,land.y,6,0,Math.PI*2);mc.fillStyle='#e3a358';mc.fill();mc.strokeStyle='#fff8df';mc.lineWidth=2;mc.stroke();
-   const landing=point(path.landing);mc.fillStyle='#83633d';mc.font='bold '+(11*fontFactor)+'px sans-serif';mc.textAlign=landing.x>450?'right':'left';mc.fillText(path.distance.toFixed(1)+' m',clamp(landing.x+(landing.x>450?-10:10),80,820),clamp(landing.y-10,75,315));
+   const landing=point(path.landing);mc.fillStyle='#ffcf3f';mc.font='bold '+(11*fontFactor)+'px sans-serif';mc.textAlign=landing.x>450?'right':'left';mc.fillText(path.distance.toFixed(1)+' m',clamp(landing.x+(landing.x>450?-10:10),80,820),clamp(landing.y-10,75,315));
  }
 }
 // The field and trajectory are rasterized only when hit data or layout changes.
@@ -1026,7 +1232,7 @@ function draw(t){
    if(pitching)stickPitcher(t-s.windupAt,t<s.release);
    // Ball stays behind the batting plane until it actually reaches the plate.
    if(incoming&&elapsed<s.pitch.duration)drawIncomingPitch(elapsed);
-   drawPitchPrediction(t);drawBeat(t);cursorBat(t);drawPitchAim();
+   drawBatter(t);drawPitchPrediction(t);drawBeat(t);cursorBat(t);drawPitchAim();
    if(incoming&&elapsed>=s.pitch.duration)drawIncomingPitch(elapsed);
    if(outgoing){const p=P.sampleTrajectory(s.path,age),q=project({x:p.x,y:p.h,z:p.y}),r=Math.max(1.5,q.r);damage(q.x-r-3,q.y-r-3,r*2+6,r*2+6);baseball(q.x,q.y,r);}
    previousDamage=damageBox;lastVisualKey=visualKey;
