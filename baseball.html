@@ -130,7 +130,7 @@ header{margin-bottom:12px}
 dialog{background:var(--panel);color:var(--text);border-color:var(--edge)}
 dialog a{color:var(--cyan)}
 .primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 3px 0 #b07d00}
-</style></head>
+.flight-panel{background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:16px;margin:14px auto 0;max-width:calc((100vh - 120px)*1.25);min-width:860px;color:var(--text)}.flight-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.flight-head h3{margin:0;font-size:14px;letter-spacing:1px;color:#fff}.flight-head span{font-size:12px;color:var(--muted)}.flight-views{display:grid;grid-template-columns:360fr 760fr;gap:10px}.flight-views canvas{width:100%;height:auto;border-radius:10px;border:1px solid var(--edge);display:block}.flight-metrics{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:12px}.flight-metrics span{font-size:11px;color:var(--muted)}.flight-metrics b{display:block;font-size:17px;color:#fff;margin-top:3px;font-variant-numeric:tabular-nums}.flight-metrics b span{font-size:17px;color:#fff}.flight-metrics small{font-size:10px;color:var(--muted);font-weight:400}.flight-note{margin:12px 0 0;font-size:13px;color:var(--text);line-height:1.6}.flight-source{margin:6px 0 0;font-size:11px;color:var(--muted);line-height:1.6}.flight-source a{color:var(--cyan)}</style></head>
 <body>
 <main class="app">
 <header><div class="brand"><div class="brand-mark" aria-hidden="true">⚾</div><div><h1>野球日和</h1><p>A LITTLE BASEBALL, A GOOD DAY.</p></div></div><div class="header-actions"><button class="quiet" id="netToggle" aria-expanded="false" aria-controls="netLobby">網路對戰</button><button class="quiet" id="sound" aria-pressed="false">♪ 音效關</button><button class="quiet" id="help">玩法 ?</button></div></header>
@@ -141,7 +141,7 @@ dialog a{color:var(--cyan)}
 <div class="scoreboard lab-board"><div class="lab-title"><span class="team-icon" aria-hidden="true">⚾</span><div><b>節奏打擊練習</b><small>RHYTHM BATTING · REAL-TIME</small></div></div><div class="field-distance" title="投手板前緣至本壘後尖角的標準距離；球從延伸後的出手位置飛至本壘中段">投手板 → 本壘 <b>18.44 m</b></div><div class="lab-flight"><span>出手 → 本壘</span><b id="flightTime">0.435 s</b></div><span class="fps-readout" aria-label="目前畫面更新率">FPS <b id="fpsValue">—</b></span><span class="lab-state" id="liveState" aria-live="polite">自由練習</span></div>
 <div class="scene" id="scene"><canvas id="fieldBackdrop" width="900" height="720" aria-hidden="true"></canvas><canvas id="players3d" width="900" height="720" aria-hidden="true"></canvas><canvas id="field" width="900" height="720" role="application" tabindex="0" aria-label="打擊球場：移動滑鼠控制球棒，按左鍵揮棒"></canvas><div class="scene-chip"><span>●</span><span id="sceneMode">FREE BATTING</span></div><div class="pitch-readout"><b id="speed">—</b> <span style="font-size:9px">km/h</span><small id="speedCaption">本球球速</small><small id="ballLabel">等待投球</small></div>
 <div id="pitchLocation" class="pitch-location" role="img" aria-label="投球落點" hidden></div><div class="pitch-result-panel" id="pitchResult" aria-live="polite" hidden><div class="pitch-result-head"><span class="point-legend">●</span><b id="pointKind">投球落點</b><span>本球結果</span></div><div class="resolved-pitch"><b id="resolvedPitch"></b><strong id="resolvedSpeed"></strong></div><p id="resolvedLocation"></p><small>位置標記保留至下一球開始</small><div class="bat-contact-result" id="batContactResult" hidden><div><span>棒身接觸</span><b id="contactLabel"></b></div><canvas id="batContact" width="260" height="58" role="img" aria-label="棒身接觸位置"></canvas><small>十字：甜蜜點　橘點：本球接觸</small></div></div><div class="zone" id="zone" aria-hidden="true"></div><div class="zone-label" id="zoneLabel">STRIKE ZONE</div><div class="announcement" id="announcement" aria-live="polite"><b id="resultTitle"></b><small id="resultDetail"></small></div><div class="scene-bottom"><span class="player-name" id="pitcherName"></span><span>HIYORI BASEBALL CLUB</span><span class="player-name" id="batterName"></span></div><div class="field-controls"><span id="fieldHint">移動球棒 · 左鍵試揮／打擊</span><div class="field-buttons"><button id="fieldPractice" class="practice-button">試揮 ⤾</button><button id="fieldThrow">開始投球 ↗</button></div></div></div>
-<div class="dugout" aria-label="打擊設定"><div class="dugout-card matchup-card"><h3>對戰</h3><div class="matchup-selectors" aria-label="球場選手選擇"><label><span>投手</span><select id="pitcherSelect"><option value="skenes">Paul Skenes</option><option value="yamamoto">山本由伸</option></select></label><label><span>打者</span><select id="batterSelect"><option value="judge">Judge · 右打</option><option value="ohtani">大谷翔平 · 左打</option></select></label></div></div><div class="arsenal-panel" aria-label="球場球種選擇"><h3>投球球種</h3><div class="pitch-list" id="pitchList"></div><div class="field-speed"><span>投手平均值</span><b id="pitchSpeedValue"></b><small id="pitchData"></small><span>隨機球速範圍</span><b id="speedRange"></b><small>遊戲變動：球種均速 ±5 km/h</small></div><p id="actualPitch" aria-live="polite">等待投球</p></div><div class="aim-tools field-aim-panel"><h3>打擊控制</h3><div class="setting"><label for="targetMode">來球落點</label><select id="targetMode"><option value="center">固定中央</option><option value="random" selected>隨機框內</option><option value="manual" hidden>投手指定</option></select></div><div class="setting"><label for="batControl">球棒位置</label><select id="batControl"><option value="free">滑鼠移動</option><option value="center">固定中央</option></select></div><p id="inputLabel" class="hint"></p><p class="hint">對準棒身，球到框附近時點左鍵。</p><div id="timingFeedback" class="timing-feedback" data-grade="idle" aria-live="polite">等球到框，再點左鍵</div><div class="prediction-controls" role="group" aria-label="預測圈開關"><label title="顯示球棒周圍的擊球時機提示圈"><input type="checkbox" id="batPredictionToggle"><span>球棒預測圈</span></label><label title="顯示來球預計到達好球框的位置與接近提示"><input type="checkbox" id="pitchPredictionToggle"><span>球路預測圈</span></label><label title="在來球後方留下實際飛過位置的發光軌跡"><input type="checkbox" id="pitchTraceToggle" checked><span>球路軌跡</span></label></div><button class="quiet" id="reset">↻ 重新練習</button></div></div><div class="status"><span class="status-icon">i</span><span id="status" aria-live="polite">可移動棒身或選擇固定中央，點左鍵試揮，再按畫面內的「開始投球」。</span></div>
+<div class="dugout" aria-label="打擊設定"><div class="dugout-card matchup-card"><h3>對戰</h3><div class="matchup-selectors" aria-label="球場選手選擇"><label><span>投手</span><select id="pitcherSelect"><option value="skenes">Paul Skenes</option><option value="yamamoto">山本由伸</option></select></label><label><span>打者</span><select id="batterSelect"><option value="judge">Judge · 右打</option><option value="ohtani">大谷翔平 · 左打</option></select></label></div></div><div class="arsenal-panel" aria-label="球場球種選擇"><h3>投球球種</h3><div class="pitch-list" id="pitchList"></div><div class="field-speed"><span>投手平均值</span><b id="pitchSpeedValue"></b><small id="pitchData"></small><span>隨機球速範圍</span><b id="speedRange"></b><small>遊戲變動：球種均速 ±5 km/h</small></div><p id="actualPitch" aria-live="polite">等待投球</p></div><div class="aim-tools field-aim-panel"><h3>打擊控制</h3><div class="setting"><label for="targetMode">來球落點</label><select id="targetMode"><option value="center">固定中央</option><option value="random" selected>隨機框內</option><option value="manual" hidden>投手指定</option></select></div><div class="setting"><label for="batControl">球棒位置</label><select id="batControl"><option value="free">滑鼠移動</option><option value="center">固定中央</option></select></div><p id="inputLabel" class="hint"></p><p class="hint">對準棒身，球到框附近時點左鍵。</p><div id="timingFeedback" class="timing-feedback" data-grade="idle" aria-live="polite">等球到框，再點左鍵</div><div class="prediction-controls" role="group" aria-label="預測圈開關"><label title="顯示球棒周圍的擊球時機提示圈"><input type="checkbox" id="batPredictionToggle"><span>球棒預測圈</span></label><label title="顯示來球預計到達好球框的位置與接近提示"><input type="checkbox" id="pitchPredictionToggle"><span>球路預測圈</span></label><label title="在來球後方留下實際飛過位置的發光軌跡"><input type="checkbox" id="pitchTraceToggle" checked><span>球路軌跡</span></label></div><button class="quiet" id="reset">↻ 重新練習</button></div></div><section class="flight-panel" aria-label="本球飛行軌跡"><div class="flight-head"><h3>這一球的軌跡</h3><span id="flightState">等待投球</span></div><div class="flight-views"><canvas id="flightFront" width="360" height="300" role="img" aria-label="捕手視角的球路"></canvas><canvas id="flightSide" width="760" height="300" role="img" aria-label="側面視角的球路"></canvas></div><div class="flight-metrics"><div><span>球種</span><b id="flightType">—</b></div><div><span>出手 → 進壘球速</span><b><span id="flightSpeed">—</span> <small>km/h</small></b></div><div><span>飛行時間</span><b><span id="flightTimeValue">—</span> <small>s</small></b></div><div><span>水平位移</span><b><span id="flightBreakX">—</span> <small>cm</small></b></div><div><span>垂直位移（扣除重力）</span><b><span id="flightBreakY">—</span> <small>cm</small></b></div><div><span>參考轉速</span><b><span id="flightRpm">—</span> <small>rpm</small></b></div></div><p class="flight-note" id="flightNote">投出一球後，對照無旋轉時的軌跡，看出旋轉造成的位移。</p><p class="flight-source">球路以重力、空氣阻力與旋轉（馬格努斯力）逐步計算；位移採該投手 2026 Statcast 平均，球速與轉速範圍參考 <a href="https://shop.jingletek.com/blogs/baseball-insight/9-baseball-pitches" target="_blank" rel="noopener">STRIKE〈9 種常見棒球球種〉</a>。</p></section><div class="status"><span class="status-icon">i</span><span id="status" aria-live="polite">可移動棒身或選擇固定中央，點左鍵試揮，再按畫面內的「開始投球」。</span></div>
 <div class="practice-settings"><div><h3>選手資料</h3><p id="pitcherInfo" class="player-info"></p><p class="delivery-info">投球姿勢：<b id="deliveryName"></b> <small>風格近似</small></p><a id="pitchSource" class="data-link" target="_blank" rel="noopener">2026 投手資料 ↗</a><p id="batterInfo" class="player-info"></p><div class="player-metrics"><div><span>甜蜜點揮速</span><b id="batSpeedValue"></b></div><div><span>揮棒上揚角</span><b id="attackAngleValue"></b></div><div><span>甜蜜點強力擊球範圍</span><b id="swingDelay"></b></div></div><a id="batterSource" class="data-link" target="_blank" rel="noopener">2026 打者資料 ↗</a></div><div><h3>好球框參考</h3><div class="player-metrics"><div><span>寬 × 高</span><b id="zoneSize"></b></div><div><span>距地面高度</span><b id="zoneHeight"></b></div></div><p class="hint">球棒上緣較平、下緣較斜。<br>空白鍵再投一球；左鍵試揮／打擊。<br>自由練習不計好壞球及出局。</p></div></div><section class="landing-panel" aria-label="擊球飛行與估算落點"><div class="landing-head"><h3>這一球，會落在哪裡？</h3><span id="landingState">等待擊球</span></div><div class="hit-metrics"><div><span>擊球初速</span><b><span id="exitSpeed">—</span> <small>km/h</small></b></div><div><span>仰角</span><b id="launchAngle">—</b></div><div><span>方向</span><b id="sprayAngle">—</b></div><div><span>首次落地距離</span><b><span id="carryValue">—</span> <small>m</small></b></div></div><canvas id="landingMap" width="900" height="360" role="img" aria-label="俯視棒球場，顯示估算的击球軌跡及首次落地位置"></canvas><div class="landing-foot"><span id="landingInfo" aria-live="polite">擊中來球後顯示首次落地位置</span><span>空氣阻力＋重力＋簡化旋轉升力</span></div></section>
 </section></div>
 <div class="footer"><span>原創棒球 · 找到節奏，打出漂亮的一球。</span><span>MADE FOR THE LOVE OF BASEBALL ⚾</span></div>
@@ -159,21 +159,57 @@ const BaseballPhysics=(()=>{
  C.area=Math.PI*C.radius*C.radius;C.drag=C.rho*C.Cd*C.area/(2*C.mass);
  const TYPES={fastball:{name:'直球',speed:145,ax:0,ay:-4.2},slider:{name:'滑球',speed:132,ax:-3.6,ay:-7.4},curve:{name:'曲球',speed:118,ax:-1.5,ay:-13.4},fork:{name:'指叉球',speed:125,ax:0,ay:-9.1}};
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+ // Pitch flight: gravity + quadratic drag + spin (Magnus) force, integrated with RK4.
+ // The Magnus force stays perpendicular to the ball's velocity and scales with v^2,
+ // so the ball slows ~8-10% and the break accumulates through the whole flight
+ // (most visible near the plate). Its strength is calibrated so the movement
+ // against a spinless ball equals the pitcher's measured break (Savant pfx/IVB).
+ const FLIGHT_DT=1/1000;
+ function fly(x0,y0,z0,v,spinAcc,v0,until,record){
+   let s=[x0,y0,z0,v[0],v[1],v[2]],t=0,plate=null;const out=record?[]:null;
+   const deriv=q=>{
+     const vx=q[3],vy=q[4],vz=q[5],sp=Math.hypot(vx,vy,vz),d=C.drag*sp,k=(sp*sp)/(v0*v0);
+     let mx=spinAcc.x*k,my=spinAcc.y*k;
+     // Keep the spin force perpendicular to the current velocity.
+     const along=(mx*vx+my*vy)/(sp*sp);mx-=along*vx;my-=along*vy;const mz=-along*vz;
+     return [vx,vy,vz,-d*vx+mx,-C.g-d*vy+my,-d*vz+mz];
+   };
+   if(out)out.push(0,...s);
+   for(let i=0;i<4000;i++){
+     const k1=deriv(s),k2=deriv(s.map((v,j)=>v+FLIGHT_DT*k1[j]/2)),k3=deriv(s.map((v,j)=>v+FLIGHT_DT*k2[j]/2)),k4=deriv(s.map((v,j)=>v+FLIGHT_DT*k3[j]));
+     const next=s.map((v,j)=>v+FLIGHT_DT*(k1[j]+2*k2[j]+2*k3[j]+k4[j])/6),nt=t+FLIGHT_DT;
+     if(!plate&&next[2]<=0){const f=s[2]/(s[2]-next[2]);plate={t:t+FLIGHT_DT*f,s:s.map((v,j)=>v+(next[j]-v)*f)};}
+     s=next;t=nt;if(out)out.push(t,...s);
+     if(plate&&t>=plate.t+until)break;
+   }
+   return {plate,samples:out};
+ }
  function makePitch(type,speed,target,profile=null,delivery=null){
-   const spec=profile||TYPES[type],distance=C.rubberZ-(delivery?.extension??C.extension),v0=speed/3.6;
-   const duration=(Math.exp(C.drag*distance)-1)/(C.drag*v0),x0=delivery?.x??.32,y0=delivery?.y??C.releaseHeight;
-   // Approximate measured aggregate movement as constant lateral acceleration.
-   // inducedZ excludes gravity; positive IVB reduces drop, not absolute rise.
-   const ax=profile?2*profile.breakX*.0254/(duration*duration):spec.ax;
-   const ay=profile?-C.g+2*profile.inducedZ*.0254/(duration*duration):spec.ay;
-   return {type,speed,v0,distance,duration,x0,y0,ax,ay,
-     vx:(target.x-x0-.5*ax*duration*duration)/duration,
-     vy:(target.y-y0-.5*ay*duration*duration)/duration,target:{...target}};
+   const spec=profile||TYPES[type],z0=C.rubberZ-(delivery?.extension??C.extension),v0=speed/3.6;
+   const x0=delivery?.x??-.32,y0=delivery?.y??C.releaseHeight;
+   // Measured movement in metres (inducedZ excludes gravity; breakX from the catcher's view).
+   const T0=(Math.exp(C.drag*z0)-1)/(C.drag*v0);
+   const move=profile?{x:profile.breakX*.0254,y:profile.inducedZ*.0254}:{x:.5*spec.ax*T0*T0,y:.5*(spec.ay+C.g)*T0*T0};
+   const vel=(vx,vy)=>[vx,vy,-Math.sqrt(Math.max(1,v0*v0-vx*vx-vy*vy))];
+   let vx=(target.x-x0)/T0,vy=(target.y-y0)/T0+.5*C.g*T0-move.y/T0,spin={x:2*move.x/(T0*T0),y:2*move.y/(T0*T0)};
+   for(let iter=0;iter<6;iter++){
+     const v=vel(vx,vy),a=fly(x0,y0,z0,v,spin,v0,0,false).plate,b=fly(x0,y0,z0,v,{x:0,y:0},v0,0,false).plate;
+     // Calibrate spin strength to the measured movement, then re-aim at the target.
+     const got={x:a.s[0]-b.s[0],y:a.s[1]-b.s[1]};
+     if(Math.abs(got.x)>1e-4)spin.x*=move.x/got.x;else spin.x=2*move.x/(a.t*a.t);
+     if(Math.abs(got.y)>1e-4)spin.y*=move.y/got.y;else spin.y=2*move.y/(a.t*a.t);
+     vx+=(target.x-a.s[0])/a.t;vy+=(target.y-a.s[1])/a.t;
+   }
+   const v=vel(vx,vy),run=fly(x0,y0,z0,v,spin,v0,.14,true),ghost=fly(x0,y0,z0,v,{x:0,y:0},v0,0,true);
+   const plate=run.plate,plateSpeed=Math.hypot(plate.s[3],plate.s[4],plate.s[5])*3.6;
+   return {type,speed,v0,distance:z0,duration:plate.t,x0,y0,target:{...target},
+     samples:run.samples,noSpin:ghost.samples,movement:{x:move.x,y:move.y},plateSpeed,
+     plateGhost:{x:ghost.plate.s[0],y:ghost.plate.s[1]}};
  }
  function pitchAt(p,t){
-   t=Math.max(0,t);const traveled=Math.log(1+C.drag*p.v0*t)/C.drag;
-   return {x:p.x0+p.vx*t+.5*p.ax*t*t,y:p.y0+p.vy*t+.5*p.ay*t*t,z:p.distance-traveled,
-     vx:p.vx+p.ax*t,vy:p.vy+p.ay*t,vz:-p.v0/(1+C.drag*p.v0*t)};
+   const a=p.samples,n=a.length/7-1,u=Math.max(0,t)/FLIGHT_DT,i=Math.min(n-1,Math.floor(u)),f=Math.min(u-i,u>n?u-i:1);
+   const g=j=>a[i*7+j]+(a[(i+1)*7+j]-a[i*7+j])*f;
+   return {x:g(1),y:g(2),z:g(3),vx:g(4),vy:g(5),vz:g(6)};
  }
  function acceleration(v,spin){
    const speed=Math.hypot(v[0],v[1],v[2]),horizontal=Math.hypot(v[0],v[1]);
@@ -306,8 +342,11 @@ const BaseballField=(()=>{
    for(const joint of Object.keys(a).filter(k=>k!=='t')){
      pose[joint]={};for(const axis of ['x','y','z'])pose[joint][axis]=a[joint][axis]+(b[joint][axis]-a[joint][axis])*ease;
    }
-   pose.shoulder={x:pose.chest.x+.18,y:pose.chest.y,z:pose.chest.z};
-   pose.gloveShoulder={x:pose.chest.x-.18,y:pose.chest.y,z:pose.chest.z};
+   // Frames are authored with the throwing arm on +x; both pitchers are right-handed,
+   // and a right-hander's arm is on the catcher's left (-x), so mirror the pose.
+   for(const p of Object.values(pose))p.x=-p.x;
+   pose.shoulder={x:pose.chest.x-.18,y:pose.chest.y,z:pose.chest.z};
+   pose.gloveShoulder={x:pose.chest.x+.18,y:pose.chest.y,z:pose.chest.z};
    return pose;
  }
  return {camera,ppm,project,world,screen,ballRadius,moundHeight,pitcherPose,delivery};
@@ -585,6 +624,8 @@ const battingArea={x:305,y:285,w:434,h:330};
 const clamp=P.clamp;
 function pitcher(){return MLB_PLAYERS.pitchers[$('pitcherSelect').value]}
 function delivery(){return F.delivery($('pitcherSelect').value)}
+// Release on the right-hander's arm side (catcher's left), matching the mirrored pose.
+function releasePoint(){const r=delivery().release;return {...r,x:-r.x}}
 function batter(){return MLB_PLAYERS.batters[$('batterSelect').value]}
 function pitchProfile(code=s.type){return pitcher().arsenal[code]}
 function meanSpeed(code=s.type){
@@ -666,7 +707,7 @@ function updateSettings(){
  $('speedRange').textContent=lo.toFixed(1)+'–'+hi.toFixed(1)+' km/h';
  $('batSpeedValue').textContent=batSpeed().toFixed(1)+' km/h';$('attackAngleValue').textContent=attack().toFixed(1)+'°';
  $('swingDelay').textContent='±'+R.windows.solid+' ms';$('deliveryName').textContent=delivery().name;
- const sample=P.makePitch(random?'FF':s.type,speed(),center,random?pitchProfile('FF'):profile,delivery().release);$('flightTime').textContent=sample.duration.toFixed(3)+' s';
+ const sample=P.makePitch(random?'FF':s.type,speed(),center,random?pitchProfile('FF'):profile,releasePoint());$('flightTime').textContent=sample.duration.toFixed(3)+' s';
  $('zoneSize').textContent='43.18 × '+((z.top-z.bottom)*100).toFixed(1)+' cm';
  $('zoneHeight').textContent=(z.bottom*100).toFixed(1)+'–'+(z.top*100).toFixed(1)+' cm';
  $('pitcherName').textContent='P · '+pitcher().name;$('batterName').textContent=(b.hand==='R'?'右打 · ':'左打 · ')+b.name;
@@ -736,7 +777,7 @@ function startPrepared(config,at){
  clearPitchResult();s.matchPlay=null;s.phase='windup';s.windupAt=at;s.release=at+delivery().windup;s.pitcherSettled=false;s.attempt=null;s.beatFeedback=null;
  s.pitchTrace=[];
  const profile=pitchProfile(config.type),velocity=config.speed;
- s.pitch=P.makePitch(config.type,velocity,config.target,profile,delivery().release);s.hit=false;s.seenPitch=true;s.swing=null;s.path=null;s.hitData=null;
+ s.pitch=P.makePitch(config.type,velocity,config.target,profile,releasePoint());s.hit=false;s.seenPitch=true;s.swing=null;s.path=null;s.hitData=null;
  const hiddenType=N?.active?!N.isPitcher():s.type==='random',pitchText=hiddenType?(N?.active?'對手球種 · 待揭曉':'隨機球種 · 待揭曉'):profile.name;
  $('announcement').classList.remove('show');$('speed').textContent=velocity.toFixed(1);$('ballLabel').textContent=pitchText;
  $('speedCaption').textContent='本球球速';$('flightTime').textContent=s.pitch.duration.toFixed(3)+' s';
@@ -1330,7 +1371,7 @@ const P3=(()=>{
    const elapsed=pitcherActive(t)?t-s.windupAt:0,p=F.pitcherPose(elapsed,$('pitcherSelect').value),P=pitcherFig.parts,g=o=>V(o.x,o.y,o.z);
    const hip=g(p.hip),chest=g(p.chest),head=g(p.head),up=chest.clone().sub(hip).normalize(),side=V(1,0,0);
    const fwd=V().crossVectors(up,side).normalize().multiplyScalar(-1);
-   const hipL=hip.clone().add(V(-.09,0,0)),hipR=hip.clone().add(V(.09,0,0));
+   const hipL=hip.clone().add(V(.09,0,0)),hipR=hip.clone().add(V(-.09,0,0)); // lead (glove-side) hip is on the catcher's right
    for(const [s2,h,knee,foot] of [['L',hipL,p.leadKnee,p.leadFoot],['R',hipR,p.rearKnee,p.rearFoot]]){
      const kn=g(knee),ft=g(foot),calf=kn.clone().lerp(ft,.55);
      setLimb(pitcherFig,'thigh'+s2,h,kn);setLimb(pitcherFig,'shin'+s2,kn,calf);setLimb(pitcherFig,'sock'+s2,calf,ft);
@@ -1451,6 +1492,81 @@ new ResizeObserver(entries=>{
  const width=entries[0].contentRect.width;
  if(Math.abs(width-mapWidth)>.5){mapWidth=width;mapDirty=true;}
 }).observe(map);
+// Pitch-shape reference (speed / spin ranges) from STRIKE's "9 common pitches" article,
+// which summarises MLB Statcast ranges. Movement in the panel is the pitcher's own data.
+const PITCH_REF={
+ FF:{name:'四縫線快速球',kph:'140–170',rpm:'2100–2600',note:'逆旋產生向上的馬格努斯力，抵消部分重力，是下墜最少的球。',color:'#ff5a4f'},
+ SI:{name:'伸卡球',kph:'135–150',rpm:'1800–2500',note:'右投往右下方（右打者內角）位移，常造成滾地球。',color:'#ff9f43'},
+ FC:{name:'卡特球（切球）',kph:'135–160',rpm:'2100–2800',note:'速度接近直球，右投進壘時往左側（手套側）小幅位移。',color:'#c084fc'},
+ FSF:{name:'快速指叉球',kph:'135–140',rpm:'1100–2100',note:'像直球卻少了轉速，比直球多掉約 15 cm。',color:'#4dd4ac'},
+ FS:{name:'指叉球',kph:'120–135',rpm:'500–1200',note:'轉速與球速都明顯下降，進壘前大幅下墜。',color:'#2fbf8f'},
+ CH:{name:'變速球',kph:'120–140',rpm:'1300–2400',note:'出手像直球但低速低轉，讓打者提早揮棒，下墜並往手臂側。',color:'#59d0ff'},
+ SL:{name:'滑球',kph:'125–145',rpm:'2100–3000',note:'高轉速、球速略低，進壘前往外角大幅橫移。',color:'#ffcf3f'},
+ ST:{name:'橫掃球（滑球類）',kph:'125–145',rpm:'2100–3000',note:'滑球的一種，橫向位移特別大；文章未單獨列出，沿用滑球範圍。',color:'#ffe07a'},
+ CU:{name:'曲球',kph:'110–130',rpm:'2000–3200',note:'旋轉與直球相反（上旋），產生大幅縱向下墜。',color:'#7aa2ff'}
+};
+function pitchRef(p){if(p.type==='FS'&&p.speed>=135)return PITCH_REF.FSF;return PITCH_REF[p.type]||PITCH_REF.FF}
+const flightFront=$('flightFront'),flightSide=$('flightSide'),ffc=flightFront.getContext('2d'),fsc=flightSide.getContext('2d');
+let flightKey='';
+function flightPath(g,arr,upto,map,color,width,dash){
+ g.save();g.setLineDash(dash||[]);g.lineCap='round';g.lineJoin='round';
+ const n=arr.length/7;let prev=null;
+ for(let i=0;i<n;i+=4){const t=arr[i*7];if(t>upto)break;const q=map(arr[i*7+1],arr[i*7+2],arr[i*7+3]);
+   if(prev){g.strokeStyle=color;g.lineWidth=typeof width==='function'?width(arr[i*7+3]):width;g.beginPath();g.moveTo(prev.x,prev.y);g.lineTo(q.x,q.y);g.stroke();}prev=q;}
+ g.restore();return prev;
+}
+function drawFlight(t){
+ const p=s.pitch,elapsed=p?(t-s.release)/1000:0,upto=p?Math.min(elapsed,p.duration):0;
+ const key=p?[p.duration,p.speed,p.type,p.target.x,p.target.y,Math.round(Math.max(0,upto)*200)].join(':'):'none';
+ if(key===flightKey)return;flightKey=key;
+ const ref=p?pitchRef(p):null,z=zoneBounds(),col=ref?.color||'#ffcf3f';
+ // Catcher's view: x across the plate, y height, metres.
+ const W=flightFront.width,H=flightFront.height,fx=x=>W/2+x*140,fy=y=>H-24-y*112;
+ ffc.clearRect(0,0,W,H);ffc.fillStyle='#0c1424';ffc.fillRect(0,0,W,H);
+ ffc.strokeStyle='#ffffff14';ffc.lineWidth=1;for(let y=0;y<=2;y+=.5){ffc.beginPath();ffc.moveTo(0,fy(y));ffc.lineTo(W,fy(y));ffc.stroke();}
+ ffc.fillStyle='#a8643a55';ffc.fillRect(0,fy(0),W,24);
+ const hw=P.C.plateWidth/2;ffc.fillStyle='#f4f1ea';ffc.beginPath();ffc.moveTo(fx(-hw),fy(0)+4);ffc.lineTo(fx(hw),fy(0)+4);ffc.lineTo(fx(hw),fy(0)+10);ffc.lineTo(fx(0),fy(0)+16);ffc.lineTo(fx(-hw),fy(0)+10);ffc.closePath();ffc.fill();
+ ffc.strokeStyle='#ffffffd0';ffc.lineWidth=2;ffc.strokeRect(fx(-hw),fy(z.top),fx(hw)-fx(-hw),fy(z.bottom)-fy(z.top));
+ ffc.fillStyle='#8b9ab2';ffc.font='11px sans-serif';ffc.textAlign='left';ffc.fillText('捕手視角 · 右投',8,16);
+ // Side view: distance from the plate on x (pitcher left, plate right), height on y.
+ const SW=flightSide.width,SH=flightSide.height,zmax=P.C.rubberZ+.6,sx=zz=>SW-24-(zz/zmax)*(SW-48),sy=y=>SH-24-y*112;
+ fsc.clearRect(0,0,SW,SH);fsc.fillStyle='#0c1424';fsc.fillRect(0,0,SW,SH);
+ fsc.strokeStyle='#ffffff14';fsc.lineWidth=1;for(let y=0;y<=2;y+=.5){fsc.beginPath();fsc.moveTo(0,sy(y));fsc.lineTo(SW,sy(y));fsc.stroke();}
+ fsc.fillStyle='#a8643a55';fsc.fillRect(0,sy(0),SW,24);
+ fsc.fillStyle='#b5703f';fsc.beginPath();fsc.ellipse(sx(P.C.rubberZ-.46),sy(0),(sx(0)-sx(P.C.moundRadius))*1,P.C.moundHeight*112+3,0,Math.PI,0);fsc.fill();
+ fsc.fillStyle='#f4f1ea';fsc.fillRect(sx(hw),sy(0)-2,sx(-hw)-sx(hw),4);
+ fsc.strokeStyle='#ffffffd0';fsc.lineWidth=2;fsc.beginPath();fsc.moveTo(sx(0),sy(z.bottom));fsc.lineTo(sx(0),sy(z.top));fsc.stroke();
+ fsc.fillStyle='#8b9ab2';fsc.font='11px sans-serif';fsc.textAlign='left';fsc.fillText('側面視角 · 投手 → 本壘（18.44 m）',8,16);
+ for(const m of [5,10,15]){fsc.fillStyle='#5d6b82';fsc.textAlign='center';fsc.fillText(m+' m',sx(m),SH-6);}
+ if(!p){$('flightState').textContent='等待投球';return;}
+ const flying=elapsed<p.duration;
+ // Spinless reference (same release velocity) vs the actual spinning ball.
+ flightPath(ffc,p.noSpin,upto,(x,y)=>({x:fx(x),y:fy(y)}),'#ffffff55',1.5,[4,4]);
+ flightPath(fsc,p.noSpin,upto,(x,y,zz)=>({x:sx(zz),y:sy(y)}),'#ffffff55',1.5,[4,4]);
+ const fEnd=flightPath(ffc,p.samples,upto,(x,y)=>({x:fx(x),y:fy(y)}),col,zz=>1.5+4.5*(1-zz/p.distance));
+ const sEnd=flightPath(fsc,p.samples,upto,(x,y,zz)=>({x:sx(zz),y:sy(y)}),col,3);
+ const rel=P.pitchAt(p,0);ffc.fillStyle='#ffffff';ffc.beginPath();ffc.arc(fx(rel.x),fy(rel.y),3,0,Math.PI*2);ffc.fill();
+ fsc.fillStyle='#ffffff';fsc.beginPath();fsc.arc(sx(rel.z),sy(rel.y),3,0,Math.PI*2);fsc.fill();
+ ffc.fillStyle='#c9d3e2';ffc.textAlign='center';ffc.fillText('出手點',fx(rel.x),fy(rel.y)-8);
+ for(const [g,e] of [[ffc,fEnd],[fsc,sEnd]])if(e){g.fillStyle='#ffffff';g.strokeStyle=col;g.lineWidth=2;g.beginPath();g.arc(e.x,e.y,6,0,Math.PI*2);g.fill();g.stroke();}
+ if(!flying){
+   // Movement arrow: from where a spinless ball would arrive to where this one did.
+   const end=P.pitchAt(p,p.duration),gx=fx(p.plateGhost.x),gy=fy(p.plateGhost.y),ex=fx(end.x),ey=fy(end.y);
+   ffc.strokeStyle='#ffffffaa';ffc.setLineDash([3,3]);ffc.beginPath();ffc.arc(gx,gy,6,0,Math.PI*2);ffc.stroke();ffc.setLineDash([]);
+   ffc.strokeStyle=col;ffc.lineWidth=2;ffc.beginPath();ffc.moveTo(gx,gy);ffc.lineTo(ex,ey);ffc.stroke();
+   const a=Math.atan2(ey-gy,ex-gx);ffc.fillStyle=col;ffc.beginPath();ffc.moveTo(ex-Math.cos(a)*8,ey-Math.sin(a)*8);ffc.lineTo(ex-Math.cos(a)*14-Math.sin(a)*5,ey-Math.sin(a)*14+Math.cos(a)*5);ffc.lineTo(ex-Math.cos(a)*14+Math.sin(a)*5,ey-Math.sin(a)*14-Math.cos(a)*5);ffc.closePath();ffc.fill();
+   ffc.fillStyle='#c9d3e2';ffc.textAlign='left';ffc.fillText('虛線：無旋轉時的落點',8,H-8);
+ }
+ $('flightState').textContent=flying?'飛行中':'已進壘';
+ const name=pitcher().arsenal[p.type]?.name||ref.name;
+ $('flightType').textContent=name;$('flightType').style.color=col;
+ $('flightSpeed').textContent=p.speed.toFixed(1)+' → '+p.plateSpeed.toFixed(1);
+ $('flightTimeValue').textContent=p.duration.toFixed(3);
+ const mx=p.movement.x*100,my=p.movement.y*100;
+ $('flightBreakX').textContent=(Math.abs(mx)<.5?'0':(mx<0?'← ':'→ ')+Math.abs(mx).toFixed(0));
+ $('flightBreakY').textContent=(my>=0?'↑ ':'↓ ')+Math.abs(my).toFixed(0);
+ $('flightRpm').textContent=ref.rpm;$('flightNote').textContent=ref.name+'：'+ref.note+'（參考球速 '+ref.kph+' km/h）';
+}
 function drawMap(t){
  const rebuild=mapDirty||cachedMapHit!==s.lastHit;
  const age=s.lastHit?(t-s.lastHit.at)/1000:0;
@@ -1552,7 +1668,7 @@ function draw(t){
    previousDamage=damageBox;lastVisualKey=visualKey;
  }
  trackFPS(t);
- drawMap(t);
+ drawMap(t);drawFlight(t);
  if(s.swing&&!swingActive(t)&&!s.swingTested){s.swingTested=true;if(s.swingIsPractice)$('liveState').textContent='自由練習';controls();}
  requestAnimationFrame(draw);
 }
